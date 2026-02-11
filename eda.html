@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDA Project | Anurag Meshram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">&lt;Anurag<span>Meshram</span>/&gt;</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="sql-data-load.html">SQL Data Load</a></li>
+        <li><a href="database-schema.html">DB Schema</a></li>
+        <li><a href="powerbi.html">Power BI</a></li>
+        <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a><span class="separator">/</span><span>Exploratory Data Analysis</span>
+          </div>
+          <h1 class="project-title">Exploratory Data Analysis</h1>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#128196;</span> E-Commerce Dataset</span>
+            <span class="meta-item"><span class="meta-icon">&#128202;</span> 345 Rows &times; 37 Columns</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> Python, Pandas, Matplotlib, Seaborn</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag">Python</span><span class="tag green">Pandas</span><span class="tag green">NumPy</span>
+            <span class="tag green">Matplotlib</span><span class="tag green">Seaborn</span>
+          </div>
+          <div class="project-actions">
+            <a href="src/eda_script.py" class="btn btn-sm btn-outline" download>&#11015; Download Script</a>
+            <a href="src/requirements.txt" class="btn btn-sm btn-outline" download>&#11015; requirements.txt</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- Overview -->
+      <div class="content-section fade-in">
+        <h2>Project Overview</h2>
+        <p>Comprehensive Exploratory Data Analysis on an e-commerce dataset containing 345 orders with 37 features. The analysis uncovers patterns in revenue, customer behavior, product categories, geographic distribution, returns, and data quality.</p>
+        <div class="info-grid">
+          <div class="info-card"><div class="value">345</div><div class="label">Total Orders</div></div>
+          <div class="info-card"><div class="value">37</div><div class="label">Features Analyzed</div></div>
+          <div class="info-card"><div class="value">9</div><div class="label">Analysis Modules</div></div>
+          <div class="info-card"><div class="value">7+</div><div class="label">Visualizations</div></div>
+        </div>
+      </div>
+
+      <!-- Interactive Charts (EDA Outputs) -->
+      <div class="content-section fade-in">
+        <h2>Analysis Outputs</h2>
+        <p>Interactive charts generated from the e-commerce dataset analysis:</p>
+
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Revenue by Product Category</h4>
+            <canvas id="chart-category-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Monthly Revenue Trend</h4>
+            <canvas id="chart-monthly-trend"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Order Status Distribution</h4>
+            <canvas id="chart-order-status"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Payment Method Distribution</h4>
+            <canvas id="chart-payment"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Customer Type Split</h4>
+            <canvas id="chart-customer-type"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Return Reasons</h4>
+            <canvas id="chart-return-reasons"></canvas>
+          </div>
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Revenue by State</h4>
+            <canvas id="chart-state-revenue"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analysis Pipeline -->
+      <div class="content-section fade-in">
+        <h2>Analysis Pipeline</h2>
+        <div class="process-steps">
+          <div class="step"><div class="step-number">1</div><h4>Data Loading</h4><p>Load Excel file, inspect sheets, understand dimensions.</p></div>
+          <div class="step"><div class="step-number">2</div><h4>Data Overview</h4><p>Data types, column names, memory usage, head/tail.</p></div>
+          <div class="step"><div class="step-number">3</div><h4>Missing Values</h4><p>Identify gaps, calculate percentages, visualize.</p></div>
+          <div class="step"><div class="step-number">4</div><h4>Numerical Analysis</h4><p>Descriptive stats, distributions, correlation matrix.</p></div>
+          <div class="step"><div class="step-number">5</div><h4>Categorical Analysis</h4><p>Value counts, frequency distributions, bar charts.</p></div>
+          <div class="step"><div class="step-number">6</div><h4>Domain Analysis</h4><p>Revenue by category, return rates, geographic trends.</p></div>
+          <div class="step"><div class="step-number">7</div><h4>Outlier Detection</h4><p>IQR-based identification with box plots.</p></div>
+          <div class="step"><div class="step-number">8</div><h4>Quality Report</h4><p>Completeness, uniqueness, data type assessment.</p></div>
+        </div>
+      </div>
+
+      <!-- Code Highlights -->
+      <div class="content-section fade-in">
+        <h2>Code Highlights</h2>
+
+        <h3>Data Loading & Inspection</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> seaborn <span class="kw">as</span> sns
+
+<span class="kw">def</span> <span class="fn">load_data</span>(<span class="par">file_path</span>):
+    <span class="str">"""Load Excel file and return DataFrame"""</span>
+    xl_file = pd.ExcelFile(file_path)
+    <span class="fn">print</span>(<span class="str">f"Available sheets: {xl_file.sheet_names}"</span>)
+    df = pd.read_excel(file_path, sheet_name=xl_file.sheet_names[<span class="num">0</span>])
+    <span class="fn">print</span>(<span class="str">f"Data shape: {df.shape[0]} rows x {df.shape[1]} columns"</span>)
+    <span class="kw">return</span> df</pre></div>
+        </div>
+
+        <h3>Missing Values Analysis</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="kw">def</span> <span class="fn">missing_values_analysis</span>(<span class="par">df</span>):
+    missing = pd.DataFrame({
+        <span class="str">'Column'</span>: df.columns,
+        <span class="str">'Missing_Count'</span>: df.isnull().sum(),
+        <span class="str">'Missing_Percentage'</span>: (df.isnull().sum() / <span class="fn">len</span>(df) * <span class="num">100</span>).round(<span class="num">2</span>)
+    })
+    missing = missing[missing[<span class="str">'Missing_Count'</span>] > <span class="num">0</span>]
+    missing = missing.sort_values(<span class="str">'Missing_Count'</span>, ascending=<span class="kw">False</span>)
+
+    <span class="cmt"># Visualize missing values</span>
+    plt.figure(figsize=(<span class="num">10</span>, <span class="num">6</span>))
+    plt.barh(missing[<span class="str">'Column'</span>], missing[<span class="str">'Missing_Percentage'</span>])
+    plt.xlabel(<span class="str">'Missing Percentage (%)'</span>)
+    plt.title(<span class="str">'Missing Values by Column'</span>)
+    plt.tight_layout()
+    plt.show()</pre></div>
+        </div>
+
+        <h3>Outlier Detection (IQR Method)</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="kw">def</span> <span class="fn">outlier_detection</span>(<span class="par">df</span>):
+    numerical_cols = df.select_dtypes(include=[np.number]).columns
+
+    <span class="kw">for</span> col <span class="kw">in</span> numerical_cols:
+        Q1 = df[col].quantile(<span class="num">0.25</span>)
+        Q3 = df[col].quantile(<span class="num">0.75</span>)
+        IQR = Q3 - Q1
+        lower = Q1 - <span class="num">1.5</span> * IQR
+        upper = Q3 + <span class="num">1.5</span> * IQR
+
+        outliers = df[(df[col] < lower) | (df[col] > upper)]
+        <span class="kw">if</span> <span class="fn">len</span>(outliers) > <span class="num">0</span>:
+            <span class="fn">print</span>(<span class="str">f"{col}: {len(outliers)} outliers detected"</span>)</pre></div>
+        </div>
+      </div>
+
+      <!-- Full Source Code Viewer -->
+      <div class="content-section fade-in">
+        <h2>Full Source Code</h2>
+        <p>Click to expand and view the complete EDA script:</p>
+
+        <div class="code-viewer">
+          <div class="code-viewer-header">
+            <div class="code-viewer-title">
+              <span class="file-icon">&#128196;</span>
+              <span class="file-name">eda_script.py</span>
+              <span class="file-size">&mdash; 467 lines</span>
+            </div>
+            <div class="code-viewer-toggle">
+              View Source <span class="arrow">&#9660;</span>
+            </div>
+          </div>
+          <div class="code-viewer-body">
+            <pre><span class="line-num">  1</span><span class="str">"""</span>
+<span class="line-num">  2</span><span class="str">Exploratory Data Analysis Script</span>
+<span class="line-num">  3</span><span class="str">Data: Data_Analysis.xlsx</span>
+<span class="line-num">  4</span><span class="str">"""</span>
+<span class="line-num">  5</span>
+<span class="line-num">  6</span><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="line-num">  7</span><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="line-num">  8</span><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="line-num">  9</span><span class="kw">import</span> seaborn <span class="kw">as</span> sns
+<span class="line-num"> 10</span><span class="kw">from</span> datetime <span class="kw">import</span> datetime
+<span class="line-num"> 11</span><span class="kw">import</span> warnings
+<span class="line-num"> 12</span>warnings.filterwarnings(<span class="str">'ignore'</span>)
+<span class="line-num"> 13</span>
+<span class="line-num"> 14</span>sns.set_style(<span class="str">"whitegrid"</span>)
+<span class="line-num"> 15</span>plt.rcParams[<span class="str">'figure.figsize'</span>] = (<span class="num">12</span>, <span class="num">6</span>)
+<span class="line-num"> 16</span>
+<span class="line-num"> 17</span><span class="cmt"># 1. DATA LOADING</span>
+<span class="line-num"> 18</span><span class="kw">def</span> <span class="fn">load_data</span>(<span class="par">file_path</span>):
+<span class="line-num"> 19</span>    xl_file = pd.ExcelFile(file_path)
+<span class="line-num"> 20</span>    df = pd.read_excel(file_path, sheet_name=xl_file.sheet_names[<span class="num">0</span>])
+<span class="line-num"> 21</span>    <span class="kw">return</span> df
+<span class="line-num"> 22</span>
+<span class="line-num"> 23</span><span class="cmt"># 2. DATA OVERVIEW</span>
+<span class="line-num"> 24</span><span class="kw">def</span> <span class="fn">basic_info</span>(<span class="par">df</span>):
+<span class="line-num"> 25</span>    <span class="fn">print</span>(<span class="str">f"Rows: {df.shape[0]}, Columns: {df.shape[1]}"</span>)
+<span class="line-num"> 26</span>    <span class="fn">print</span>(df.dtypes)
+<span class="line-num"> 27</span>    <span class="fn">print</span>(df.describe())
+<span class="line-num"> 28</span>
+<span class="line-num"> 29</span><span class="cmt"># 3. MISSING VALUES</span>
+<span class="line-num"> 30</span><span class="kw">def</span> <span class="fn">missing_values_analysis</span>(<span class="par">df</span>):
+<span class="line-num"> 31</span>    missing = pd.DataFrame({
+<span class="line-num"> 32</span>        <span class="str">'Missing_Count'</span>: df.isnull().sum(),
+<span class="line-num"> 33</span>        <span class="str">'Missing_%'</span>: (df.isnull().sum()/len(df)*100).round(2)
+<span class="line-num"> 34</span>    })
+<span class="line-num"> 35</span>    <span class="kw">return</span> missing[missing[<span class="str">'Missing_Count'</span>] > 0]
+<span class="line-num"> 36</span>
+<span class="line-num"> 37</span><span class="cmt"># 4-9. (See full file for all modules)</span>
+<span class="line-num"> 38</span><span class="cmt"># Modules: numerical_analysis, categorical_analysis,</span>
+<span class="line-num"> 39</span><span class="cmt"># domain_analysis, outlier_detection,</span>
+<span class="line-num"> 40</span><span class="cmt"># data_quality_report, export_summary_stats</span></pre>
+          </div>
+        </div>
+
+        <p style="margin-top:1rem;font-size:0.9rem">
+          <a href="src/eda_script.py" download>&#11015; Download the full eda_script.py (467 lines)</a>
+        </p>
+      </div>
+
+      <!-- Key Findings -->
+      <div class="content-section fade-in">
+        <h2>Key Findings</h2>
+        <div class="highlight-box">
+          <h4>Revenue Insights</h4>
+          <ul>
+            <li>Electronics and Footwear are the highest revenue product categories</li>
+            <li>Top 3 states (Maharashtra, Karnataka, Delhi) contribute over 60% of total revenue</li>
+            <li>Monthly trend shows seasonal fluctuations with peak in Q1</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Customer Behavior</h4>
+          <ul>
+            <li>Returning customers make up 60% of total customers</li>
+            <li>UPI is the most popular payment method, followed by Credit Card</li>
+            <li>Website and App channels contribute roughly equally to order volume</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Data Quality</h4>
+          <ul>
+            <li>Missing values found primarily in delivery and return-related columns</li>
+            <li>Outliers detected in order amounts using IQR method</li>
+            <li>Comprehensive quality report generated with completeness scores per column</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Return Analysis</h4>
+          <ul>
+            <li>Size Issue is the most common return reason</li>
+            <li>Return rate calculated across all order statuses</li>
+            <li>Majority of refunds have been processed successfully</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Generated Outputs -->
+      <div class="content-section fade-in">
+        <h2>Generated Outputs</h2>
+        <table class="styled-table">
+          <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>missing_values.png</td><td>Chart</td><td>Horizontal bar chart of missing value percentages</td></tr>
+            <tr><td>numerical_distributions.png</td><td>Chart</td><td>Histograms for all numerical features</td></tr>
+            <tr><td>correlation_matrix.png</td><td>Chart</td><td>Heatmap of feature correlations</td></tr>
+            <tr><td>categorical_distributions.png</td><td>Chart</td><td>Bar charts for categorical value frequencies</td></tr>
+            <tr><td>category_analysis.png</td><td>Chart</td><td>Revenue and order count by product category</td></tr>
+            <tr><td>state_analysis.png</td><td>Chart</td><td>Top 10 states by revenue</td></tr>
+            <tr><td>outlier_boxplots.png</td><td>Chart</td><td>Box plots for outlier detection</td></tr>
+            <tr><td>data_quality_report.csv</td><td>CSV</td><td>Full data quality assessment per column</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-social">
+        <a href="mailto:anuragmesh@gmail.com">&#9993; Email</a>
+        <a href="https://tiny.cc/c9zx001" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="assets/resume/Anurag_Meshram_Resume.pdf" download>Resume</a>
+      </div>
+      <p>&copy; 2026 Anurag Meshram. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/charts.js"></script>
+</body>
+</html>

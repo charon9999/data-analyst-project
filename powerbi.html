@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power BI Dashboard | Anurag Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">&lt;Anurag<span>/</span>&gt;</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="sql-data-load.html">SQL Data Load</a></li>
+        <li><a href="database-schema.html">DB Schema</a></li>
+        <li><a href="powerbi.html" class="active">Power BI</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <span>Power BI Dashboard</span>
+          </div>
+          <h1 class="project-title">Power BI Dashboard</h1>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#128200;</span> Interactive Dashboard</span>
+            <span class="meta-item"><span class="meta-icon">&#128202;</span> E-Commerce Analytics</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> Power BI, DAX, Data Modeling</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag blue">Power BI</span>
+            <span class="tag blue">DAX</span>
+            <span class="tag blue">Data Modeling</span>
+            <span class="tag cyan">Visualization</span>
+            <span class="tag">KPIs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- Overview -->
+      <div class="content-section fade-in">
+        <h2>Project Overview</h2>
+        <p>
+          An interactive Power BI dashboard built on the normalized e-commerce database. It provides real-time
+          insights through KPI cards, trend charts, category breakdowns, geographic maps, and return rate monitoring
+          — enabling business stakeholders to make data-driven decisions.
+        </p>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="value">4</div>
+            <div class="label">Dashboard Pages</div>
+          </div>
+          <div class="info-card">
+            <div class="value">12+</div>
+            <div class="label">Visualizations</div>
+          </div>
+          <div class="info-card">
+            <div class="value">8</div>
+            <div class="label">DAX Measures</div>
+          </div>
+          <div class="info-card">
+            <div class="value">5</div>
+            <div class="label">Interactive Filters</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Pages -->
+      <div class="content-section fade-in">
+        <h2>Dashboard Pages</h2>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon blue">&#128200;</div>
+            <h3>Executive Overview</h3>
+            <p>High-level KPI cards showing total revenue, order count, average order value, and return rate. Monthly revenue trend line chart with year-over-year comparison.</p>
+            <div class="card-tags">
+              <span class="tag blue">KPIs</span>
+              <span class="tag blue">Trend Lines</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-icon green">&#128202;</div>
+            <h3>Sales Analytics</h3>
+            <p>Revenue breakdown by product category, payment method distribution, order source analysis, and customer type segmentation with drill-down capability.</p>
+            <div class="card-tags">
+              <span class="tag green">Bar Charts</span>
+              <span class="tag green">Pie Charts</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-icon orange">&#127758;</div>
+            <h3>Geographic Insights</h3>
+            <p>State-wise revenue map visualization, top performing cities, and regional order distribution with interactive filtering by state and city.</p>
+            <div class="card-tags">
+              <span class="tag orange">Map Visual</span>
+              <span class="tag orange">Geo Analysis</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-icon red">&#128260;</div>
+            <h3>Returns & Delivery</h3>
+            <p>Return rate by category, return reason breakdown, delivery time analysis, warehouse performance comparison, and refund status tracking.</p>
+            <div class="card-tags">
+              <span class="tag" style="border-color:rgba(255,107,107,0.3);color:var(--red);background:rgba(255,107,107,0.1);">Returns</span>
+              <span class="tag cyan">Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAX Measures -->
+      <div class="content-section fade-in">
+        <h2>DAX Measures</h2>
+        <p>Custom DAX measures created for calculated KPIs and analytics:</p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">DAX</span>
+            <div class="code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="code-body"><pre><span class="comment">// Total Revenue</span>
+Total Revenue = <span class="sql-function">SUM</span>(orders[total_amount])
+
+<span class="comment">// Total Orders</span>
+Total Orders = <span class="sql-function">COUNTROWS</span>(orders)
+
+<span class="comment">// Average Order Value</span>
+Avg Order Value = <span class="sql-function">DIVIDE</span>([Total Revenue], [Total Orders], <span class="number">0</span>)
+
+<span class="comment">// Return Rate</span>
+Return Rate =
+    <span class="sql-function">DIVIDE</span>(
+        <span class="sql-function">COUNTROWS</span>(returns),
+        <span class="sql-function">COUNTROWS</span>(orders),
+        <span class="number">0</span>
+    ) * <span class="number">100</span>
+
+<span class="comment">// Revenue Month-over-Month Growth</span>
+MoM Growth =
+    <span class="keyword">VAR</span> CurrentMonth = [Total Revenue]
+    <span class="keyword">VAR</span> PreviousMonth =
+        <span class="sql-function">CALCULATE</span>(
+            [Total Revenue],
+            <span class="sql-function">DATEADD</span>(orders[order_date], <span class="number">-1</span>, <span class="keyword">MONTH</span>)
+        )
+    <span class="keyword">RETURN</span>
+        <span class="sql-function">DIVIDE</span>(CurrentMonth - PreviousMonth, PreviousMonth, <span class="number">0</span>) * <span class="number">100</span>
+
+<span class="comment">// Customer Count</span>
+Unique Customers = <span class="sql-function">DISTINCTCOUNT</span>(orders[customer_id])
+
+<span class="comment">// Avg Delivery Days</span>
+Avg Delivery Days = <span class="sql-function">AVERAGE</span>(deliveries[days_to_delivery])
+
+<span class="comment">// Discount Impact</span>
+Total Discount = <span class="sql-function">SUM</span>(orders[discount_amount])</pre></div>
+        </div>
+      </div>
+
+      <!-- Data Model -->
+      <div class="content-section fade-in">
+        <h2>Data Model</h2>
+        <p>The Power BI data model mirrors the normalized MySQL schema with star-schema relationships:</p>
+
+        <div class="highlight-box">
+          <h4>Fact Table</h4>
+          <ul>
+            <li><strong>orders</strong> — Central fact table with revenue metrics, linked to all dimension tables</li>
+          </ul>
+        </div>
+
+        <div class="highlight-box">
+          <h4>Dimension Tables</h4>
+          <ul>
+            <li><strong>customers</strong> — Customer ID, type (New/Returning)</li>
+            <li><strong>products</strong> — SKU, product name, category, unit price</li>
+            <li><strong>locations</strong> — City and state for geographic analysis</li>
+            <li><strong>discounts</strong> — Discount codes and percentages</li>
+            <li><strong>order_items</strong> — Line-level detail with quantity and pricing</li>
+            <li><strong>deliveries</strong> — Warehouse, delivery date, transit time</li>
+            <li><strong>returns</strong> — Return reasons, refund status, return window</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Interactive Features -->
+      <div class="content-section fade-in">
+        <h2>Interactive Features</h2>
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h4>Date Slicer</h4>
+            <p>Filter all visuals by date range to analyze specific time periods.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h4>Category Filter</h4>
+            <p>Drill into specific product categories to compare performance.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>Status Filter</h4>
+            <p>Toggle between Delivered, RTO, and Cancelled orders.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h4>Cross-Filtering</h4>
+            <p>Click on any visual to cross-filter all other charts dynamically.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">5</div>
+            <h4>Drill-Through</h4>
+            <p>Right-click on data points to drill through to detailed order-level views.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">6</div>
+            <h4>Tooltips</h4>
+            <p>Hover over visuals to see detailed contextual information.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insights Delivered -->
+      <div class="content-section fade-in">
+        <h2>Business Insights Delivered</h2>
+
+        <div class="highlight-box">
+          <h4>Revenue & Sales</h4>
+          <ul>
+            <li>Identified top-performing product categories driving majority of revenue</li>
+            <li>Monthly trend analysis revealing seasonal patterns</li>
+            <li>Payment method preferences informing checkout optimization</li>
+          </ul>
+        </div>
+
+        <div class="highlight-box">
+          <h4>Customer Intelligence</h4>
+          <ul>
+            <li>New vs Returning customer split and their respective revenue contribution</li>
+            <li>High-value customer identification for retention campaigns</li>
+            <li>Order source effectiveness for marketing budget allocation</li>
+          </ul>
+        </div>
+
+        <div class="highlight-box">
+          <h4>Operational Efficiency</h4>
+          <ul>
+            <li>Average delivery time benchmarking across warehouses</li>
+            <li>Return rate monitoring with actionable reason breakdown</li>
+            <li>Geographic performance gaps highlighting expansion opportunities</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+      </div>
+      <p>&copy; 2026 Anurag. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

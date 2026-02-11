@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Data Load | Anurag Meshram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">&lt;Anurag<span>Meshram</span>/&gt;</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="sql-data-load.html">SQL Data Load</a></li>
+        <li><a href="database-schema.html">DB Schema</a></li>
+        <li><a href="powerbi.html">Power BI</a></li>
+        <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a><span class="separator">/</span><span>SQL Data Load & ETL</span>
+          </div>
+          <h1 class="project-title">SQL Data Load & ETL Pipeline</h1>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#128451;</span> ETL Pipeline</span>
+            <span class="meta-item"><span class="meta-icon">&#128196;</span> Excel &rarr; MySQL</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> Python, MySQL, Pandas</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag">Python</span><span class="tag green">Pandas</span>
+            <span class="tag orange">MySQL</span><span class="tag cyan">ETL</span><span class="tag blue">Automation</span>
+          </div>
+          <div class="project-actions">
+            <a href="src/data_load.py" class="btn btn-sm btn-outline" download>&#11015; Download data_load.py</a>
+            <a href="src/database_schema.md" class="btn btn-sm btn-outline" download>&#11015; Schema Docs</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <div class="content-section fade-in">
+        <h2>Project Overview</h2>
+        <p>Automated ETL pipeline that reads denormalized e-commerce data from Excel, normalizes it into 8 relational tables following 3NF, and loads it into MySQL with foreign key relationships and indexes.</p>
+        <div class="info-grid">
+          <div class="info-card"><div class="value">1</div><div class="label">Source Table</div></div>
+          <div class="info-card"><div class="value">8</div><div class="label">Normalized Tables</div></div>
+          <div class="info-card"><div class="value">~1,920</div><div class="label">Records Loaded</div></div>
+          <div class="info-card"><div class="value">7</div><div class="label">ETL Steps</div></div>
+        </div>
+      </div>
+
+      <!-- LIVE SQL RUNNER -->
+      <div class="content-section fade-in">
+        <h2>Try It Yourself &mdash; Live SQL Playground</h2>
+        <p>The database is loaded in your browser. Write any SQL query and run it instantly:</p>
+
+        <div class="sql-runner">
+          <div class="sql-runner-header">
+            <h4>&#9654; SQL Playground</h4>
+            <span class="sql-runner-status">Loading...</span>
+          </div>
+          <div class="sql-presets">
+            <button class="sql-preset-btn" data-query="SELECT * FROM customers LIMIT 10;">Show Customers</button>
+            <button class="sql-preset-btn" data-query="SELECT * FROM products ORDER BY unit_price DESC;">Products by Price</button>
+            <button class="sql-preset-btn" data-query="SELECT p.category, COUNT(*) AS orders, SUM(o.total_amount) AS revenue, ROUND(AVG(o.total_amount),2) AS avg_value FROM orders o JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.sku = p.sku GROUP BY p.category ORDER BY revenue DESC;">Revenue by Category</button>
+            <button class="sql-preset-btn" data-query="SELECT c.customer_id, c.customer_type, COUNT(o.order_id) AS total_orders, ROUND(SUM(o.total_amount),2) AS lifetime_value FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.customer_type ORDER BY lifetime_value DESC LIMIT 10;">Top Customers</button>
+            <button class="sql-preset-btn" data-query="SELECT r.return_reason, COUNT(*) AS count, ROUND(AVG(o.total_amount),2) AS avg_order_value FROM returns r JOIN orders o ON r.order_id = o.order_id GROUP BY r.return_reason ORDER BY count DESC;">Return Analysis</button>
+            <button class="sql-preset-btn" data-query="SELECT l.state, COUNT(o.order_id) AS orders, ROUND(SUM(o.total_amount),2) AS revenue FROM orders o JOIN locations l ON o.location_id = l.location_id GROUP BY l.state ORDER BY revenue DESC;">Revenue by State</button>
+          </div>
+          <div class="sql-editor">
+            <textarea placeholder="Write your SQL query here... (Ctrl+Enter to run)">SELECT * FROM orders LIMIT 5;</textarea>
+          </div>
+          <div class="sql-actions">
+            <button class="sql-run-btn">&#9654; Run Query</button>
+            <button class="sql-clear-btn">Clear</button>
+          </div>
+          <div class="sql-result" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- ETL Pipeline -->
+      <div class="content-section fade-in">
+        <h2>ETL Pipeline Architecture</h2>
+        <div class="process-steps">
+          <div class="step"><div class="step-number">1</div><h4>Connect</h4><p>Establish MySQL connection with configurable parameters.</p></div>
+          <div class="step"><div class="step-number">2</div><h4>Create Database</h4><p>Create ecommerce_db if it doesn't exist.</p></div>
+          <div class="step"><div class="step-number">3</div><h4>Create Tables</h4><p>Build 8 normalized tables with PKs, FKs, indexes.</p></div>
+          <div class="step"><div class="step-number">4</div><h4>Extract & Transform</h4><p>Load Excel with Pandas, extract normalized entities.</p></div>
+          <div class="step"><div class="step-number">5</div><h4>Load Data</h4><p>Insert in FK order: customers/products first, then orders.</p></div>
+          <div class="step"><div class="step-number">6</div><h4>Verify</h4><p>Count queries on all tables to confirm success.</p></div>
+          <div class="step"><div class="step-number">7</div><h4>Sample Queries</h4><p>Demo queries: order details, revenue, top customers.</p></div>
+        </div>
+      </div>
+
+      <!-- Code Highlights -->
+      <div class="content-section fade-in">
+        <h2>Code Highlights</h2>
+
+        <h3>Data Extraction & Normalization</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="kw">def</span> <span class="fn">extract_customers</span>(<span class="par">df</span>):
+    <span class="str">"""Extract unique customers from denormalized data"""</span>
+    customers = df[[<span class="str">'Customer ID'</span>, <span class="str">'Type'</span>]].drop_duplicates()
+    customers.columns = [<span class="str">'customer_id'</span>, <span class="str">'customer_type'</span>]
+    <span class="kw">return</span> customers
+
+<span class="kw">def</span> <span class="fn">extract_products</span>(<span class="par">df</span>):
+    <span class="str">"""Extract unique products"""</span>
+    products = df[[<span class="str">'SKU'</span>, <span class="str">'Product Name'</span>, <span class="str">'Category'</span>, <span class="str">'Unit Price'</span>]]
+    products = products.drop_duplicates(subset=[<span class="str">'SKU'</span>])
+    <span class="kw">return</span> products
+
+<span class="kw">def</span> <span class="fn">extract_locations</span>(<span class="par">df</span>):
+    <span class="str">"""Extract unique city-state combinations"""</span>
+    locations = df[[<span class="str">'City'</span>, <span class="str">'State'</span>]].drop_duplicates()
+    locations[<span class="str">'location_id'</span>] = <span class="fn">range</span>(<span class="num">1</span>, <span class="fn">len</span>(locations) + <span class="num">1</span>)
+    <span class="kw">return</span> locations</pre></div>
+        </div>
+
+        <h3>Data Loading with FK Order</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="kw">def</span> <span class="fn">insert_orders</span>(<span class="par">connection</span>, <span class="par">orders</span>):
+    <span class="str">"""Insert orders with proper NaN handling"""</span>
+    cursor = connection.cursor()
+    query = <span class="str">"""
+        INSERT IGNORE INTO orders
+        (order_id, customer_id, location_id, discount_id,
+         order_date, subtotal, discount_amount, total_amount,
+         payment_method, source, status)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """</span>
+    data = []
+    <span class="kw">for</span> _, row <span class="kw">in</span> orders.iterrows():
+        data.append([
+            row[<span class="str">'order_id'</span>],
+            row[<span class="str">'customer_id'</span>],
+            <span class="fn">int</span>(row[<span class="str">'location_id'</span>]) <span class="kw">if</span> pd.notna(row[<span class="str">'location_id'</span>]) <span class="kw">else</span> <span class="kw">None</span>,
+            <span class="fn">int</span>(row[<span class="str">'discount_id'</span>]) <span class="kw">if</span> pd.notna(row[<span class="str">'discount_id'</span>]) <span class="kw">else</span> <span class="kw">None</span>,
+            <span class="cmt"># ... remaining fields with NaN handling</span>
+        ])
+    cursor.executemany(query, data)
+    connection.commit()</pre></div>
+        </div>
+      </div>
+
+      <!-- Full Source Code -->
+      <div class="content-section fade-in">
+        <h2>Full Source Code</h2>
+        <div class="code-viewer">
+          <div class="code-viewer-header">
+            <div class="code-viewer-title">
+              <span class="file-icon">&#128196;</span>
+              <span class="file-name">data_load.py</span>
+              <span class="file-size">&mdash; 636 lines</span>
+            </div>
+            <div class="code-viewer-toggle">View Source <span class="arrow">&#9660;</span></div>
+          </div>
+          <div class="code-viewer-body">
+            <pre><span class="line-num">  1</span><span class="str">"""</span>
+<span class="line-num">  2</span><span class="str">Data Normalization and MySQL Database Loader</span>
+<span class="line-num">  3</span><span class="str">Transforms denormalized e-commerce data into normalized DB</span>
+<span class="line-num">  4</span><span class="str">"""</span>
+<span class="line-num">  5</span>
+<span class="line-num">  6</span><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="line-num">  7</span><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="line-num">  8</span><span class="kw">import</span> mysql.connector
+<span class="line-num">  9</span><span class="kw">from</span> mysql.connector <span class="kw">import</span> Error
+<span class="line-num"> 10</span>
+<span class="line-num"> 11</span>DB_CONFIG = {
+<span class="line-num"> 12</span>    <span class="str">'host'</span>: <span class="str">'localhost'</span>,
+<span class="line-num"> 13</span>    <span class="str">'user'</span>: <span class="str">'root'</span>,
+<span class="line-num"> 14</span>    <span class="str">'database'</span>: <span class="str">'ecommerce_db'</span>
+<span class="line-num"> 15</span>}
+<span class="line-num"> 16</span>
+<span class="line-num"> 17</span><span class="cmt"># Functions: create_connection, create_database,</span>
+<span class="line-num"> 18</span><span class="cmt"># create_tables, extract_*, insert_*, verify_data</span>
+<span class="line-num"> 19</span><span class="cmt"># (See full download for complete implementation)</span></pre>
+          </div>
+        </div>
+        <p style="margin-top:1rem;font-size:0.9rem">
+          <a href="src/data_load.py" download>&#11015; Download the full data_load.py (636 lines)</a> &nbsp;|&nbsp;
+          <a href="src/requirements.txt" download>&#11015; requirements.txt</a>
+        </p>
+      </div>
+
+      <!-- Tables -->
+      <div class="content-section fade-in">
+        <h2>Normalized Tables</h2>
+        <table class="styled-table">
+          <thead><tr><th>Table</th><th>Records</th><th>Primary Key</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>customers</td><td>~343</td><td>customer_id</td><td>Unique customer profiles with type</td></tr>
+            <tr><td>products</td><td>~335</td><td>sku</td><td>Product catalog with pricing</td></tr>
+            <tr><td>locations</td><td>~39</td><td>location_id</td><td>Unique city-state locations</td></tr>
+            <tr><td>discounts</td><td>~6</td><td>discount_id</td><td>Discount codes and percentages</td></tr>
+            <tr><td>orders</td><td>345</td><td>order_id</td><td>Order header with totals and status</td></tr>
+            <tr><td>order_items</td><td>345</td><td>order_item_id</td><td>Line items with qty and pricing</td></tr>
+            <tr><td>deliveries</td><td>~327</td><td>delivery_id</td><td>Warehouse and delivery tracking</td></tr>
+            <tr><td>returns</td><td>~180</td><td>return_id</td><td>Return reasons and refund status</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Key Features -->
+      <div class="content-section fade-in">
+        <h2>Key Features</h2>
+        <div class="highlight-box">
+          <h4>Robust Data Handling</h4>
+          <ul>
+            <li>NaN/NULL handling for nullable foreign keys and dates</li>
+            <li>Date conversion from Excel datetime to MySQL DATE</li>
+            <li>INSERT IGNORE for graceful duplicate handling</li>
+            <li>FK constraint-aware insertion order</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Database Optimization</h4>
+          <ul>
+            <li>InnoDB engine with UTF-8 for all tables</li>
+            <li>Indexes on frequently queried columns</li>
+            <li>Unique constraints to prevent duplication</li>
+            <li>CASCADE delete on dependent tables</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-social">
+        <a href="mailto:anuragmesh@gmail.com">&#9993; Email</a>
+        <a href="https://tiny.cc/c9zx001" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="assets/resume/Anurag_Meshram_Resume.pdf" download>Resume</a>
+      </div>
+      <p>&copy; 2026 Anurag Meshram. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/sql-runner.js"></script>
+</body>
+</html>

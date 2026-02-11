@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Schema | Anurag Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">&lt;Anurag<span>/</span>&gt;</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li><a href="sql-data-load.html">SQL Data Load</a></li>
+        <li><a href="database-schema.html" class="active">DB Schema</a></li>
+        <li><a href="powerbi.html">Power BI</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <span>Database Schema Design</span>
+          </div>
+          <h1 class="project-title">Database Schema Design</h1>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#128196;</span> 3NF Normalized Design</span>
+            <span class="meta-item"><span class="meta-icon">&#128451;</span> 8 Tables</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> MySQL</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag orange">MySQL</span>
+            <span class="tag">SQL</span>
+            <span class="tag blue">3NF</span>
+            <span class="tag cyan">Database Design</span>
+            <span class="tag">ER Modeling</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- Overview -->
+      <div class="content-section fade-in">
+        <h2>Project Overview</h2>
+        <p>
+          This project presents a fully normalized (Third Normal Form) relational database schema for an e-commerce
+          platform. The schema transforms a single denormalized spreadsheet into 8 interrelated tables with proper
+          primary keys, foreign keys, unique constraints, and performance indexes.
+        </p>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="value">8</div>
+            <div class="label">Tables</div>
+          </div>
+          <div class="info-card">
+            <div class="value">3NF</div>
+            <div class="label">Normalization Level</div>
+          </div>
+          <div class="info-card">
+            <div class="value">6</div>
+            <div class="label">Foreign Keys</div>
+          </div>
+          <div class="info-card">
+            <div class="value">12+</div>
+            <div class="label">Indexes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schema Diagram -->
+      <div class="content-section fade-in">
+        <h2>Entity Relationship Diagram</h2>
+        <div class="schema-container">
+<pre>
+  ┌──────────────────┐
+  │   CUSTOMERS      │
+  ├──────────────────┤
+  │ PK customer_id   │
+  │    customer_type  │
+  │    created_at     │
+  └────────┬─────────┘
+           │
+           │ 1:N
+           ↓
+  ┌──────────────────┐           ┌──────────────────┐
+  │   PRODUCTS       │           │   LOCATIONS      │
+  ├──────────────────┤           ├──────────────────┤
+  │ PK sku           │           │ PK location_id   │
+  │    product_name   │           │    city           │
+  │    category       │           │    state          │
+  │    unit_price     │           └──────────────────┘
+  │    created_at     │                     ↑
+  └────────┬─────────┘                     │ N:1
+           │                               │
+           │ 1:N                           │
+           ↓                               │
+  ┌──────────────────┐           ┌──────────────────┐           ┌──────────────────┐
+  │   ORDER_ITEMS    │           │     ORDERS       │           │   DISCOUNTS      │
+  ├──────────────────┤           ├──────────────────┤           ├──────────────────┤
+  │ PK order_item_id │◄───┐  ┌──│ PK order_id      │           │ PK discount_id   │
+  │ FK order_id      │    │  │  │ FK customer_id    │           │    discount_code  │
+  │ FK sku           │    │  │  │ FK location_id    │           │    discount_pct   │
+  │    quantity       │    │  │  │ FK discount_id    │──────►   │    created_at     │
+  │    unit_price     │    │  │  │    order_date     │           └──────────────────┘
+  │    line_total     │    │  │  │    subtotal       │
+  └──────────────────┘    │  │  │    discount_amt    │
+                          │  │  │    total_amount    │
+                          │  │  │    payment_method  │
+                          │  │  │    source          │
+                          │  │  │    status          │
+                          │  │  └────────┬──────────┘
+                          │  │           │
+                          │  │           │ 1:1
+                          │  │           ↓
+                          │  │  ┌──────────────────┐
+                          │  │  │   DELIVERIES     │
+                          │  │  ├──────────────────┤
+                          │  │  │ PK delivery_id   │
+                          │  └──│ FK order_id      │
+                          │     │    warehouse      │
+                          │     │    delivery_date  │
+                          │     │    days_to_deliver │
+                          │     └────────┬─────────┘
+                          │              │
+                          │              │ 1:1
+                          │              ↓
+                          │     ┌──────────────────┐
+                          │     │    RETURNS        │
+                          │     ├──────────────────┤
+                          │     │ PK return_id     │
+                          └─────│ FK order_id      │
+                                │    return_date    │
+                                │    return_reason  │
+                                │    refund_status  │
+                                │    return_window  │
+                                └──────────────────┘
+</pre>
+        </div>
+      </div>
+
+      <!-- Table Definitions -->
+      <div class="content-section fade-in">
+        <h2>Table Definitions</h2>
+
+        <h3>1. CUSTOMERS</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <div class="code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="code-body"><pre><span class="sql-keyword">CREATE TABLE</span> customers (
+    customer_id   <span class="type">VARCHAR(50)</span> <span class="sql-keyword">PRIMARY KEY</span>,
+    customer_type <span class="type">ENUM</span>(<span class="string">'New'</span>, <span class="string">'Returning'</span>) <span class="sql-keyword">NOT NULL</span>,
+    created_at    <span class="type">TIMESTAMP</span> <span class="sql-keyword">DEFAULT</span> <span class="sql-function">CURRENT_TIMESTAMP</span>,
+    <span class="sql-keyword">INDEX</span> idx_customer_type (customer_type)
+);</pre></div>
+        </div>
+
+        <h3>2. PRODUCTS</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <div class="code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="code-body"><pre><span class="sql-keyword">CREATE TABLE</span> products (
+    sku          <span class="type">VARCHAR(50)</span> <span class="sql-keyword">PRIMARY KEY</span>,
+    product_name <span class="type">VARCHAR(255)</span> <span class="sql-keyword">NOT NULL</span>,
+    category     <span class="type">VARCHAR(100)</span> <span class="sql-keyword">NOT NULL</span>,
+    unit_price   <span class="type">DECIMAL(10, 2)</span> <span class="sql-keyword">NOT NULL</span>,
+    created_at   <span class="type">TIMESTAMP</span> <span class="sql-keyword">DEFAULT</span> <span class="sql-function">CURRENT_TIMESTAMP</span>,
+    <span class="sql-keyword">INDEX</span> idx_category (category),
+    <span class="sql-keyword">INDEX</span> idx_price (unit_price)
+);</pre></div>
+        </div>
+
+        <h3>3. ORDERS</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <div class="code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="code-body"><pre><span class="sql-keyword">CREATE TABLE</span> orders (
+    order_id       <span class="type">VARCHAR(50)</span> <span class="sql-keyword">PRIMARY KEY</span>,
+    customer_id    <span class="type">VARCHAR(50)</span> <span class="sql-keyword">NOT NULL</span>,
+    location_id    <span class="type">INT</span> <span class="sql-keyword">NOT NULL</span>,
+    discount_id    <span class="type">INT</span> <span class="sql-keyword">NULL</span>,
+    order_date     <span class="type">DATE</span> <span class="sql-keyword">NOT NULL</span>,
+    subtotal       <span class="type">DECIMAL(10, 2)</span> <span class="sql-keyword">NOT NULL</span>,
+    discount_amount <span class="type">DECIMAL(10, 2)</span> <span class="sql-keyword">DEFAULT</span> <span class="number">0.00</span>,
+    total_amount   <span class="type">DECIMAL(10, 2)</span> <span class="sql-keyword">NOT NULL</span>,
+    payment_method <span class="type">VARCHAR(50)</span> <span class="sql-keyword">NOT NULL</span>,
+    source         <span class="type">VARCHAR(50)</span> <span class="sql-keyword">NOT NULL</span>,
+    status         <span class="type">ENUM</span>(<span class="string">'Delivered'</span>, <span class="string">'RTO'</span>, <span class="string">'Cancelled'</span>) <span class="sql-keyword">NOT NULL</span>,
+    <span class="sql-keyword">FOREIGN KEY</span> (customer_id) <span class="sql-keyword">REFERENCES</span> customers(customer_id),
+    <span class="sql-keyword">FOREIGN KEY</span> (location_id) <span class="sql-keyword">REFERENCES</span> locations(location_id),
+    <span class="sql-keyword">FOREIGN KEY</span> (discount_id) <span class="sql-keyword">REFERENCES</span> discounts(discount_id),
+    <span class="sql-keyword">INDEX</span> idx_order_date (order_date),
+    <span class="sql-keyword">INDEX</span> idx_status (status)
+);</pre></div>
+        </div>
+
+        <h3>4. RETURNS</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <div class="code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="code-body"><pre><span class="sql-keyword">CREATE TABLE</span> returns (
+    return_id         <span class="type">INT</span> <span class="sql-keyword">AUTO_INCREMENT PRIMARY KEY</span>,
+    order_id          <span class="type">VARCHAR(50)</span> <span class="sql-keyword">UNIQUE NOT NULL</span>,
+    return_date       <span class="type">DATE</span> <span class="sql-keyword">NULL</span>,
+    return_reason     <span class="type">VARCHAR(100)</span> <span class="sql-keyword">NULL</span>,
+    refund_status     <span class="type">ENUM</span>(<span class="string">'Processed'</span>, <span class="string">'Pending'</span>, <span class="string">'Not Applicable'</span>) <span class="sql-keyword">NOT NULL</span>,
+    return_window_days <span class="type">INT</span> <span class="sql-keyword">NULL</span>,
+    <span class="sql-keyword">FOREIGN KEY</span> (order_id) <span class="sql-keyword">REFERENCES</span> orders(order_id) <span class="sql-keyword">ON DELETE CASCADE</span>,
+    <span class="sql-keyword">INDEX</span> idx_return_reason (return_reason),
+    <span class="sql-keyword">INDEX</span> idx_refund_status (refund_status)
+);</pre></div>
+        </div>
+      </div>
+
+      <!-- Sample Queries -->
+      <div class="content-section fade-in">
+        <h2>Sample Queries</h2>
+
+        <h3>Revenue by Category</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <div class="code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="code-body"><pre><span class="sql-keyword">SELECT</span>
+    p.category,
+    <span class="sql-function">SUM</span>(o.total_amount) <span class="sql-keyword">AS</span> total_revenue,
+    <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> o.order_id) <span class="sql-keyword">AS</span> order_count,
+    <span class="sql-function">AVG</span>(o.total_amount) <span class="sql-keyword">AS</span> avg_order_value
+<span class="sql-keyword">FROM</span> orders o
+<span class="sql-keyword">JOIN</span> order_items oi <span class="sql-keyword">ON</span> o.order_id = oi.order_id
+<span class="sql-keyword">JOIN</span> products p <span class="sql-keyword">ON</span> oi.sku = p.sku
+<span class="sql-keyword">GROUP BY</span> p.category
+<span class="sql-keyword">ORDER BY</span> total_revenue <span class="sql-keyword">DESC</span>;</pre></div>
+        </div>
+
+        <h3>Customer Lifetime Value</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <div class="code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="code-body"><pre><span class="sql-keyword">SELECT</span>
+    c.customer_id,
+    c.customer_type,
+    <span class="sql-function">COUNT</span>(o.order_id) <span class="sql-keyword">AS</span> total_orders,
+    <span class="sql-function">SUM</span>(o.total_amount) <span class="sql-keyword">AS</span> lifetime_value,
+    <span class="sql-function">AVG</span>(o.total_amount) <span class="sql-keyword">AS</span> avg_order_value
+<span class="sql-keyword">FROM</span> customers c
+<span class="sql-keyword">JOIN</span> orders o <span class="sql-keyword">ON</span> c.customer_id = o.customer_id
+<span class="sql-keyword">GROUP BY</span> c.customer_id, c.customer_type
+<span class="sql-keyword">ORDER BY</span> lifetime_value <span class="sql-keyword">DESC</span>
+<span class="sql-keyword">LIMIT</span> <span class="number">10</span>;</pre></div>
+        </div>
+
+        <h3>Return Analysis</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <div class="code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="code-body"><pre><span class="sql-keyword">SELECT</span>
+    r.return_reason,
+    <span class="sql-function">COUNT</span>(*) <span class="sql-keyword">AS</span> return_count,
+    <span class="sql-function">AVG</span>(o.total_amount) <span class="sql-keyword">AS</span> avg_order_value,
+    <span class="sql-function">SUM</span>(o.total_amount) <span class="sql-keyword">AS</span> total_refunded
+<span class="sql-keyword">FROM</span> returns r
+<span class="sql-keyword">JOIN</span> orders o <span class="sql-keyword">ON</span> r.order_id = o.order_id
+<span class="sql-keyword">WHERE</span> r.refund_status = <span class="string">'Processed'</span>
+<span class="sql-keyword">GROUP BY</span> r.return_reason
+<span class="sql-keyword">ORDER BY</span> return_count <span class="sql-keyword">DESC</span>;</pre></div>
+        </div>
+      </div>
+
+      <!-- Normalization Benefits -->
+      <div class="content-section fade-in">
+        <h2>Normalization Benefits</h2>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="value" style="font-size:1.2rem;">12,765</div>
+            <div class="label">Before (Data Points)</div>
+          </div>
+          <div class="info-card">
+            <div class="value" style="font-size:1.2rem;">~1,920</div>
+            <div class="label">After (Total Rows)</div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <h4>Key Improvements</h4>
+          <ul>
+            <li>Eliminates data redundancy — customer, product, location info stored once</li>
+            <li>Foreign keys enforce referential integrity across all tables</li>
+            <li>Easy to add new entities without restructuring</li>
+            <li>Indexes on commonly queried columns for fast lookups</li>
+            <li>Scales to millions of records efficiently</li>
+            <li>Single-point updates — change product price in one place</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+      </div>
+      <p>&copy; 2026 Anurag. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
