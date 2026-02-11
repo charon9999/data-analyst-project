@@ -38,15 +38,16 @@
           <h1 class="project-title">Exploratory Data Analysis</h1>
           <div class="project-meta">
             <span class="meta-item"><span class="meta-icon">&#128196;</span> E-Commerce Dataset</span>
-            <span class="meta-item"><span class="meta-icon">&#128202;</span> 345 Rows &times; 37 Columns</span>
+            <span class="meta-item"><span class="meta-icon">&#128202;</span> 345 Orders &times; 37 Features</span>
             <span class="meta-item"><span class="meta-icon">&#128295;</span> Python, Pandas, Matplotlib, Seaborn</span>
           </div>
           <div class="card-tags">
-            <span class="tag">Python</span><span class="tag green">Pandas</span><span class="tag green">NumPy</span>
+            <span class="tag">Jupyter Notebook</span><span class="tag green">Pandas</span><span class="tag green">NumPy</span>
             <span class="tag green">Matplotlib</span><span class="tag green">Seaborn</span>
           </div>
           <div class="project-actions">
-            <a href="src/eda_script.py" class="btn btn-sm btn-outline" download>&#11015; Download Script</a>
+            <a href="https://www.kaggle.com/code/anuragmesh/eda-e-commerce-dataset/edit" class="btn btn-sm" target="_blank" rel="noopener">&#128640; View on Kaggle</a>
+            <a href="src/eda-e-commerce-dataset.ipynb" class="btn btn-sm btn-outline" download>&#11015; Download Notebook</a>
             <a href="src/requirements.txt" class="btn btn-sm btn-outline" download>&#11015; requirements.txt</a>
           </div>
         </div>
@@ -58,72 +59,191 @@
       <!-- Overview -->
       <div class="content-section fade-in">
         <h2>Project Overview</h2>
-        <p>Comprehensive Exploratory Data Analysis on an e-commerce dataset containing 345 orders with 37 features. The analysis uncovers patterns in revenue, customer behavior, product categories, geographic distribution, returns, and data quality.</p>
+        <p>Comprehensive step-by-step Exploratory Data Analysis on an e-commerce fashion dataset containing 345 orders with 37 features spanning Oct&ndash;Dec 2024. Built as a Jupyter Notebook on <a href="https://www.kaggle.com/code/anuragmesh/eda-e-commerce-dataset/edit" target="_blank" rel="noopener">Kaggle</a>, demonstrating proficiency in cloud notebook environments. The analysis uncovers revenue patterns, customer behavior, product category performance, geographic distribution, return rates, and data quality issues.</p>
         <div class="info-grid">
           <div class="info-card"><div class="value">345</div><div class="label">Total Orders</div></div>
           <div class="info-card"><div class="value">37</div><div class="label">Features Analyzed</div></div>
-          <div class="info-card"><div class="value">9</div><div class="label">Analysis Modules</div></div>
-          <div class="info-card"><div class="value">7+</div><div class="label">Visualizations</div></div>
+          <div class="info-card"><div class="value">&#8377;9.08L</div><div class="label">Total Revenue</div></div>
+          <div class="info-card"><div class="value">9</div><div class="label">Analysis Sections</div></div>
         </div>
       </div>
 
-      <!-- Interactive Charts (EDA Outputs) -->
-      <div class="content-section fade-in">
-        <h2>Analysis Outputs</h2>
-        <p>Interactive charts generated from the e-commerce dataset analysis:</p>
+      <!-- ========== ANALYSIS OUTPUTS ========== -->
 
+      <!-- Section 5: Missing Values (Cell 16) -->
+      <div class="content-section fade-in">
+        <h2>Missing Values Analysis</h2>
+        <p>12 out of 37 columns have missing data. Comments column is 98.26% empty; discount fields are 59.42% null (only 140 orders used discount codes).</p>
+        <div class="chart-grid">
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Missing Values by Column (%)</h4>
+            <canvas id="chart-missing-values"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 9.1: Revenue Analysis (Cell 33) -->
+      <div class="content-section fade-in">
+        <h2>Revenue Analysis</h2>
+        <p>Total Revenue: <strong>&#8377;9,07,708</strong> | Average Order Value: <strong>&#8377;2,631</strong> | Median: <strong>&#8377;2,199</strong></p>
+        <div class="chart-grid">
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Distribution of Order Values (&#8377;)</h4>
+            <canvas id="chart-revenue-distribution"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 9.2: Category Analysis (Cell 36) - 3 panels -->
+      <div class="content-section fade-in">
+        <h2>Category Performance</h2>
+        <p>Outerwear dominates revenue at &#8377;3.19L despite having fewer orders than Tops. Accessories has the lowest AOV at &#8377;1,292.</p>
         <div class="chart-grid">
           <div class="chart-container">
-            <h4>Revenue by Product Category</h4>
+            <h4>Total Revenue by Category</h4>
             <canvas id="chart-category-revenue"></canvas>
           </div>
           <div class="chart-container">
-            <h4>Monthly Revenue Trend</h4>
-            <canvas id="chart-monthly-trend"></canvas>
+            <h4>Order Count by Category</h4>
+            <canvas id="chart-category-count"></canvas>
+          </div>
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Average Order Value by Category</h4>
+            <canvas id="chart-category-aov"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 9.3: Order Status (Cell 38) - bar + pie -->
+      <div class="content-section fade-in">
+        <h2>Order Status Distribution</h2>
+        <p>Delivery rate: <strong>94.78%</strong> (327 delivered, 17 RTO, 1 cancelled).</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Order Status &mdash; Count</h4>
+            <canvas id="chart-order-status-bar"></canvas>
           </div>
           <div class="chart-container">
-            <h4>Order Status Distribution</h4>
-            <canvas id="chart-order-status"></canvas>
+            <h4>Order Status &mdash; Percentage</h4>
+            <canvas id="chart-order-status-pie"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 9.4: Return Analysis (Cells 40, 42) -->
+      <div class="content-section fade-in">
+        <h2>Return Analysis</h2>
+        <p>Return Rate: <strong>52.17%</strong> &mdash; 180 out of 345 orders returned. Size Issue is the leading return reason at 37.2%.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Return Rate (Yes / No)</h4>
+            <canvas id="chart-return-split"></canvas>
           </div>
           <div class="chart-container">
-            <h4>Payment Method Distribution</h4>
-            <canvas id="chart-payment"></canvas>
+            <h4>Refund Status</h4>
+            <canvas id="chart-refund-status"></canvas>
           </div>
+          <div class="chart-container">
+            <h4>Return Reasons &mdash; Count</h4>
+            <canvas id="chart-return-reasons-bar"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Return Reasons &mdash; Percentage</h4>
+            <canvas id="chart-return-reasons-pie"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 9.5: Geographic Analysis (Cell 45) -->
+      <div class="content-section fade-in">
+        <h2>Geographic Analysis</h2>
+        <p>Maharashtra and Gujarat lead both revenue and order count. Mumbai (27) and Delhi (26) are the top cities.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Top 10 States by Revenue</h4>
+            <canvas id="chart-state-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Top 10 States by Order Count</h4>
+            <canvas id="chart-state-orders"></canvas>
+          </div>
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Top 10 Cities by Order Count</h4>
+            <canvas id="chart-top-cities"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 9.6: Payment Methods (Cell 48) - bar + pie -->
+      <div class="content-section fade-in">
+        <h2>Payment Method Analysis</h2>
+        <p>Credit Card leads at 25.5%, followed by UPI at 23.8%. Digital payments (Credit Card + UPI + Debit Card + Wallet) account for 82% of orders.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Payment Method &mdash; Count</h4>
+            <canvas id="chart-payment-bar"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Payment Method &mdash; Percentage</h4>
+            <canvas id="chart-payment-pie"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 9.7: Source/Channel (Cell 52) -->
+      <div class="content-section fade-in">
+        <h2>Source / Channel Analysis</h2>
+        <p>Website, Mobile App, and Instagram Shop are evenly split in volume. Instagram Shop has the highest AOV at &#8377;2,778.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Revenue by Source</h4>
+            <canvas id="chart-source-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Avg Order Value by Source</h4>
+            <canvas id="chart-source-aov"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categorical: Customer Type, Warehouse (Cell 29) -->
+      <div class="content-section fade-in">
+        <h2>Customer &amp; Operations</h2>
+        <p>78% of customers are New; Delhi warehouse handles the most volume at 132 orders.</p>
+        <div class="chart-grid">
           <div class="chart-container">
             <h4>Customer Type Split</h4>
             <canvas id="chart-customer-type"></canvas>
           </div>
           <div class="chart-container">
-            <h4>Return Reasons</h4>
-            <canvas id="chart-return-reasons"></canvas>
-          </div>
-          <div class="chart-container" style="grid-column: 1 / -1;">
-            <h4>Revenue by State</h4>
-            <canvas id="chart-state-revenue"></canvas>
+            <h4>Warehouse Distribution</h4>
+            <canvas id="chart-warehouse"></canvas>
           </div>
         </div>
       </div>
 
-      <!-- Analysis Pipeline -->
+      <!-- ========== ANALYSIS PIPELINE ========== -->
       <div class="content-section fade-in">
         <h2>Analysis Pipeline</h2>
         <div class="process-steps">
-          <div class="step"><div class="step-number">1</div><h4>Data Loading</h4><p>Load Excel file, inspect sheets, understand dimensions.</p></div>
-          <div class="step"><div class="step-number">2</div><h4>Data Overview</h4><p>Data types, column names, memory usage, head/tail.</p></div>
-          <div class="step"><div class="step-number">3</div><h4>Missing Values</h4><p>Identify gaps, calculate percentages, visualize.</p></div>
-          <div class="step"><div class="step-number">4</div><h4>Numerical Analysis</h4><p>Descriptive stats, distributions, correlation matrix.</p></div>
-          <div class="step"><div class="step-number">5</div><h4>Categorical Analysis</h4><p>Value counts, frequency distributions, bar charts.</p></div>
-          <div class="step"><div class="step-number">6</div><h4>Domain Analysis</h4><p>Revenue by category, return rates, geographic trends.</p></div>
-          <div class="step"><div class="step-number">7</div><h4>Outlier Detection</h4><p>IQR-based identification with box plots.</p></div>
-          <div class="step"><div class="step-number">8</div><h4>Quality Report</h4><p>Completeness, uniqueness, data type assessment.</p></div>
+          <div class="step"><div class="step-number">1</div><h4>Import Libraries</h4><p>Pandas, NumPy, Matplotlib, Seaborn with display settings configured.</p></div>
+          <div class="step"><div class="step-number">2</div><h4>Load Data</h4><p>Load Excel file (2 sheets), inspect shape: 345 rows &times; 37 columns.</p></div>
+          <div class="step"><div class="step-number">3</div><h4>First Look</h4><p>head(), tail(), sample(10) to understand data structure and values.</p></div>
+          <div class="step"><div class="step-number">4</div><h4>Missing Values</h4><p>12 columns with missing data. Comments: 98.26%, Discount fields: 59.42%.</p></div>
+          <div class="step"><div class="step-number">5</div><h4>Numerical Analysis</h4><p>16 numerical features &mdash; descriptive stats, histograms, box plots.</p></div>
+          <div class="step"><div class="step-number">6</div><h4>Correlation Analysis</h4><p>Heatmap of feature correlations. High-correlation pair detection (|r| &gt; 0.7).</p></div>
+          <div class="step"><div class="step-number">7</div><h4>Categorical Analysis</h4><p>21 categorical columns &mdash; value counts, frequency distributions, bar charts.</p></div>
+          <div class="step"><div class="step-number">8</div><h4>Domain Analysis</h4><p>Revenue, categories, returns, geography, payment &amp; source analysis.</p></div>
+          <div class="step"><div class="step-number">9</div><h4>Outlier Detection</h4><p>IQR method: 7 columns with outliers. Qty has 13.62% outlier rate.</p></div>
+          <div class="step"><div class="step-number">10</div><h4>Data Quality Report</h4><p>Completeness scoring per column. Full quality assessment across all 37 features.</p></div>
         </div>
       </div>
 
-      <!-- Code Highlights -->
+      <!-- ========== CODE HIGHLIGHTS ========== -->
       <div class="content-section fade-in">
         <h2>Code Highlights</h2>
 
-        <h3>Data Loading & Inspection</h3>
+        <h3>Data Loading &amp; Inspection</h3>
         <div class="code-block">
           <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
           <div class="code-body"><pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
@@ -131,117 +251,139 @@
 <span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
 <span class="kw">import</span> seaborn <span class="kw">as</span> sns
 
-<span class="kw">def</span> <span class="fn">load_data</span>(<span class="par">file_path</span>):
-    <span class="str">"""Load Excel file and return DataFrame"""</span>
-    xl_file = pd.ExcelFile(file_path)
-    <span class="fn">print</span>(<span class="str">f"Available sheets: {xl_file.sheet_names}"</span>)
-    df = pd.read_excel(file_path, sheet_name=xl_file.sheet_names[<span class="num">0</span>])
-    <span class="fn">print</span>(<span class="str">f"Data shape: {df.shape[0]} rows x {df.shape[1]} columns"</span>)
-    <span class="kw">return</span> df</pre></div>
+<span class="cmt"># Load the Excel file</span>
+file_path = <span class="str">'Data Analysis.xlsx'</span>
+xl_file = pd.ExcelFile(file_path)
+<span class="fn">print</span>(<span class="str">f"Available sheets: {xl_file.sheet_names}"</span>)
+
+df = pd.read_excel(file_path, sheet_name=xl_file.sheet_names[<span class="num">0</span>])
+<span class="fn">print</span>(<span class="str">f"Shape: {df.shape[0]} rows x {df.shape[1]} columns"</span>)
+<span class="cmt"># Output: Shape: 345 rows x 37 columns</span></pre></div>
         </div>
 
-        <h3>Missing Values Analysis</h3>
+        <h3>Revenue by Category</h3>
         <div class="code-block">
           <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
-          <div class="code-body"><pre><span class="kw">def</span> <span class="fn">missing_values_analysis</span>(<span class="par">df</span>):
-    missing = pd.DataFrame({
-        <span class="str">'Column'</span>: df.columns,
-        <span class="str">'Missing_Count'</span>: df.isnull().sum(),
-        <span class="str">'Missing_Percentage'</span>: (df.isnull().sum() / <span class="fn">len</span>(df) * <span class="num">100</span>).round(<span class="num">2</span>)
-    })
-    missing = missing[missing[<span class="str">'Missing_Count'</span>] > <span class="num">0</span>]
-    missing = missing.sort_values(<span class="str">'Missing_Count'</span>, ascending=<span class="kw">False</span>)
+          <div class="code-body"><pre>category_revenue = df.groupby(<span class="str">'Category'</span>).agg({
+    <span class="str">'Discounted Total'</span>: [<span class="str">'sum'</span>, <span class="str">'mean'</span>, <span class="str">'count'</span>]
+}).round(<span class="num">2</span>)
+category_revenue.columns = [<span class="str">'Total_Revenue'</span>, <span class="str">'Avg_Order_Value'</span>, <span class="str">'Order_Count'</span>]
+category_revenue = category_revenue.sort_values(<span class="str">'Total_Revenue'</span>, ascending=<span class="kw">False</span>)
 
-    <span class="cmt"># Visualize missing values</span>
-    plt.figure(figsize=(<span class="num">10</span>, <span class="num">6</span>))
-    plt.barh(missing[<span class="str">'Column'</span>], missing[<span class="str">'Missing_Percentage'</span>])
-    plt.xlabel(<span class="str">'Missing Percentage (%)'</span>)
-    plt.title(<span class="str">'Missing Values by Column'</span>)
-    plt.tight_layout()
-    plt.show()</pre></div>
+<span class="cmt"># Result:</span>
+<span class="cmt"># Outerwear      &#8377;318,739  |  AOV &#8377;4,687  |  68 orders</span>
+<span class="cmt"># Dresses        &#8377;219,718  |  AOV &#8377;3,139  |  70 orders</span>
+<span class="cmt"># Tops           &#8377;144,548  |  AOV &#8377;1,980  |  73 orders</span>
+<span class="cmt"># Bottoms        &#8377;136,825  |  AOV &#8377;2,073  |  66 orders</span>
+<span class="cmt"># Accessories     &#8377;87,878  |  AOV &#8377;1,292  |  68 orders</span></pre></div>
         </div>
 
         <h3>Outlier Detection (IQR Method)</h3>
         <div class="code-block">
           <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
-          <div class="code-body"><pre><span class="kw">def</span> <span class="fn">outlier_detection</span>(<span class="par">df</span>):
-    numerical_cols = df.select_dtypes(include=[np.number]).columns
+          <div class="code-body"><pre><span class="kw">for</span> col <span class="kw">in</span> numerical_cols:
+    Q1 = df[col].quantile(<span class="num">0.25</span>)
+    Q3 = df[col].quantile(<span class="num">0.75</span>)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - <span class="num">1.5</span> * IQR
+    upper_bound = Q3 + <span class="num">1.5</span> * IQR
 
-    <span class="kw">for</span> col <span class="kw">in</span> numerical_cols:
-        Q1 = df[col].quantile(<span class="num">0.25</span>)
-        Q3 = df[col].quantile(<span class="num">0.75</span>)
-        IQR = Q3 - Q1
-        lower = Q1 - <span class="num">1.5</span> * IQR
-        upper = Q3 + <span class="num">1.5</span> * IQR
+    outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)]
+    <span class="kw">if</span> <span class="fn">len</span>(outliers) > <span class="num">0</span>:
+        <span class="fn">print</span>(<span class="str">f"{col}: {len(outliers)} outliers"</span>)
 
-        outliers = df[(df[col] < lower) | (df[col] > upper)]
-        <span class="kw">if</span> <span class="fn">len</span>(outliers) > <span class="num">0</span>:
-            <span class="fn">print</span>(<span class="str">f"{col}: {len(outliers)} outliers detected"</span>)</pre></div>
+<span class="cmt"># Found outliers in 7 columns:</span>
+<span class="cmt"># Unit Price: 8 (2.32%), Qty: 47 (13.62%)</span>
+<span class="cmt"># Calc Total: 12, Total: 12, Discounted Total: 16</span>
+<span class="cmt"># Ret Window: 13, Delivery Days: 5</span></pre></div>
+        </div>
+
+        <h3>Missing Values Analysis</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre>missing_data = pd.DataFrame({
+    <span class="str">'Column'</span>: df.columns,
+    <span class="str">'Missing_Count'</span>: df.isnull().sum(),
+    <span class="str">'Missing_%'</span>: (df.isnull().sum() / <span class="fn">len</span>(df) * <span class="num">100</span>).round(<span class="num">2</span>)
+})
+missing_data = missing_data[missing_data[<span class="str">'Missing_Count'</span>] > <span class="num">0</span>]
+
+<span class="cmt"># 12 columns with missing values:</span>
+<span class="cmt"># Comments: 98.26%, Discount fields: 59.42%</span>
+<span class="cmt"># Return fields: 47.83%, Delivery: 5.22%</span></pre></div>
         </div>
       </div>
 
       <!-- Full Source Code Viewer -->
       <div class="content-section fade-in">
         <h2>Full Source Code</h2>
-        <p>Click to expand and view the complete EDA script:</p>
+        <p>Click to expand and view the notebook code structure:</p>
 
         <div class="code-viewer">
           <div class="code-viewer-header">
             <div class="code-viewer-title">
               <span class="file-icon">&#128196;</span>
-              <span class="file-name">eda_script.py</span>
-              <span class="file-size">&mdash; 467 lines</span>
+              <span class="file-name">eda-e-commerce-dataset.ipynb</span>
+              <span class="file-size">&mdash; Jupyter Notebook, 60 cells</span>
             </div>
             <div class="code-viewer-toggle">
               View Source <span class="arrow">&#9660;</span>
             </div>
           </div>
           <div class="code-viewer-body">
-            <pre><span class="line-num">  1</span><span class="str">"""</span>
-<span class="line-num">  2</span><span class="str">Exploratory Data Analysis Script</span>
-<span class="line-num">  3</span><span class="str">Data: Data_Analysis.xlsx</span>
-<span class="line-num">  4</span><span class="str">"""</span>
+            <pre><span class="line-num">  1</span><span class="cmt"># ============================================</span>
+<span class="line-num">  2</span><span class="cmt"># Exploratory Data Analysis - E-Commerce Dataset</span>
+<span class="line-num">  3</span><span class="cmt"># Jupyter Notebook: Step-by-Step Analysis</span>
+<span class="line-num">  4</span><span class="cmt"># ============================================</span>
 <span class="line-num">  5</span>
-<span class="line-num">  6</span><span class="kw">import</span> pandas <span class="kw">as</span> pd
-<span class="line-num">  7</span><span class="kw">import</span> numpy <span class="kw">as</span> np
-<span class="line-num">  8</span><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
-<span class="line-num">  9</span><span class="kw">import</span> seaborn <span class="kw">as</span> sns
-<span class="line-num"> 10</span><span class="kw">from</span> datetime <span class="kw">import</span> datetime
-<span class="line-num"> 11</span><span class="kw">import</span> warnings
-<span class="line-num"> 12</span>warnings.filterwarnings(<span class="str">'ignore'</span>)
-<span class="line-num"> 13</span>
-<span class="line-num"> 14</span>sns.set_style(<span class="str">"whitegrid"</span>)
-<span class="line-num"> 15</span>plt.rcParams[<span class="str">'figure.figsize'</span>] = (<span class="num">12</span>, <span class="num">6</span>)
-<span class="line-num"> 16</span>
-<span class="line-num"> 17</span><span class="cmt"># 1. DATA LOADING</span>
-<span class="line-num"> 18</span><span class="kw">def</span> <span class="fn">load_data</span>(<span class="par">file_path</span>):
-<span class="line-num"> 19</span>    xl_file = pd.ExcelFile(file_path)
-<span class="line-num"> 20</span>    df = pd.read_excel(file_path, sheet_name=xl_file.sheet_names[<span class="num">0</span>])
-<span class="line-num"> 21</span>    <span class="kw">return</span> df
+<span class="line-num">  6</span><span class="cmt"># Section 1: Import Libraries</span>
+<span class="line-num">  7</span><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="line-num">  8</span><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="line-num">  9</span><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="line-num"> 10</span><span class="kw">import</span> seaborn <span class="kw">as</span> sns
+<span class="line-num"> 11</span>
+<span class="line-num"> 12</span><span class="cmt"># Section 2: Load Data</span>
+<span class="line-num"> 13</span>df = pd.read_excel(<span class="str">'Data Analysis.xlsx'</span>)
+<span class="line-num"> 14</span><span class="cmt"># Shape: 345 rows x 37 columns</span>
+<span class="line-num"> 15</span>
+<span class="line-num"> 16</span><span class="cmt"># Section 3-4: First Look &amp; Basic Info</span>
+<span class="line-num"> 17</span>df.head(); df.tail(); df.sample(<span class="num">10</span>)
+<span class="line-num"> 18</span>df.info(); df.describe()
+<span class="line-num"> 19</span>
+<span class="line-num"> 20</span><span class="cmt"># Section 5: Missing Values Analysis</span>
+<span class="line-num"> 21</span><span class="cmt"># 12 columns with missing data</span>
 <span class="line-num"> 22</span>
-<span class="line-num"> 23</span><span class="cmt"># 2. DATA OVERVIEW</span>
-<span class="line-num"> 24</span><span class="kw">def</span> <span class="fn">basic_info</span>(<span class="par">df</span>):
-<span class="line-num"> 25</span>    <span class="fn">print</span>(<span class="str">f"Rows: {df.shape[0]}, Columns: {df.shape[1]}"</span>)
-<span class="line-num"> 26</span>    <span class="fn">print</span>(df.dtypes)
-<span class="line-num"> 27</span>    <span class="fn">print</span>(df.describe())
-<span class="line-num"> 28</span>
-<span class="line-num"> 29</span><span class="cmt"># 3. MISSING VALUES</span>
-<span class="line-num"> 30</span><span class="kw">def</span> <span class="fn">missing_values_analysis</span>(<span class="par">df</span>):
-<span class="line-num"> 31</span>    missing = pd.DataFrame({
-<span class="line-num"> 32</span>        <span class="str">'Missing_Count'</span>: df.isnull().sum(),
-<span class="line-num"> 33</span>        <span class="str">'Missing_%'</span>: (df.isnull().sum()/len(df)*100).round(2)
-<span class="line-num"> 34</span>    })
-<span class="line-num"> 35</span>    <span class="kw">return</span> missing[missing[<span class="str">'Missing_Count'</span>] > 0]
-<span class="line-num"> 36</span>
-<span class="line-num"> 37</span><span class="cmt"># 4-9. (See full file for all modules)</span>
-<span class="line-num"> 38</span><span class="cmt"># Modules: numerical_analysis, categorical_analysis,</span>
-<span class="line-num"> 39</span><span class="cmt"># domain_analysis, outlier_detection,</span>
-<span class="line-num"> 40</span><span class="cmt"># data_quality_report, export_summary_stats</span></pre>
+<span class="line-num"> 23</span><span class="cmt"># Section 6-7: Numerical &amp; Correlation Analysis</span>
+<span class="line-num"> 24</span><span class="cmt"># 16 numerical columns, histograms, box plots</span>
+<span class="line-num"> 25</span><span class="cmt"># Correlation heatmap with high-pair detection</span>
+<span class="line-num"> 26</span>
+<span class="line-num"> 27</span><span class="cmt"># Section 8: Categorical Features Analysis</span>
+<span class="line-num"> 28</span><span class="cmt"># 21 categorical columns, value counts, bar charts</span>
+<span class="line-num"> 29</span>
+<span class="line-num"> 30</span><span class="cmt"># Section 9: E-Commerce Specific Analysis</span>
+<span class="line-num"> 31</span><span class="cmt"># 9.1 Revenue Analysis (Total: &#8377;907,708)</span>
+<span class="line-num"> 32</span><span class="cmt"># 9.2 Category Analysis (Top: Outerwear &#8377;318K)</span>
+<span class="line-num"> 33</span><span class="cmt"># 9.3 Order Status (Delivered: 94.78%)</span>
+<span class="line-num"> 34</span><span class="cmt"># 9.4 Return Analysis (Return Rate: 52.17%)</span>
+<span class="line-num"> 35</span><span class="cmt"># 9.5 Geographic Analysis (Top: Maharashtra)</span>
+<span class="line-num"> 36</span><span class="cmt"># 9.6 Payment Methods (Top: Credit Card 88)</span>
+<span class="line-num"> 37</span><span class="cmt"># 9.7 Source/Channel (Website 120, App 116)</span>
+<span class="line-num"> 38</span>
+<span class="line-num"> 39</span><span class="cmt"># Section 10: Outlier Detection (IQR Method)</span>
+<span class="line-num"> 40</span><span class="cmt"># 7 columns with outliers detected</span>
+<span class="line-num"> 41</span>
+<span class="line-num"> 42</span><span class="cmt"># Section 11: Data Quality Report</span>
+<span class="line-num"> 43</span><span class="cmt"># Completeness scoring for all 37 columns</span>
+<span class="line-num"> 44</span>
+<span class="line-num"> 45</span><span class="cmt"># Section 12: Key Insights Summary</span>
+<span class="line-num"> 46</span><span class="cmt"># Automated insights generation</span></pre>
           </div>
         </div>
 
         <p style="margin-top:1rem;font-size:0.9rem">
-          <a href="src/eda_script.py" download>&#11015; Download the full eda_script.py (467 lines)</a>
+          <a href="https://www.kaggle.com/code/anuragmesh/eda-e-commerce-dataset/edit" target="_blank" rel="noopener">&#128640; Run on Kaggle</a>
+          &nbsp;&bull;&nbsp;
+          <a href="src/eda-e-commerce-dataset.ipynb" download>&#11015; Download the full notebook (60 cells)</a>
         </p>
       </div>
 
@@ -251,33 +393,49 @@
         <div class="highlight-box">
           <h4>Revenue Insights</h4>
           <ul>
-            <li>Electronics and Footwear are the highest revenue product categories</li>
-            <li>Top 3 states (Maharashtra, Karnataka, Delhi) contribute over 60% of total revenue</li>
-            <li>Monthly trend shows seasonal fluctuations with peak in Q1</li>
+            <li>Total Revenue: <strong>&#8377;9,07,708</strong> across 345 orders (Avg Order Value: &#8377;2,631)</li>
+            <li>Outerwear is the top category at &#8377;3.19L (35% of revenue), followed by Dresses at &#8377;2.20L</li>
+            <li>Outerwear has the highest AOV at &#8377;4,687 &mdash; nearly 4&times; that of Accessories (&#8377;1,292)</li>
           </ul>
         </div>
         <div class="highlight-box">
-          <h4>Customer Behavior</h4>
+          <h4>Customer &amp; Channel Behavior</h4>
           <ul>
-            <li>Returning customers make up 60% of total customers</li>
-            <li>UPI is the most popular payment method, followed by Credit Card</li>
-            <li>Website and App channels contribute roughly equally to order volume</li>
-          </ul>
-        </div>
-        <div class="highlight-box">
-          <h4>Data Quality</h4>
-          <ul>
-            <li>Missing values found primarily in delivery and return-related columns</li>
-            <li>Outliers detected in order amounts using IQR method</li>
-            <li>Comprehensive quality report generated with completeness scores per column</li>
+            <li>78% of customers are <strong>New</strong> (269), only 22% are Returning (76)</li>
+            <li>Website leads order source with 120 orders, followed by Mobile App (116) and Instagram Shop (109)</li>
+            <li>Credit Card is the top payment method (88 orders), followed by UPI (82) and COD (62)</li>
           </ul>
         </div>
         <div class="highlight-box">
           <h4>Return Analysis</h4>
           <ul>
-            <li>Size Issue is the most common return reason</li>
-            <li>Return rate calculated across all order statuses</li>
-            <li>Majority of refunds have been processed successfully</li>
+            <li><strong>52.17% return rate</strong> &mdash; 180 out of 345 orders returned (&#9888; high!)</li>
+            <li>Size Issue is the #1 return reason (67 returns, 37%), followed by Quality Defect (32)</li>
+            <li>173 refunds processed, 7 still pending</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Geographic Distribution</h4>
+          <ul>
+            <li>Maharashtra (&#8377;1.28L) and Gujarat (&#8377;1.24L) are the top revenue states</li>
+            <li>Mumbai (27 orders) and Delhi (26 orders) are the top cities</li>
+            <li>Delhi warehouse fulfills the most orders (132), followed by Mumbai (121)</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Data Quality</h4>
+          <ul>
+            <li>12 columns have missing values &mdash; Comments column is 98.26% empty</li>
+            <li>Discount-related fields have 59.42% null values (only 140 orders used discount codes)</li>
+            <li>7 columns have outliers via IQR method; Qty column has highest outlier rate (13.62%)</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Operational Metrics</h4>
+          <ul>
+            <li>Delivery rate: <strong>94.78%</strong> (327 delivered, 17 RTO, 1 cancelled)</li>
+            <li>Average delivery time: <strong>14.3 days</strong> (range: 3&ndash;46 days)</li>
+            <li>Average return window: 26.1 days</li>
           </ul>
         </div>
       </div>
@@ -288,14 +446,19 @@
         <table class="styled-table">
           <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
           <tbody>
-            <tr><td>missing_values.png</td><td>Chart</td><td>Horizontal bar chart of missing value percentages</td></tr>
-            <tr><td>numerical_distributions.png</td><td>Chart</td><td>Histograms for all numerical features</td></tr>
-            <tr><td>correlation_matrix.png</td><td>Chart</td><td>Heatmap of feature correlations</td></tr>
-            <tr><td>categorical_distributions.png</td><td>Chart</td><td>Bar charts for categorical value frequencies</td></tr>
-            <tr><td>category_analysis.png</td><td>Chart</td><td>Revenue and order count by product category</td></tr>
-            <tr><td>state_analysis.png</td><td>Chart</td><td>Top 10 states by revenue</td></tr>
-            <tr><td>outlier_boxplots.png</td><td>Chart</td><td>Box plots for outlier detection</td></tr>
-            <tr><td>data_quality_report.csv</td><td>CSV</td><td>Full data quality assessment per column</td></tr>
+            <tr><td>Missing Values Chart</td><td>Bar Chart</td><td>Horizontal bar chart of missing value percentages (12 columns)</td></tr>
+            <tr><td>Numerical Distributions</td><td>Histograms</td><td>Distribution plots for all 16 numerical features</td></tr>
+            <tr><td>Box Plots</td><td>Box Plots</td><td>Outlier detection visualizations for 16 numerical columns</td></tr>
+            <tr><td>Correlation Matrix</td><td>Heatmap</td><td>Annotated correlation heatmap of all numerical features</td></tr>
+            <tr><td>Categorical Distributions</td><td>Bar Charts</td><td>Value frequency charts for 6 categorical columns</td></tr>
+            <tr><td>Revenue Distribution</td><td>Histogram + Box</td><td>Order value distribution with mean line (&#8377;2,631) overlay</td></tr>
+            <tr><td>Category Performance</td><td>3-Panel Chart</td><td>Revenue, order count, and AOV by product category</td></tr>
+            <tr><td>Order Status</td><td>Bar + Pie</td><td>Status distribution showing 94.78% delivery rate</td></tr>
+            <tr><td>Return Reasons</td><td>Bar + Pie</td><td>Return reason breakdown with Size Issue leading at 37%</td></tr>
+            <tr><td>Geographic Analysis</td><td>2-Panel Chart</td><td>Top 10 states by revenue and order count</td></tr>
+            <tr><td>Payment Methods</td><td>Bar + Pie</td><td>Payment distribution across 5 methods</td></tr>
+            <tr><td>Source Analysis</td><td>2-Panel Chart</td><td>Revenue and AOV by order source/channel</td></tr>
+            <tr><td>Data Quality Report</td><td>Table</td><td>Completeness, missing %, unique values for all 37 columns</td></tr>
           </tbody>
         </table>
       </div>
