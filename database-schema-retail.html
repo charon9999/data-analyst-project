@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retail Sales DB Schema | Anurag Meshram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">&lt;Anurag<span>Meshram</span>/&gt;</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="eda.html">EDA</a></li>
+        <li class="nav-dropdown">
+          <a href="#">SQL Data Load</a>
+          <div class="nav-dropdown-menu">
+            <a href="sql-data-load.html">E-Commerce</a>
+            <a href="sql-data-load-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">DB Schema</a>
+          <div class="nav-dropdown-menu">
+            <a href="database-schema.html">E-Commerce</a>
+            <a href="database-schema-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li><a href="powerbi.html">Power BI</a></li>
+        <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a><span class="separator">/</span><span>Retail Sales Database Schema</span>
+          </div>
+          <h1 class="project-title">Retail Sales Database Schema Design</h1>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#128196;</span> 3NF Normalized Design</span>
+            <span class="meta-item"><span class="meta-icon">&#128451;</span> 7 Tables</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> MySQL</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag orange">MySQL</span><span class="tag">SQL</span><span class="tag blue">3NF</span>
+            <span class="tag cyan">Database Design</span><span class="tag">ER Modeling</span><span class="tag green">Product Hierarchy</span>
+          </div>
+          <div class="project-actions">
+            <a href="src/retail_sales_schema.md" class="btn btn-sm btn-outline" download>&#11015; Schema Documentation</a>
+            <a href="src/retail_sales_load.py" class="btn btn-sm btn-outline" download>&#11015; retail_sales_load.py</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <div class="content-section fade-in">
+        <h2>Project Overview</h2>
+        <p>Fully normalized (Third Normal Form) relational database schema for a global retail sales operation. Transforms a single 31-column, 62,884-row spreadsheet into 7 interrelated tables with proper primary keys, foreign keys, unique constraints, and performance indexes.</p>
+        <div class="info-grid">
+          <div class="info-card"><div class="value">7</div><div class="label">Tables</div></div>
+          <div class="info-card"><div class="value">3NF</div><div class="label">Normalization Level</div></div>
+          <div class="info-card"><div class="value">5</div><div class="label">Foreign Keys</div></div>
+          <div class="info-card"><div class="value">10+</div><div class="label">Indexes</div></div>
+        </div>
+      </div>
+
+      <!-- ER Diagram -->
+      <div class="content-section fade-in">
+        <h2>Entity Relationship Diagram</h2>
+        <div class="schema-container">
+<pre>
+  ┌─────────────────────┐         ┌─────────────────────┐
+  │     CUSTOMERS        │         │  PRODUCT_CATEGORIES  │
+  ├─────────────────────┤         ├─────────────────────┤
+  │ PK customer_id       │         │ PK category_id       │
+  │    gender             │         │    category_name      │
+  │    name               │         └──────────┬──────────┘
+  │    city, state_code   │                    │ 1:N
+  │    state, zip         │                    ↓
+  │    country, continent │         ┌─────────────────────┐
+  │    dob                │         │ PRODUCT_SUBCATEGORIES│
+  └──────────┬──────────┘         ├─────────────────────┤
+             │ 1:N                │ PK subcategory_id    │
+             │                    │ FK category_id        │
+             │                    │    subcategory_name    │
+             ↓                    └──────────┬──────────┘
+  ┌─────────────────────┐                    │ 1:N
+  │      STORES          │                    ↓
+  ├─────────────────────┤         ┌─────────────────────┐
+  │ PK store_id          │         │      PRODUCTS        │
+  │    country            │         ├─────────────────────┤
+  │    state              │         │ PK product_id        │
+  │    sq_meters          │         │ FK subcategory_id     │
+  │    open_date          │         │    name, brand        │
+  └──────────┬──────────┘         │    color, cost, price │
+             │ 1:N                └──────────┬──────────┘
+             │                               │ 1:N
+             ↓                               │
+  ┌─────────────────────┐                    │
+  │       ORDERS         │                    │
+  ├─────────────────────┤                    │
+  │ PK order_number      │                    │
+  │ FK customer_id       │                    │
+  │ FK store_id          │                    │
+  │    order_date         │                    │
+  │    delivery_date      │                    │
+  └──────────┬──────────┘                    │
+             │ 1:N                           │
+             ↓                               │
+  ┌─────────────────────┐                    │
+  │  ORDER_LINE_ITEMS    │                    │
+  ├─────────────────────┤                    │
+  │ PK transaction_id    │◄───────────────────┘
+  │ FK order_number      │     (FK product_id)
+  │    line_item          │
+  │ FK product_id        │
+  │    quantity           │
+  └─────────────────────┘
+</pre>
+        </div>
+      </div>
+
+      <!-- SQL Playground -->
+      <div class="content-section fade-in">
+        <h2>Try It Yourself &mdash; Live SQL Playground</h2>
+        <p>All 7 tables are loaded with sample data. Run any query to explore the schema:</p>
+
+        <div class="sql-runner">
+          <div class="sql-runner-header">
+            <h4>&#9654; SQL Playground</h4>
+            <span class="sql-runner-status">Loading...</span>
+          </div>
+          <div class="sql-presets">
+            <button class="sql-preset-btn" data-query="SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;">Show All Tables</button>
+            <button class="sql-preset-btn" data-query="SELECT o.order_number, c.name AS customer, c.country, s.country AS store_country, p.name AS product, pc.category_name, li.quantity, p.price, (li.quantity * p.price) AS line_total FROM orders o JOIN customers c ON o.customer_id = c.customer_id JOIN stores s ON o.store_id = s.store_id JOIN order_line_items li ON o.order_number = li.order_number JOIN products p ON li.product_id = p.product_id JOIN product_subcategories ps ON p.subcategory_id = ps.subcategory_id JOIN product_categories pc ON ps.category_id = pc.category_id LIMIT 10;">Full Order Details (6-table JOIN)</button>
+            <button class="sql-preset-btn" data-query="SELECT pc.category_name, COUNT(DISTINCT o.order_number) AS orders, ROUND(SUM(p.price * li.quantity), 2) AS revenue FROM order_line_items li JOIN orders o ON li.order_number = o.order_number JOIN products p ON li.product_id = p.product_id JOIN product_subcategories ps ON p.subcategory_id = ps.subcategory_id JOIN product_categories pc ON ps.category_id = pc.category_id GROUP BY pc.category_name ORDER BY revenue DESC;">Revenue by Category</button>
+            <button class="sql-preset-btn" data-query="SELECT p.brand, COUNT(*) AS products, ROUND(AVG(p.price), 2) AS avg_price, ROUND(SUM(p.price * li.quantity), 2) AS total_revenue FROM products p JOIN order_line_items li ON p.product_id = li.product_id GROUP BY p.brand ORDER BY total_revenue DESC;">Brand Analysis</button>
+            <button class="sql-preset-btn" data-query="SELECT s.store_id, s.country, s.state, COUNT(DISTINCT o.order_number) AS orders, ROUND(SUM(p.price * li.quantity), 2) AS revenue FROM stores s JOIN orders o ON s.store_id = o.store_id JOIN order_line_items li ON o.order_number = li.order_number JOIN products p ON li.product_id = p.product_id GROUP BY s.store_id, s.country, s.state ORDER BY revenue DESC;">Store Analysis</button>
+            <button class="sql-preset-btn" data-query="SELECT c.country, c.continent, COUNT(DISTINCT o.order_number) AS orders, ROUND(SUM(p.price * li.quantity), 2) AS revenue FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_line_items li ON o.order_number = li.order_number JOIN products p ON li.product_id = p.product_id GROUP BY c.country, c.continent ORDER BY revenue DESC;">Customer Geography</button>
+          </div>
+          <div class="sql-editor">
+            <textarea placeholder="Write your SQL query here... (Ctrl+Enter to run)">SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;</textarea>
+          </div>
+          <div class="sql-actions">
+            <button class="sql-run-btn">&#9654; Run Query</button>
+            <button class="sql-clear-btn">Clear</button>
+          </div>
+          <div class="sql-result" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- Table Definitions -->
+      <div class="content-section fade-in">
+        <h2>Table Definitions</h2>
+
+        <h3>1. CUSTOMERS</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">SQL</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="sk">CREATE TABLE</span> customers (
+    customer_id   <span class="typ">INT</span> <span class="sk">PRIMARY KEY</span>,
+    gender        <span class="typ">VARCHAR(10)</span> <span class="sk">NOT NULL</span>,
+    name          <span class="typ">VARCHAR(255)</span> <span class="sk">NOT NULL</span>,
+    city          <span class="typ">VARCHAR(100)</span>,
+    state_code    <span class="typ">VARCHAR(10)</span>,
+    state         <span class="typ">VARCHAR(100)</span>,
+    zip           <span class="typ">VARCHAR(20)</span>,
+    country       <span class="typ">VARCHAR(100)</span>,
+    continent     <span class="typ">VARCHAR(50)</span>,
+    dob           <span class="typ">DATE</span> <span class="sk">NULL</span>,
+    <span class="sk">INDEX</span> idx_gender (gender),
+    <span class="sk">INDEX</span> idx_country (country)
+);</pre></div>
+        </div>
+
+        <h3>2. STORES</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">SQL</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="sk">CREATE TABLE</span> stores (
+    store_id   <span class="typ">INT</span> <span class="sk">PRIMARY KEY</span>,
+    country    <span class="typ">VARCHAR(100)</span> <span class="sk">NOT NULL</span>,
+    state      <span class="typ">VARCHAR(100)</span>,
+    sq_meters  <span class="typ">INT</span>,
+    open_date  <span class="typ">DATE</span> <span class="sk">NULL</span>,
+    <span class="sk">INDEX</span> idx_country (country)
+);</pre></div>
+        </div>
+
+        <h3>3. PRODUCT_CATEGORIES</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">SQL</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="sk">CREATE TABLE</span> product_categories (
+    category_id    <span class="typ">INT</span> <span class="sk">PRIMARY KEY</span>,
+    category_name  <span class="typ">VARCHAR(100)</span> <span class="sk">NOT NULL UNIQUE</span>
+);</pre></div>
+        </div>
+
+        <h3>4. PRODUCT_SUBCATEGORIES</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">SQL</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="sk">CREATE TABLE</span> product_subcategories (
+    subcategory_id    <span class="typ">INT</span> <span class="sk">PRIMARY KEY</span>,
+    category_id       <span class="typ">INT</span> <span class="sk">NOT NULL</span>,
+    subcategory_name  <span class="typ">VARCHAR(100)</span> <span class="sk">NOT NULL</span>,
+    <span class="sk">FOREIGN KEY</span> (category_id) <span class="sk">REFERENCES</span> product_categories(category_id),
+    <span class="sk">INDEX</span> idx_category (category_id)
+);</pre></div>
+        </div>
+
+        <h3>5. PRODUCTS</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">SQL</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="sk">CREATE TABLE</span> products (
+    product_id      <span class="typ">INT</span> <span class="sk">PRIMARY KEY</span>,
+    subcategory_id  <span class="typ">INT</span> <span class="sk">NOT NULL</span>,
+    name            <span class="typ">VARCHAR(255)</span> <span class="sk">NOT NULL</span>,
+    brand           <span class="typ">VARCHAR(100)</span>,
+    color           <span class="typ">VARCHAR(50)</span>,
+    cost            <span class="typ">DECIMAL(10, 2)</span> <span class="sk">NOT NULL</span>,
+    price           <span class="typ">DECIMAL(10, 2)</span> <span class="sk">NOT NULL</span>,
+    <span class="sk">FOREIGN KEY</span> (subcategory_id) <span class="sk">REFERENCES</span> product_subcategories(subcategory_id),
+    <span class="sk">INDEX</span> idx_brand (brand),
+    <span class="sk">INDEX</span> idx_price (price)
+);</pre></div>
+        </div>
+
+        <h3>6. ORDERS</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">SQL</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="sk">CREATE TABLE</span> orders (
+    order_number   <span class="typ">INT</span> <span class="sk">PRIMARY KEY</span>,
+    customer_id    <span class="typ">INT</span> <span class="sk">NOT NULL</span>,
+    store_id       <span class="typ">INT</span> <span class="sk">NOT NULL</span>,
+    order_date     <span class="typ">DATE</span> <span class="sk">NOT NULL</span>,
+    delivery_date  <span class="typ">DATE</span> <span class="sk">NULL</span>,
+    <span class="sk">FOREIGN KEY</span> (customer_id) <span class="sk">REFERENCES</span> customers(customer_id),
+    <span class="sk">FOREIGN KEY</span> (store_id) <span class="sk">REFERENCES</span> stores(store_id),
+    <span class="sk">INDEX</span> idx_customer (customer_id),
+    <span class="sk">INDEX</span> idx_order_date (order_date)
+);</pre></div>
+        </div>
+
+        <h3>7. ORDER_LINE_ITEMS</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">SQL</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="sk">CREATE TABLE</span> order_line_items (
+    transaction_id  <span class="typ">INT</span> <span class="sk">PRIMARY KEY</span>,
+    order_number    <span class="typ">INT</span> <span class="sk">NOT NULL</span>,
+    line_item       <span class="typ">INT</span> <span class="sk">NOT NULL</span>,
+    product_id      <span class="typ">INT</span> <span class="sk">NOT NULL</span>,
+    quantity        <span class="typ">INT</span> <span class="sk">NOT NULL DEFAULT 1</span>,
+    <span class="sk">FOREIGN KEY</span> (order_number) <span class="sk">REFERENCES</span> orders(order_number),
+    <span class="sk">FOREIGN KEY</span> (product_id) <span class="sk">REFERENCES</span> products(product_id),
+    <span class="sk">UNIQUE KEY</span> unique_order_line (order_number, line_item)
+);</pre></div>
+        </div>
+      </div>
+
+      <!-- Normalization Benefits -->
+      <div class="content-section fade-in">
+        <h2>Normalization Benefits</h2>
+        <div class="info-grid">
+          <div class="info-card"><div class="value" style="font-size:1.2rem">1,949,404</div><div class="label">Before (Data Points)</div></div>
+          <div class="info-card"><div class="value" style="font-size:1.2rem">~103,689</div><div class="label">After (Total Rows)</div></div>
+        </div>
+        <div class="highlight-box">
+          <h4>Key Improvements</h4>
+          <ul>
+            <li>Eliminates data redundancy &mdash; customer, product, store stored once</li>
+            <li>3-level product hierarchy enables category roll-up analytics</li>
+            <li>Foreign keys enforce referential integrity across all tables</li>
+            <li>Easy to extend without restructuring existing tables</li>
+            <li>Indexes on commonly queried columns for fast lookups</li>
+            <li>Scales to millions of records efficiently</li>
+            <li>Single-point updates &mdash; change product price in one place</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-social">
+        <a href="mailto:anuragmesh@gmail.com">&#9993; Email</a>
+        <a href="https://tiny.cc/c9zx001" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="assets/resume/Anurag_Meshram_Resume.pdf" download>Resume</a>
+      </div>
+      <p>&copy; 2026 Anurag Meshram. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/sql-runner-retail.js"></script>
+</body>
+</html>
