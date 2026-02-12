@@ -12,12 +12,31 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinks.classList.toggle('open');
     });
     navLinks.querySelectorAll('a').forEach(link => {
+      // Skip dropdown parent links on mobile (they toggle the submenu)
+      if (link.parentElement.classList.contains('nav-dropdown')) return;
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+    // Close submenu links on mobile
+    navLinks.querySelectorAll('.nav-dropdown-menu a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navLinks.classList.remove('open');
       });
     });
   }
+
+  // --- Mobile dropdown toggle ---
+  document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        trigger.closest('.nav-dropdown').classList.toggle('open');
+      }
+    });
+  });
 
   // --- Navbar scroll ---
   const navbar = document.querySelector('.navbar');
@@ -37,12 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.fade-in, .stagger-children').forEach(el => observer.observe(el));
 
-  // --- Active nav link ---
+  // --- Active nav link (with dropdown parent highlighting) ---
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a:not(.nav-resume-btn)').forEach(link => {
     const href = link.getAttribute('href');
     if (href === currentPage || (currentPage === '' && href === 'index.html')) {
       link.classList.add('active');
+      // If this link is inside a dropdown menu, also highlight the parent
+      const dropdown = link.closest('.nav-dropdown');
+      if (dropdown) {
+        dropdown.querySelector(':scope > a').classList.add('active');
+      }
     }
   });
 

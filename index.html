@@ -18,8 +18,20 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="experience.html">Experience</a></li>
         <li><a href="eda.html">EDA</a></li>
-        <li><a href="sql-data-load.html">SQL Data Load</a></li>
-        <li><a href="database-schema.html">DB Schema</a></li>
+        <li class="nav-dropdown">
+          <a href="#">SQL Data Load</a>
+          <div class="nav-dropdown-menu">
+            <a href="sql-data-load.html">E-Commerce</a>
+            <a href="sql-data-load-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">DB Schema</a>
+          <div class="nav-dropdown-menu">
+            <a href="database-schema.html">E-Commerce</a>
+            <a href="database-schema-retail.html">Retail Sales</a>
+          </div>
+        </li>
         <li><a href="powerbi.html">Power BI</a></li>
         <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
       </ul>
@@ -171,7 +183,7 @@
     <div class="container">
       <div class="section-header fade-in">
         <h2>Featured Projects</h2>
-        <p>End-to-end e-commerce data analysis &mdash; from raw data to dashboards</p>
+        <p>End-to-end data analysis projects &mdash; e-commerce and retail sales datasets</p>
       </div>
       <div class="card-grid stagger-children">
         <a href="eda.html" class="card" style="text-decoration:none">
@@ -207,6 +219,24 @@
           <p>Interactive dashboard with KPIs, sales trends, category breakdowns, geographic analysis, and return monitoring.</p>
           <div class="card-tags">
             <span class="tag blue">Power BI</span><span class="tag blue">DAX</span><span class="tag blue">Data Modeling</span>
+          </div>
+          <span class="card-link">View Project &#8594;</span>
+        </a>
+        <a href="sql-data-load-retail.html" class="card" style="text-decoration:none">
+          <div class="card-icon cyan">&#128451;</div>
+          <h3>Retail Sales ETL Pipeline</h3>
+          <p>ETL pipeline normalizing 62K+ retail transactions from Excel into a 7-table MySQL database with product hierarchies.</p>
+          <div class="card-tags">
+            <span class="tag">Python</span><span class="tag orange">MySQL</span><span class="tag cyan">ETL</span><span class="tag green">62K Rows</span>
+          </div>
+          <span class="card-link">View Project &#8594;</span>
+        </a>
+        <a href="database-schema-retail.html" class="card" style="text-decoration:none">
+          <div class="card-icon red">&#128196;</div>
+          <h3>Retail Sales Schema Design</h3>
+          <p>3NF normalized schema with 7 tables for retail sales: product categories, subcategories, multi-store orders, and line items.</p>
+          <div class="card-tags">
+            <span class="tag orange">MySQL</span><span class="tag">SQL</span><span class="tag blue">3NF</span><span class="tag red">7 Tables</span>
           </div>
           <span class="card-link">View Project &#8594;</span>
         </a>

@@ -656,6 +656,14 @@ p  { color: var(--text-secondary); margin-bottom: 1rem; }
   }
   .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: all; }
   .nav-links a { padding: 0.75rem 1rem; font-size: 1rem; }
+  .nav-dropdown-menu {
+    position: static; opacity: 1; pointer-events: all;
+    transform: none; border: none; background: transparent;
+    padding: 0 0 0 1rem; backdrop-filter: none;
+    display: none;
+  }
+  .nav-dropdown.open .nav-dropdown-menu { display: block; }
+  .nav-dropdown-menu a { padding: 0.5rem 1rem; font-size: 0.9rem; }
   .container { padding: 0 1rem; }
   .card-grid, .chart-grid { grid-template-columns: 1fr; }
   .info-grid { grid-template-columns: repeat(2, 1fr); }
@@ -694,3 +702,27 @@ p  { color: var(--text-secondary); margin-bottom: 1rem; }
 .stagger-children.visible > *:nth-child(8) { transition-delay: 0.4s; }
 .stagger-children.visible > *:nth-child(9) { transition-delay: 0.45s; }
 .stagger-children.visible > * { opacity: 1; transform: translateY(0); }
+
+/* ============================================
+   Nav Dropdowns
+   ============================================ */
+.nav-dropdown { position: relative; }
+.nav-dropdown > a { display: flex; align-items: center; gap: 0.3rem; }
+.nav-dropdown > a::after { content: '\25BE'; font-size: 0.7rem; opacity: 0.6; }
+.nav-dropdown-menu {
+  position: absolute; top: 100%; left: 0; min-width: 180px;
+  background: rgba(10, 10, 15, 0.98); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0.5rem 0; opacity: 0; pointer-events: none;
+  transform: translateY(8px); transition: all var(--transition); z-index: 100;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu {
+  opacity: 1; pointer-events: all; transform: translateY(0);
+}
+.nav-dropdown-menu a {
+  display: block; padding: 0.5rem 1rem; font-size: 0.85rem;
+  color: var(--text-secondary); white-space: nowrap;
+}
+.nav-dropdown-menu a:hover { background: rgba(108, 99, 255, 0.1); color: var(--text-primary); }
+.nav-dropdown-menu a.active { color: var(--accent); }

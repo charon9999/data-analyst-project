@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(start \"\" \"f:\\\\Anurag-Portfolio\\\\index.html\")"
+      "Bash(start \"\" \"f:\\\\Anurag-Portfolio\\\\index.html\")",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(powershell:*)"
     ]
   }
 }
