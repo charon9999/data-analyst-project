@@ -4,7 +4,11 @@
       "Bash(start \"\" \"f:\\\\Anurag-Portfolio\\\\index.html\")",
       "Bash(dir:*)",
       "Bash(findstr:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "WebFetch(domain:www.odpbusiness.com)",
+      "Bash(del \"f:\\\\Anurag-Portfolio\\\\app.py\")",
+      "WebFetch(domain:v2.jokeapi.dev)",
+      "WebFetch(domain:www.staplesadvantage.com)"
     ]
   }
 }

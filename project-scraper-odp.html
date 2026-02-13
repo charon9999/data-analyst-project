@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ODP Web Scraper | Anurag Meshram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Anurag <span>Meshram</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li class="nav-dropdown">
+          <a href="#">EDA</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-eda-ecommerce.html">E-Commerce</a>
+            <a href="project-eda-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">SQL Data Load</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-sql-ecommerce.html">E-Commerce</a>
+            <a href="project-sql-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">DB Schema</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-schema-ecommerce.html">E-Commerce</a>
+            <a href="project-schema-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li><a href="project-powerbi.html">Power BI</a></li>
+        <li class="nav-dropdown">
+          <a href="#">Web Scraper</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-scraper-odp.html">Office Depot (ODP)</a>
+            <a href="project-scraper-staples.html">Staples</a>
+          </div>
+        </li>
+        <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <span>Web Scraper &mdash; Office Depot</span>
+          </div>
+          <h1 class="project-title">Web Scraper &mdash; Office Depot (ODP)</h1>
+          <p style="color:var(--text-secondary);margin-bottom:1rem;">Extracts product data from Office Depot Business using <strong>direct HTML parsing</strong> with Requests + BeautifulSoup, and <strong>Selenium</strong> for dynamic image carousel extraction.</p>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#9881;</span> HTML Parsing + Selenium</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> Python, Requests, BeautifulSoup, Selenium</span>
+            <span class="meta-item"><span class="meta-icon">&#128230;</span> JSON + Image Storage</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag green">BeautifulSoup</span>
+            <span class="tag orange">Selenium</span>
+            <span class="tag blue">Requests</span>
+            <span class="tag cyan">HTML Parsing</span>
+          </div>
+          <div class="project-actions">
+            <a href="src/odp_scraper.py" class="btn btn-sm btn-outline" download>&#11015; Download odp_scraper.py</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- How It Works -->
+      <div class="content-section fade-in">
+        <h2>How It Works</h2>
+        <div class="scraper-pipeline">
+          <div class="pipeline-step">
+            <div class="pipeline-step-number">1</div>
+            <div class="pipeline-step-body">
+              <h4>Fetch Product Page</h4>
+              <p>Uses <strong>Requests</strong> with browser-like headers to fetch the raw HTML from Office Depot Business (odpbusiness.com) for a given SKU.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-number">2</div>
+            <div class="pipeline-step-body">
+              <h4>Parse with BeautifulSoup</h4>
+              <p>Parses product name, price, description, features, specifications, and categories from the page DOM using CSS selectors like <code>.sku-heading</code>, <code>.sku-bullets</code>, <code>.sku-table</code>.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-number">3</div>
+            <div class="pipeline-step-body">
+              <h4>Selenium Image Carousel</h4>
+              <p>Launches <strong>headless Chrome</strong> via Selenium to click through ODP's JavaScript-rendered image carousel. Extracts all high-resolution image URLs with intelligent deduplication (URL signature + MD5 hash).</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-number">4</div>
+            <div class="pipeline-step-body">
+              <h4>Store &amp; Output</h4>
+              <p>Downloads all unique images, saves product data as structured JSON, and maintains a searchable product index.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scraped Product Demo Output -->
+      <div class="content-section fade-in">
+        <h2>Demo Output <span class="scraper-demo-badge">SKU 4852038</span></h2>
+        <p class="scraper-demo-note">Below is the actual output from running the ODP scraper on SKU <strong>4852038</strong> from Office Depot Business.</p>
+        <div class="product-detail">
+          <div class="product-images-col">
+            <div class="product-main-image">
+              <img id="result-main-img" src="" alt="Product image">
+            </div>
+            <div class="product-thumbnails" id="result-thumbnails"></div>
+          </div>
+          <div class="product-info">
+            <h3 id="result-name"></h3>
+            <div class="product-price" id="result-price"></div>
+            <div class="product-sku">SKU: <span id="result-sku"></span></div>
+            <p id="result-description"></p>
+            <div id="result-features"></div>
+            <div id="result-specs" class="product-specs"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Raw JSON Output -->
+      <div class="content-section fade-in">
+        <h2>Raw JSON Output</h2>
+        <p class="scraper-demo-note">The scraper outputs structured JSON. Below is the exact data extracted for this product.</p>
+        <pre class="scraper-json-output" id="json-output"></pre>
+      </div>
+
+      <!-- Architecture Workflow -->
+      <div class="content-section fade-in">
+        <h2>Architecture &amp; Workflow</h2>
+        <p class="scraper-demo-note">End-to-end data flow from SKU input to structured output. ODP uses a dual-engine approach: Requests + BS4 for static content, Selenium for dynamic image carousels.</p>
+        <div class="workflow-diagram">
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--input">
+              <div class="workflow-node-icon">&#9881;</div>
+              <div class="workflow-node-label">SKU Input</div>
+              <div class="workflow-node-sub">e.g. 4852038</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--registry">
+              <div class="workflow-node-icon">&#128218;</div>
+              <div class="workflow-node-label">Scraper Registry</div>
+              <div class="workflow-node-sub">Route to ODP</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--supplier">
+              <div class="workflow-node-icon">&#127959;</div>
+              <div class="workflow-node-label">ODP Scraper</div>
+              <div class="workflow-node-sub">HTML + Selenium</div>
+            </div>
+          </div>
+
+          <div class="workflow-connector">&#8595;</div>
+
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--fetch">
+              <div class="workflow-node-icon">&#127760;</div>
+              <div class="workflow-node-label">HTTP Fetch</div>
+              <div class="workflow-node-sub">Requests + Headers</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--parse">
+              <div class="workflow-node-icon">&#128269;</div>
+              <div class="workflow-node-label">HTML Parse</div>
+              <div class="workflow-node-sub">BeautifulSoup4</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--selenium">
+              <div class="workflow-node-icon">&#128444;</div>
+              <div class="workflow-node-label">Image Extraction</div>
+              <div class="workflow-node-sub">Selenium + Chrome</div>
+            </div>
+          </div>
+
+          <div class="workflow-connector">&#8595;</div>
+
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--dedup">
+              <div class="workflow-node-icon">&#128737;</div>
+              <div class="workflow-node-label">Deduplication</div>
+              <div class="workflow-node-sub">MD5 hash + URL sig</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--download">
+              <div class="workflow-node-icon">&#128190;</div>
+              <div class="workflow-node-label">Download &amp; Save</div>
+              <div class="workflow-node-sub">Images + JSON</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--output">
+              <div class="workflow-node-icon">&#128202;</div>
+              <div class="workflow-node-label">Structured Output</div>
+              <div class="workflow-node-sub">product.json + index</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-notes">
+          <div class="workflow-note">
+            <h4>Dual-Engine Extraction</h4>
+            <p><strong>Requests + BS4</strong> handles static content (name, price, specs). <strong>Selenium</strong> activates for the image carousel which requires JavaScript rendering. This hybrid approach minimizes Selenium usage for speed.</p>
+          </div>
+          <div class="workflow-note">
+            <h4>Intelligent Deduplication</h4>
+            <p>Images are deduplicated at two levels: URL signature matching (stripping query params and size tokens) and MD5 content hashing after download to catch identical images served from different URLs.</p>
+          </div>
+          <div class="workflow-note">
+            <h4>Registry Pattern</h4>
+            <p>Each supplier implements a common <code>scrape(sku)</code> interface. The registry maps supplier keys (e.g. <code>"odp"</code>, <code>"staples"</code>) to their scraper class, enabling plug-and-play supplier additions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Source Code -->
+      <div class="content-section fade-in">
+        <h2>Source Code</h2>
+
+        <!-- ODP Scraper -->
+        <div class="code-viewer">
+          <div class="code-viewer-header">
+            <div class="code-viewer-title">
+              <span class="file-icon">&#128013;</span>
+              <span class="file-name">odp_scraper.py</span>
+              <span class="file-size">&mdash; Office Depot Business Scraper</span>
+            </div>
+            <div class="code-viewer-toggle">View Source <span class="arrow">&#9660;</span></div>
+          </div>
+          <div class="code-viewer-body">
+            <pre><span class="line-num">  1</span><span class="kw">import</span> os, json, hashlib, re, time
+<span class="line-num">  2</span><span class="kw">from</span> datetime <span class="kw">import</span> datetime
+<span class="line-num">  3</span>
+<span class="line-num">  4</span><span class="kw">import</span> requests
+<span class="line-num">  5</span><span class="kw">from</span> bs4 <span class="kw">import</span> BeautifulSoup
+<span class="line-num">  6</span><span class="kw">from</span> selenium <span class="kw">import</span> webdriver
+<span class="line-num">  7</span><span class="kw">from</span> selenium.webdriver.chrome.service <span class="kw">import</span> Service
+<span class="line-num">  8</span><span class="kw">from</span> selenium.webdriver.chrome.options <span class="kw">import</span> Options
+<span class="line-num">  9</span><span class="kw">from</span> selenium.webdriver.common.by <span class="kw">import</span> By
+<span class="line-num"> 10</span><span class="kw">from</span> selenium.webdriver.support.ui <span class="kw">import</span> WebDriverWait
+<span class="line-num"> 11</span><span class="kw">from</span> selenium.webdriver.support <span class="kw">import</span> expected_conditions <span class="kw">as</span> EC
+<span class="line-num"> 12</span><span class="kw">from</span> webdriver_manager.chrome <span class="kw">import</span> ChromeDriverManager
+<span class="line-num"> 13</span>
+<span class="line-num"> 14</span>
+<span class="line-num"> 15</span><span class="kw">class</span> <span class="typ">ODPScraper</span>:
+<span class="line-num"> 16</span>    SUPPLIER_KEY  = <span class="str">'odp'</span>
+<span class="line-num"> 17</span>    SUPPLIER_NAME = <span class="str">'Office Depot (ODP Business)'</span>
+<span class="line-num"> 18</span>    BASE_URL = <span class="str">'https://www.odpbusiness.com/a/products/{sku}/'</span>
+<span class="line-num"> 19</span>
+<span class="line-num"> 20</span>    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="par">self</span>, data_dir=<span class="str">'scraped_data'</span>):
+<span class="line-num"> 21</span>        self.data_dir = data_dir
+<span class="line-num"> 22</span>        self.session = requests.Session()
+<span class="line-num"> 23</span>        self.session.headers.update({
+<span class="line-num"> 24</span>            <span class="str">'User-Agent'</span>: <span class="str">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...'</span>,
+<span class="line-num"> 25</span>            <span class="str">'Accept'</span>: <span class="str">'text/html,application/xhtml+xml,...'</span>,
+<span class="line-num"> 26</span>        })
+<span class="line-num"> 27</span>
+<span class="line-num"> 28</span>    <span class="kw">def</span> <span class="fn">scrape</span>(<span class="par">self</span>, sku):
+<span class="line-num"> 29</span>        <span class="str">"""Main entry point. Returns dict with product data."""</span>
+<span class="line-num"> 30</span>        sku = <span class="fn">str</span>(sku).strip()
+<span class="line-num"> 31</span>        url = self.BASE_URL.format(sku=sku)
+<span class="line-num"> 32</span>
+<span class="line-num"> 33</span>        <span class="cmt"># Fetch and parse product page</span>
+<span class="line-num"> 34</span>        soup = self._fetch_product_page(url)
+<span class="line-num"> 35</span>        <span class="kw">if</span> soup <span class="kw">is</span> <span class="kw">None</span>:
+<span class="line-num"> 36</span>            <span class="kw">return</span> {<span class="str">'success'</span>: <span class="kw">False</span>, <span class="str">'error'</span>: <span class="str">'Failed to fetch'</span>}
+<span class="line-num"> 37</span>
+<span class="line-num"> 38</span>        <span class="cmt"># Parse product info from static HTML</span>
+<span class="line-num"> 39</span>        product_data = self._parse_product_info(soup, sku, url)
+<span class="line-num"> 40</span>
+<span class="line-num"> 41</span>        <span class="cmt"># Extract images via Selenium (dynamic carousel)</span>
+<span class="line-num"> 42</span>        image_urls = self._extract_images_selenium(url)
+<span class="line-num"> 43</span>        product_data[<span class="str">'image_urls'</span>] = image_urls
+<span class="line-num"> 44</span>
+<span class="line-num"> 45</span>        <span class="cmt"># Download images with deduplication</span>
+<span class="line-num"> 46</span>        downloaded = self._download_images(image_urls, images_dir)
+<span class="line-num"> 47</span>        product_data[<span class="str">'images'</span>] = downloaded
+<span class="line-num"> 48</span>
+<span class="line-num"> 49</span>        <span class="cmt"># Save product JSON and update master index</span>
+<span class="line-num"> 50</span>        self._save_product(sku, product_data)
+<span class="line-num"> 51</span>        <span class="kw">return</span> {<span class="str">'success'</span>: <span class="kw">True</span>, <span class="str">'product_data'</span>: product_data}
+<span class="line-num"> 52</span>
+<span class="line-num"> 53</span>    <span class="kw">def</span> <span class="fn">_parse_product_info</span>(<span class="par">self</span>, soup, sku, url):
+<span class="line-num"> 54</span>        <span class="str">"""Extract structured data from parsed HTML."""</span>
+<span class="line-num"> 55</span>        data = {<span class="str">'sku'</span>: sku, <span class="str">'supplier'</span>: self.SUPPLIER_KEY, <span class="str">'url'</span>: url}
+<span class="line-num"> 56</span>
+<span class="line-num"> 57</span>        <span class="cmt"># Product name from &lt;h1 class="sku-heading"&gt;</span>
+<span class="line-num"> 58</span>        name = soup.find(<span class="str">'h1'</span>, {<span class="str">'class'</span>: <span class="str">'sku-heading'</span>})
+<span class="line-num"> 59</span>        <span class="kw">if</span> name: data[<span class="str">'name'</span>] = name.get_text(strip=<span class="kw">True</span>)
+<span class="line-num"> 60</span>
+<span class="line-num"> 61</span>        <span class="cmt"># Price from &lt;span class="od-graphql-price-big-price"&gt;</span>
+<span class="line-num"> 62</span>        price = soup.find(<span class="str">'span'</span>, {<span class="str">'class'</span>: <span class="str">'od-graphql-price-big-price'</span>})
+<span class="line-num"> 63</span>        <span class="kw">if</span> price: data[<span class="str">'price'</span>] = price.get_text(strip=<span class="kw">True</span>)
+<span class="line-num"> 64</span>
+<span class="line-num"> 65</span>        <span class="cmt"># Features / bullet points</span>
+<span class="line-num"> 66</span>        bullets = soup.find(<span class="str">'ul'</span>, {<span class="str">'class'</span>: <span class="str">'sku-bullets'</span>})
+<span class="line-num"> 67</span>        <span class="kw">if</span> bullets:
+<span class="line-num"> 68</span>            data[<span class="str">'features'</span>] = [
+<span class="line-num"> 69</span>                li.get_text(strip=<span class="kw">True</span>)
+<span class="line-num"> 70</span>                <span class="kw">for</span> li <span class="kw">in</span> bullets.find_all(<span class="str">'li'</span>, {<span class="str">'class'</span>: <span class="str">'sku-bullet'</span>})
+<span class="line-num"> 71</span>            ]
+<span class="line-num"> 72</span>
+<span class="line-num"> 73</span>        <span class="cmt"># Specifications table</span>
+<span class="line-num"> 74</span>        specs_table = soup.find(<span class="str">'table'</span>, {<span class="str">'class'</span>: <span class="str">'sku-table'</span>})
+<span class="line-num"> 75</span>        <span class="kw">if</span> specs_table:
+<span class="line-num"> 76</span>            specs = {}
+<span class="line-num"> 77</span>            <span class="kw">for</span> row <span class="kw">in</span> specs_table.find_all(<span class="str">'tr'</span>):
+<span class="line-num"> 78</span>                cells = row.find_all(<span class="str">'td'</span>)
+<span class="line-num"> 79</span>                <span class="kw">if</span> <span class="fn">len</span>(cells) == <span class="num">2</span>:
+<span class="line-num"> 80</span>                    specs[cells[<span class="num">0</span>].text.strip()] = cells[<span class="num">1</span>].text.strip()
+<span class="line-num"> 81</span>            data[<span class="str">'specifications'</span>] = specs
+<span class="line-num"> 82</span>
+<span class="line-num"> 83</span>        <span class="kw">return</span> data
+<span class="line-num"> 84</span>
+<span class="line-num"> 85</span>    <span class="kw">def</span> <span class="fn">_extract_images_selenium</span>(<span class="par">self</span>, url):
+<span class="line-num"> 86</span>        <span class="str">"""Use headless Chrome to click through image carousel."""</span>
+<span class="line-num"> 87</span>        options = Options()
+<span class="line-num"> 88</span>        options.add_argument(<span class="str">'--headless=new'</span>)
+<span class="line-num"> 89</span>        driver = webdriver.Chrome(
+<span class="line-num"> 90</span>            service=Service(ChromeDriverManager().install()),
+<span class="line-num"> 91</span>            options=options
+<span class="line-num"> 92</span>        )
+<span class="line-num"> 93</span>        image_urls, seen = [], <span class="fn">set</span>()
+<span class="line-num"> 94</span>        <span class="kw">try</span>:
+<span class="line-num"> 95</span>            driver.get(url)
+<span class="line-num"> 96</span>            time.sleep(<span class="num">3</span>)
+<span class="line-num"> 97</span>            <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">20</span>):
+<span class="line-num"> 98</span>                btn = WebDriverWait(driver, <span class="num">5</span>).until(
+<span class="line-num"> 99</span>                    EC.element_to_be_clickable((By.CSS_SELECTOR,
+<span class="line-num">100</span>                        <span class="str">'[data-auid*="ImageGalleryScrollRightIcon"]'</span>))
+<span class="line-num">101</span>                )
+<span class="line-num">102</span>                btn.click(); time.sleep(<span class="num">1</span>)
+<span class="line-num">103</span>                img = driver.find_element(By.CSS_SELECTOR,
+<span class="line-num">104</span>                    <span class="str">'.image-gallery-slide.center img'</span>)
+<span class="line-num">105</span>                src = img.get_attribute(<span class="str">'src'</span>)
+<span class="line-num">106</span>                sig = self._get_url_signature(src)
+<span class="line-num">107</span>                <span class="kw">if</span> sig <span class="kw">not in</span> seen:
+<span class="line-num">108</span>                    image_urls.append(src); seen.add(sig)
+<span class="line-num">109</span>        <span class="kw">finally</span>:
+<span class="line-num">110</span>            driver.quit()
+<span class="line-num">111</span>        <span class="kw">return</span> [self._to_hq(u) <span class="kw">for</span> u <span class="kw">in</span> image_urls]
+<span class="line-num">112</span>
+<span class="line-num">113</span>    <span class="kw">def</span> <span class="fn">_download_images</span>(<span class="par">self</span>, urls, dest):
+<span class="line-num">114</span>        <span class="str">"""Download with content-hash dedup."""</span>
+<span class="line-num">115</span>        downloaded, hashes = [], <span class="fn">set</span>()
+<span class="line-num">116</span>        <span class="kw">for</span> url <span class="kw">in</span> urls:
+<span class="line-num">117</span>            r = self.session.get(url, timeout=<span class="num">30</span>)
+<span class="line-num">118</span>            h = hashlib.md5(r.content).hexdigest()
+<span class="line-num">119</span>            <span class="kw">if</span> h <span class="kw">not in</span> hashes:
+<span class="line-num">120</span>                hashes.add(h)
+<span class="line-num">121</span>                fname = <span class="str">f"</span>{<span class="fn">len</span>(downloaded)+<span class="num">1</span>:<span class="num">02</span>d}.webp<span class="str">"</span>
+<span class="line-num">122</span>                <span class="kw">with</span> <span class="fn">open</span>(os.path.join(dest, fname), <span class="str">'wb'</span>) <span class="kw">as</span> f:
+<span class="line-num">123</span>                    f.write(r.content)
+<span class="line-num">124</span>                downloaded.append(fname)
+<span class="line-num">125</span>        <span class="kw">return</span> downloaded</pre>
+          </div>
+        </div>
+
+        <!-- Scraper Registry -->
+        <div class="code-viewer" style="margin-top:1.25rem">
+          <div class="code-viewer-header">
+            <div class="code-viewer-title">
+              <span class="file-icon">&#128013;</span>
+              <span class="file-name">__init__.py</span>
+              <span class="file-size">&mdash; Scraper Registry (plug-and-play suppliers)</span>
+            </div>
+            <div class="code-viewer-toggle">View Source <span class="arrow">&#9660;</span></div>
+          </div>
+          <div class="code-viewer-body">
+            <pre><span class="line-num">  1</span><span class="str">"""</span>
+<span class="line-num">  2</span><span class="str">Scraper Registry - maps supplier keys to scraper classes.</span>
+<span class="line-num">  3</span><span class="str">Add new suppliers here to extend the system.</span>
+<span class="line-num">  4</span><span class="str">"""</span>
+<span class="line-num">  5</span>
+<span class="line-num">  6</span><span class="kw">from</span> .odp_scraper <span class="kw">import</span> ODPScraper
+<span class="line-num">  7</span><span class="kw">from</span> .staples_scraper <span class="kw">import</span> StaplesAdvantageScraperr
+<span class="line-num">  8</span>
+<span class="line-num">  9</span>SCRAPER_REGISTRY = {
+<span class="line-num"> 10</span>    <span class="str">'odp'</span>: ODPScraper,
+<span class="line-num"> 11</span>    <span class="str">'staples'</span>: StaplesAdvantageScraperr,
+<span class="line-num"> 12</span>}
+<span class="line-num"> 13</span>
+<span class="line-num"> 14</span><span class="kw">def</span> <span class="fn">get_scraper</span>(supplier_key, **kwargs):
+<span class="line-num"> 15</span>    <span class="str">"""Get a scraper instance by supplier key."""</span>
+<span class="line-num"> 16</span>    cls = SCRAPER_REGISTRY.get(supplier_key)
+<span class="line-num"> 17</span>    <span class="kw">if</span> cls <span class="kw">is</span> <span class="kw">None</span>:
+<span class="line-num"> 18</span>        <span class="kw">raise</span> <span class="typ">ValueError</span>(<span class="str">f"Unknown supplier: </span>{supplier_key}<span class="str">"</span>)
+<span class="line-num"> 19</span>    <span class="kw">return</span> cls(**kwargs)
+<span class="line-num"> 20</span>
+<span class="line-num"> 21</span><span class="kw">def</span> <span class="fn">list_suppliers</span>():
+<span class="line-num"> 22</span>    <span class="str">"""List all available suppliers."""</span>
+<span class="line-num"> 23</span>    <span class="kw">return</span> [
+<span class="line-num"> 24</span>        {<span class="str">'key'</span>: k, <span class="str">'name'</span>: v.SUPPLIER_NAME}
+<span class="line-num"> 25</span>        <span class="kw">for</span> k, v <span class="kw">in</span> SCRAPER_REGISTRY.items()
+<span class="line-num"> 26</span>    ]</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Future Improvements / Roadmap -->
+      <div class="content-section fade-in">
+        <h2>Roadmap &amp; Improvements</h2>
+        <div class="improvements-grid">
+          <div class="improvement-card improvement-card--done">
+            <div class="improvement-status">Done</div>
+            <h4>Staples Supplier</h4>
+            <p>Added <code>StaplesAdvantageScraperr</code> class that uses the Staples internal API (<code>/ele-lpd/api/sba-sku/</code>) to extract product data, specs, images, and reviews. API-based approach &mdash; no Selenium needed.</p>
+            <div class="card-tags">
+              <span class="tag green">New Supplier</span>
+              <span class="tag">API-Based</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--planned">
+            <h4>ThreadPoolExecutor for Batch Scraping</h4>
+            <div class="improvement-status">Planned</div>
+            <p>Use <code>concurrent.futures.ThreadPoolExecutor</code> to scrape multiple SKUs in parallel. Each thread gets its own Selenium driver and session, enabling 5-10x throughput for bulk operations.</p>
+            <div class="card-tags">
+              <span class="tag orange">Performance</span>
+              <span class="tag">Concurrency</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--idea">
+            <div class="improvement-status">Idea</div>
+            <h4>Rate Limiting &amp; Retry Logic</h4>
+            <p>Add exponential backoff with jitter for failed requests and per-domain rate limiting to avoid IP blocks during large batch runs.</p>
+            <div class="card-tags">
+              <span class="tag blue">Reliability</span>
+              <span class="tag">Production-Ready</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--idea">
+            <div class="improvement-status">Idea</div>
+            <h4>Price Change Tracking</h4>
+            <p>Store historical price data on re-scrape and track changes over time. Enables price trend analysis and alerts when products drop below a target price.</p>
+            <div class="card-tags">
+              <span class="tag cyan">Analytics</span>
+              <span class="tag">Data Pipeline</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--idea">
+            <div class="improvement-status">Idea</div>
+            <h4>Headless Browser Pool</h4>
+            <p>Maintain a pool of pre-warmed Selenium drivers instead of launching a new Chrome instance per SKU. Reduces per-product scrape time from ~20s to ~5s.</p>
+            <div class="card-tags">
+              <span class="tag orange">Performance</span>
+              <span class="tag">Resource Management</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--idea">
+            <div class="improvement-status">Idea</div>
+            <h4>Database Storage</h4>
+            <p>Replace flat JSON files with a SQLite/PostgreSQL backend. Enables SQL queries across all scraped products and cross-supplier comparison reports.</p>
+            <div class="card-tags">
+              <span class="tag blue">Storage</span>
+              <span class="tag">Scalability</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="joke-section">
+    <div class="joke-section-header">Random Joke</div>
+    <div id="joke-content"><span class="joke-loading">Loading joke...</span></div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-social">
+        <a href="mailto:anuragmesh@gmail.com">&#9993; Email</a>
+        <a href="https://tiny.cc/c9zx001" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/charon9999/data-analyst-project" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="assets/resume/Anurag_Meshram_Resume.pdf" download>Resume</a>
+      </div>
+      <p>&copy; 2026 Anurag Meshram. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/scraper-odp.js"></script>
+  <script src="assets/js/joke.js"></script>
+</body>
+</html>
