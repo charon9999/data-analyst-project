@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retail Sales EDA | Anurag Meshram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Anurag <span>Meshram</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li class="nav-dropdown">
+          <a href="#">EDA</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-eda-ecommerce.html">E-Commerce</a>
+            <a href="project-eda-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">SQL Data Load</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-sql-ecommerce.html">E-Commerce</a>
+            <a href="project-sql-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">DB Schema</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-schema-ecommerce.html">E-Commerce</a>
+            <a href="project-schema-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li><a href="project-powerbi.html">Power BI</a></li>
+        <li class="nav-dropdown">
+          <a href="#">Web Scraper</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-scraper-odp.html">Office Depot (ODP)</a>
+            <a href="project-scraper-staples.html">Staples</a>
+          </div>
+        </li>
+        <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a><span class="separator">/</span><span>Retail Sales EDA</span>
+          </div>
+          <h1 class="project-title">Exploratory Data Analysis &mdash; Retail Sales</h1>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#128196;</span> Retail Sales Dataset</span>
+            <span class="meta-item"><span class="meta-icon">&#128202;</span> 62,884 Transactions &times; 31 Features</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> Python, Pandas, Matplotlib, Seaborn</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag">Jupyter Notebook</span><span class="tag green">Pandas</span><span class="tag green">NumPy</span>
+            <span class="tag green">Matplotlib</span><span class="tag green">Seaborn</span><span class="tag green">62K Rows</span>
+          </div>
+          <div class="project-actions">
+            <a href="src/eda-retail-sales-dataset.ipynb" class="btn btn-sm btn-outline" download>&#11015; Download Notebook</a>
+            <a href="src/requirements.txt" class="btn btn-sm btn-outline" download>&#11015; requirements.txt</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- Overview -->
+      <div class="content-section fade-in">
+        <h2>Project Overview</h2>
+        <p>Comprehensive step-by-step Exploratory Data Analysis on a retail sales dataset containing 62,884 transactions across 8 product categories, 58 stores, and 9 countries spanning 2016&ndash;2021. The analysis covers $55.8M in total revenue, uncovering sales trends, category performance, brand dominance, geographic distribution, customer demographics, and data quality insights.</p>
+        <div class="info-grid">
+          <div class="info-card"><div class="value">62,884</div><div class="label">Transactions</div></div>
+          <div class="info-card"><div class="value">$55.8M</div><div class="label">Total Revenue</div></div>
+          <div class="info-card"><div class="value">26,326</div><div class="label">Unique Orders</div></div>
+          <div class="info-card"><div class="value">11,887</div><div class="label">Customers</div></div>
+          <div class="info-card"><div class="value">58.6%</div><div class="label">Profit Margin</div></div>
+          <div class="info-card"><div class="value">8</div><div class="label">Categories</div></div>
+        </div>
+      </div>
+
+      <!-- ========== ANALYSIS OUTPUTS ========== -->
+
+      <!-- Missing Values -->
+      <div class="content-section fade-in">
+        <h2>Missing Values Analysis</h2>
+        <p>Only 2 columns have missing data. DeliveryDate is 79.06% null (49,719 transactions) &mdash; likely representing in-store pickups. CustomerStateCode has just 30 missing values.</p>
+        <div class="chart-grid">
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Missing Values by Column (%)</h4>
+            <canvas id="chart-retail-missing-values"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue Analysis -->
+      <div class="content-section fade-in">
+        <h2>Revenue Analysis</h2>
+        <p>Total Revenue: <strong>$55,755,480</strong> | Avg Order Value: <strong>$2,118</strong> | Median: <strong>$1,146</strong> | Profit: <strong>$32.7M</strong> (58.6% margin)</p>
+        <div class="chart-grid">
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Distribution of Order Values ($)</h4>
+            <canvas id="chart-retail-revenue-distribution"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue Trend -->
+      <div class="content-section fade-in">
+        <h2>Revenue Trend Over Time</h2>
+        <p>Revenue peaked in 2019 at $18.3M before declining in 2020&ndash;2021. February and December are the strongest months.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Revenue Trend by Year</h4>
+            <canvas id="chart-retail-yearly-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Order Count by Year</h4>
+            <canvas id="chart-retail-yearly-orders"></canvas>
+          </div>
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Revenue by Month (All Years Combined)</h4>
+            <canvas id="chart-retail-monthly-revenue"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Analysis -->
+      <div class="content-section fade-in">
+        <h2>Category Performance</h2>
+        <p>Computers dominate with $19.3M revenue (34.6% share). Home Appliances ranks 2nd at $10.8M. Games &amp; Toys has the lowest revenue at $725K despite high transaction volume.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Revenue by Category</h4>
+            <canvas id="chart-retail-category-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Profit by Category</h4>
+            <canvas id="chart-retail-category-profit"></canvas>
+          </div>
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Quantity Sold by Category</h4>
+            <canvas id="chart-retail-category-qty"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand Analysis -->
+      <div class="content-section fade-in">
+        <h2>Brand Performance</h2>
+        <p>Adventure Works leads revenue at $11.8M. Contoso has the most orders (12,155) across 708 products. Top 3 brands account for 57% of total revenue.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Top 10 Brands by Revenue</h4>
+            <canvas id="chart-retail-brand-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Top 10 Brands by Order Count</h4>
+            <canvas id="chart-retail-brand-orders"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Geographic Analysis -->
+      <div class="content-section fade-in">
+        <h2>Geographic Analysis</h2>
+        <p>United States dominates with $29.9M in revenue (53.6%). The US has 5,706 customers &mdash; nearly 4&times; the next market (UK: 1,570).</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Revenue by Customer Country</h4>
+            <canvas id="chart-retail-country-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Customer Count by Country</h4>
+            <canvas id="chart-retail-country-customers"></canvas>
+          </div>
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Revenue by Store Location</h4>
+            <canvas id="chart-retail-store-country"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Online vs Physical -->
+      <div class="content-section fade-in">
+        <h2>Online vs Physical Store</h2>
+        <p>Physical stores generate 79.5% of revenue ($44.4M). Online channel contributes 20.5% ($11.4M) through 5,580 orders.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Revenue Split</h4>
+            <canvas id="chart-retail-channel-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Order Split</h4>
+            <canvas id="chart-retail-channel-orders"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gender Analysis -->
+      <div class="content-section fade-in">
+        <h2>Customer Demographics</h2>
+        <p>Near-equal gender split: Male customers account for $28.3M (50.8%) and Female $27.4M (49.2%). 6,029 male vs 5,858 female customers.</p>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h4>Revenue by Gender</h4>
+            <canvas id="chart-retail-gender-revenue"></canvas>
+          </div>
+          <div class="chart-container">
+            <h4>Customer Count by Gender</h4>
+            <canvas id="chart-retail-gender-customers"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Colors -->
+      <div class="content-section fade-in">
+        <h2>Product Color Analysis</h2>
+        <p>Black ($13.9M), White ($11.9M), and Silver ($10.4M) are the top-selling colors, accounting for 65% of total revenue.</p>
+        <div class="chart-grid">
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Top 10 Product Colors by Revenue</h4>
+            <canvas id="chart-retail-product-colors"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Subcategories -->
+      <div class="content-section fade-in">
+        <h2>Top Subcategories</h2>
+        <p>Desktops lead with $9.9M in revenue. Televisions ($4.3M) and Projectors ($3.8M) round out the top 3. Movie DVDs rank 7th by revenue but 1st by order count (7,784).</p>
+        <div class="chart-grid">
+          <div class="chart-container" style="grid-column: 1 / -1;">
+            <h4>Top 10 Subcategories by Revenue</h4>
+            <canvas id="chart-retail-subcategories"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== ANALYSIS PIPELINE ========== -->
+      <div class="content-section fade-in">
+        <h2>Analysis Pipeline</h2>
+        <div class="process-steps">
+          <div class="step"><div class="step-number">1</div><h4>Import Libraries</h4><p>Pandas, NumPy, Matplotlib, Seaborn with display settings configured.</p></div>
+          <div class="step"><div class="step-number">2</div><h4>Load Data</h4><p>Load Excel file &mdash; 62,884 rows &times; 31 columns of retail transaction data.</p></div>
+          <div class="step"><div class="step-number">3</div><h4>First Look</h4><p>head(), tail(), sample(10) to understand data structure and values.</p></div>
+          <div class="step"><div class="step-number">4</div><h4>Feature Engineering</h4><p>Created LineTotal, Profit, ProfitMargin, DeliveryDays, OrderYear, OrderMonth.</p></div>
+          <div class="step"><div class="step-number">5</div><h4>Missing Values</h4><p>2 columns with missing data. DeliveryDate: 79.06%, StateCode: 0.05%.</p></div>
+          <div class="step"><div class="step-number">6</div><h4>Numerical Analysis</h4><p>8 key numerical features &mdash; descriptive stats, histograms, box plots.</p></div>
+          <div class="step"><div class="step-number">7</div><h4>Correlation Analysis</h4><p>Heatmap of feature correlations. High-correlation pair detection (|r| &gt; 0.7).</p></div>
+          <div class="step"><div class="step-number">8</div><h4>Categorical Analysis</h4><p>8 categorical columns &mdash; gender, country, category, brand, color distributions.</p></div>
+          <div class="step"><div class="step-number">9</div><h4>Domain Analysis</h4><p>Revenue trends, categories, brands, geography, channels, demographics, delivery.</p></div>
+          <div class="step"><div class="step-number">10</div><h4>Data Quality Report</h4><p>Completeness scoring per column. Full quality assessment across all features.</p></div>
+        </div>
+      </div>
+
+      <!-- ========== CODE HIGHLIGHTS ========== -->
+      <div class="content-section fade-in">
+        <h2>Code Highlights</h2>
+
+        <h3>Data Loading &amp; Feature Engineering</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> seaborn <span class="kw">as</span> sns
+
+df = pd.read_excel(<span class="str">'Retail Sales Dataset.xlsx'</span>)
+<span class="fn">print</span>(<span class="str">f"Shape: {df.shape[0]:,} rows x {df.shape[1]} columns"</span>)
+<span class="cmt"># Output: Shape: 62,884 rows x 31 columns</span>
+
+<span class="cmt"># Feature engineering</span>
+df[<span class="str">'LineTotal'</span>] = df[<span class="str">'Quantity'</span>] * df[<span class="str">'ProductPrice'</span>]
+df[<span class="str">'Profit'</span>] = df[<span class="str">'LineTotal'</span>] - df[<span class="str">'Quantity'</span>] * df[<span class="str">'ProductCost'</span>]
+df[<span class="str">'DeliveryDays'</span>] = (df[<span class="str">'DeliveryDate'</span>] - df[<span class="str">'OrderDate'</span>]).dt.days</pre></div>
+        </div>
+
+        <h3>Revenue by Category</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre>category_revenue = df.groupby(<span class="str">'ProductCategory'</span>).agg(
+    Total_Revenue=(<span class="str">'LineTotal'</span>, <span class="str">'sum'</span>),
+    Total_Profit=(<span class="str">'Profit'</span>, <span class="str">'sum'</span>),
+    Order_Count=(<span class="str">'OrderNumber'</span>, <span class="str">'nunique'</span>)
+).round(<span class="num">2</span>).sort_values(<span class="str">'Total_Revenue'</span>, ascending=<span class="kw">False</span>)
+
+<span class="cmt"># Result:</span>
+<span class="cmt"># Computers         $19.3M  |  Profit $11.4M  |  10,990 orders</span>
+<span class="cmt"># Home Appliances   $10.8M  |  Profit  $6.1M  |   5,195 orders</span>
+<span class="cmt"># Cameras           $6.5M   |  Profit  $3.9M  |   4,995 orders</span>
+<span class="cmt"># Cell phones       $6.2M   |  Profit  $3.6M  |   8,442 orders</span></pre></div>
+        </div>
+
+        <h3>Geographic Analysis</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre>country_revenue = df.groupby(<span class="str">'CustomerCountry'</span>).agg(
+    Revenue=(<span class="str">'LineTotal'</span>, <span class="str">'sum'</span>),
+    Orders=(<span class="str">'OrderNumber'</span>, <span class="str">'nunique'</span>),
+    Customers=(<span class="str">'CustomerID'</span>, <span class="str">'nunique'</span>)
+).round(<span class="num">2</span>).sort_values(<span class="str">'Revenue'</span>, ascending=<span class="kw">False</span>)
+
+<span class="cmt"># US dominates: $29.9M revenue, 14,221 orders, 5,706 customers</span>
+<span class="cmt"># UK second: $7.1M, Germany third: $5.4M</span></pre></div>
+        </div>
+
+        <h3>Outlier Detection (IQR Method)</h3>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">Python</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="kw">for</span> col <span class="kw">in</span> [<span class="str">'Quantity'</span>, <span class="str">'ProductPrice'</span>, <span class="str">'LineTotal'</span>, <span class="str">'Profit'</span>]:
+    Q1 = df[col].quantile(<span class="num">0.25</span>)
+    Q3 = df[col].quantile(<span class="num">0.75</span>)
+    IQR = Q3 - Q1
+    lower = Q1 - <span class="num">1.5</span> * IQR
+    upper = Q3 + <span class="num">1.5</span> * IQR
+
+    outliers = df[(df[col] < lower) | (df[col] > upper)]
+    <span class="fn">print</span>(<span class="str">f"{col}: {len(outliers)} outliers ({len(outliers)/len(df)*100:.1f}%)"</span>)</pre></div>
+        </div>
+      </div>
+
+      <!-- Full Source Code Viewer -->
+      <div class="content-section fade-in">
+        <h2>Full Source Code</h2>
+        <p>Click to expand and view the notebook code structure:</p>
+
+        <div class="code-viewer">
+          <div class="code-viewer-header">
+            <div class="code-viewer-title">
+              <span class="file-icon">&#128196;</span>
+              <span class="file-name">eda-retail-sales-dataset.ipynb</span>
+              <span class="file-size">&mdash; Jupyter Notebook</span>
+            </div>
+            <div class="code-viewer-toggle">
+              View Source <span class="arrow">&#9660;</span>
+            </div>
+          </div>
+          <div class="code-viewer-body">
+            <pre><span class="line-num">  1</span><span class="cmt"># ============================================</span>
+<span class="line-num">  2</span><span class="cmt"># Exploratory Data Analysis - Retail Sales Dataset</span>
+<span class="line-num">  3</span><span class="cmt"># Jupyter Notebook: Step-by-Step Analysis</span>
+<span class="line-num">  4</span><span class="cmt"># 62,884 transactions | 31 columns | 2016-2021</span>
+<span class="line-num">  5</span><span class="cmt"># ============================================</span>
+<span class="line-num">  6</span>
+<span class="line-num">  7</span><span class="cmt"># Section 1: Import Libraries</span>
+<span class="line-num">  8</span><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="line-num">  9</span><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="line-num"> 10</span><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="line-num"> 11</span><span class="kw">import</span> seaborn <span class="kw">as</span> sns
+<span class="line-num"> 12</span>
+<span class="line-num"> 13</span><span class="cmt"># Section 2: Load Data</span>
+<span class="line-num"> 14</span>df = pd.read_excel(<span class="str">'Retail Sales Dataset.xlsx'</span>)
+<span class="line-num"> 15</span><span class="cmt"># Shape: 62,884 rows x 31 columns</span>
+<span class="line-num"> 16</span>
+<span class="line-num"> 17</span><span class="cmt"># Section 3-4: First Look &amp; Basic Info</span>
+<span class="line-num"> 18</span>df.head(); df.tail(); df.sample(<span class="num">10</span>)
+<span class="line-num"> 19</span>df.info(); df.describe()
+<span class="line-num"> 20</span>
+<span class="line-num"> 21</span><span class="cmt"># Section 5: Feature Engineering</span>
+<span class="line-num"> 22</span><span class="cmt"># LineTotal, Profit, ProfitMargin, DeliveryDays, OrderYear</span>
+<span class="line-num"> 23</span>
+<span class="line-num"> 24</span><span class="cmt"># Section 6: Missing Values Analysis</span>
+<span class="line-num"> 25</span><span class="cmt"># DeliveryDate: 79.06% missing, StateCode: 0.05%</span>
+<span class="line-num"> 26</span>
+<span class="line-num"> 27</span><span class="cmt"># Section 7-8: Numerical &amp; Correlation Analysis</span>
+<span class="line-num"> 28</span><span class="cmt"># 8 key features, histograms, box plots, heatmap</span>
+<span class="line-num"> 29</span>
+<span class="line-num"> 30</span><span class="cmt"># Section 9: Categorical Features Analysis</span>
+<span class="line-num"> 31</span><span class="cmt"># Gender, Country, Category, Brand, Color</span>
+<span class="line-num"> 32</span>
+<span class="line-num"> 33</span><span class="cmt"># Section 10: Retail-Specific Analysis</span>
+<span class="line-num"> 34</span><span class="cmt"># 10.1 Revenue Analysis (Total: $55.8M)</span>
+<span class="line-num"> 35</span><span class="cmt"># 10.2 Revenue Trend (Peak: 2019 @ $18.3M)</span>
+<span class="line-num"> 36</span><span class="cmt"># 10.3 Category Analysis (Top: Computers $19.3M)</span>
+<span class="line-num"> 37</span><span class="cmt"># 10.4 Brand Analysis (Top: Adventure Works $11.8M)</span>
+<span class="line-num"> 38</span><span class="cmt"># 10.5 Geographic Analysis (Top: US $29.9M)</span>
+<span class="line-num"> 39</span><span class="cmt"># 10.6 Customer Demographics (Male 50.8%)</span>
+<span class="line-num"> 40</span><span class="cmt"># 10.7 Product Colors (Top: Black $13.9M)</span>
+<span class="line-num"> 41</span><span class="cmt"># 10.8 Delivery Analysis (Avg: 4.5 days)</span>
+<span class="line-num"> 42</span><span class="cmt"># 10.9 Subcategory Deep Dive</span>
+<span class="line-num"> 43</span>
+<span class="line-num"> 44</span><span class="cmt"># Section 11: Outlier Detection (IQR Method)</span>
+<span class="line-num"> 45</span>
+<span class="line-num"> 46</span><span class="cmt"># Section 12: Data Quality Report</span>
+<span class="line-num"> 47</span>
+<span class="line-num"> 48</span><span class="cmt"># Section 13: Key Insights Summary</span></pre>
+          </div>
+        </div>
+
+        <p style="margin-top:1rem;font-size:0.9rem">
+          <a href="src/eda-retail-sales-dataset.ipynb" download>&#11015; Download the full notebook</a>
+        </p>
+      </div>
+
+      <!-- Key Findings -->
+      <div class="content-section fade-in">
+        <h2>Key Findings</h2>
+        <div class="highlight-box">
+          <h4>Revenue Insights</h4>
+          <ul>
+            <li>Total Revenue: <strong>$55,755,480</strong> across 26,326 orders (Avg Order Value: $2,118)</li>
+            <li>Total Profit: <strong>$32,662,688</strong> with an overall margin of <strong>58.6%</strong></li>
+            <li>Revenue peaked in <strong>2019</strong> at $18.3M before declining in 2020&ndash;2021</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Category &amp; Brand Performance</h4>
+          <ul>
+            <li>Computers dominate at <strong>$19.3M</strong> (34.6% of revenue), followed by Home Appliances ($10.8M)</li>
+            <li>Adventure Works is the top brand ($11.8M), followed by Contoso ($10.8M) and Wide World Importers ($9.2M)</li>
+            <li>Desktops subcategory alone generates $9.9M &mdash; <strong>17.8% of total revenue</strong></li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Geographic Distribution</h4>
+          <ul>
+            <li>United States leads with <strong>$29.9M</strong> (53.6%), followed by UK ($7.1M) and Germany ($5.4M)</li>
+            <li>8 customer countries across North America, Europe, and Oceania</li>
+            <li>58 stores across 9 locations including an Online channel</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Channel &amp; Customer Insights</h4>
+          <ul>
+            <li>Physical stores generate <strong>79.5%</strong> of revenue; Online contributes 20.5%</li>
+            <li>Near-equal gender split: Male 50.8% ($28.3M) vs Female 49.2% ($27.4M)</li>
+            <li>11,887 unique customers with avg 2.2 orders per customer</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Seasonal Patterns</h4>
+          <ul>
+            <li>February ($7.8M) and December ($7.5M) are the strongest revenue months</li>
+            <li>April is the weakest month at just $607K &mdash; potential seasonal dip</li>
+            <li>Black, White, and Silver products account for <strong>65%</strong> of total revenue</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Data Quality &amp; Delivery</h4>
+          <ul>
+            <li>DeliveryDate is <strong>79.06%</strong> missing (49,719 transactions) &mdash; likely in-store pickups</li>
+            <li>For orders with delivery data: average <strong>4.5 days</strong> (range: 1&ndash;17 days)</li>
+            <li>2,492 unique products across 32 subcategories and 10 brands</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Generated Outputs -->
+      <div class="content-section fade-in">
+        <h2>Generated Outputs</h2>
+        <table class="styled-table">
+          <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Missing Values Chart</td><td>Bar Chart</td><td>Horizontal bar chart of missing value percentages (2 columns)</td></tr>
+            <tr><td>Revenue Distribution</td><td>Histogram</td><td>Order value distribution across 8 bins ($0&ndash;$50K)</td></tr>
+            <tr><td>Revenue Trend</td><td>Line + Bar</td><td>Yearly revenue trend (2016&ndash;2021) with order count</td></tr>
+            <tr><td>Monthly Pattern</td><td>Bar Chart</td><td>Revenue by month showing seasonal patterns</td></tr>
+            <tr><td>Category Performance</td><td>3-Panel Chart</td><td>Revenue, profit, and quantity by product category</td></tr>
+            <tr><td>Brand Analysis</td><td>2-Panel Chart</td><td>Top 10 brands by revenue and order count</td></tr>
+            <tr><td>Geographic Analysis</td><td>3-Panel Chart</td><td>Revenue by country, customer count, store locations</td></tr>
+            <tr><td>Channel Analysis</td><td>2 Doughnut</td><td>Online vs Physical store revenue and order split</td></tr>
+            <tr><td>Gender Analysis</td><td>Doughnut + Bar</td><td>Revenue and customer count by gender</td></tr>
+            <tr><td>Product Colors</td><td>Bar Chart</td><td>Top 10 product colors by revenue</td></tr>
+            <tr><td>Subcategory Ranking</td><td>Bar Chart</td><td>Top 10 subcategories by revenue</td></tr>
+            <tr><td>Data Quality Report</td><td>Table</td><td>Completeness, missing %, unique values for all columns</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="joke-section">
+    <div class="joke-section-header">Random Joke</div>
+    <div id="joke-content"><span class="joke-loading">Loading joke...</span></div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-social">
+        <a href="mailto:anuragmesh@gmail.com">&#9993; Email</a>
+        <a href="https://tiny.cc/c9zx001" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/charon9999/data-analyst-project" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="assets/resume/Anurag_Meshram_Resume.pdf" download>Resume</a>
+      </div>
+      <p>&copy; 2026 Anurag Meshram. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/charts-retail.js"></script>
+  <script src="assets/js/joke.js"></script>
+</body>
+</html>

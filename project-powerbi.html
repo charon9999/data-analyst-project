@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power BI Dashboard | Anurag Meshram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Anurag <span>Meshram</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li class="nav-dropdown">
+          <a href="#">EDA</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-eda-ecommerce.html">E-Commerce</a>
+            <a href="project-eda-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">SQL Data Load</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-sql-ecommerce.html">E-Commerce</a>
+            <a href="project-sql-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">DB Schema</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-schema-ecommerce.html">E-Commerce</a>
+            <a href="project-schema-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li><a href="project-powerbi.html">Power BI</a></li>
+        <li class="nav-dropdown">
+          <a href="#">Web Scraper</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-scraper-odp.html">Office Depot (ODP)</a>
+            <a href="project-scraper-staples.html">Staples</a>
+          </div>
+        </li>
+        <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a><span class="separator">/</span><span>Power BI Dashboard</span>
+          </div>
+          <h1 class="project-title">Sales Performance Dashboard</h1>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#128200;</span> 4-Page Interactive Dashboard</span>
+            <span class="meta-item"><span class="meta-icon">&#128202;</span> Retail Sales Dataset &mdash; 62K+ Transactions</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> Power BI, DAX, Power Query, Data Modeling</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag blue">Power BI</span><span class="tag blue">DAX</span>
+            <span class="tag blue">Power Query</span><span class="tag blue">Data Modeling</span>
+            <span class="tag cyan">Star Schema</span><span class="tag green">Date Table</span>
+          </div>
+          <div class="project-actions">
+            <a href="data/power_bi_dashboard.pbix" class="btn btn-sm btn-download" download>&#11015; Download .pbix File</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- Overview -->
+      <div class="content-section fade-in">
+        <h2>Project Overview</h2>
+        <p>A 4-page interactive Power BI dashboard built on the Retail Sales Dataset (62,884 transactions across 8 product categories, 58 stores, and 9 countries from 2016&ndash;2021). The dashboard provides executive-level KPIs, sales trend analysis with moving averages, product-level profitability rankings, and customer demographic segmentation &mdash; enabling stakeholders to make data-driven decisions at every level.</p>
+        <div class="info-grid">
+          <div class="info-card"><div class="value">$55.8M</div><div class="label">Total Revenue</div></div>
+          <div class="info-card"><div class="value">$32.7M</div><div class="label">Total Profit</div></div>
+          <div class="info-card"><div class="value">58.6%</div><div class="label">Profit Margin</div></div>
+          <div class="info-card"><div class="value">26.3K</div><div class="label">Total Orders</div></div>
+          <div class="info-card"><div class="value">198K</div><div class="label">Units Sold</div></div>
+          <div class="info-card"><div class="value">12K</div><div class="label">Customers</div></div>
+        </div>
+      </div>
+
+      <!-- ========== PAGE 1: EXECUTIVE SUMMARY ========== -->
+      <div class="content-section fade-in">
+        <h2>Page 1 &mdash; Executive Summary</h2>
+        <p>High-level overview with KPI cards, a revenue &amp; profit trend line, geographic revenue map, top 5 products, category donut chart, and key metrics tracking panel. Filterable by year, country, and category.</p>
+        <div class="dashboard-screenshot">
+          <img src="assets/images/dashboard_images/Screenshot 2026-02-13 174118.png" alt="Executive Summary Dashboard Page" loading="lazy">
+        </div>
+        <div class="highlight-box">
+          <h4>Key Insights from This Page</h4>
+          <ul>
+            <li><strong>$55.8M</strong> total revenue with <strong>$32.7M</strong> profit (58.6% margin) across 26.3K orders</li>
+            <li>Revenue &amp; Profit trend shows a clear peak in 2019 followed by a decline in 2020&ndash;2021</li>
+            <li>United States dominates the geographic revenue map, with strong contributions from the UK and Germany</li>
+            <li>Top 5 products by revenue are all high-value electronics (desktops and displays) led by WWI Desktop at $670K</li>
+            <li>Category donut chart reveals Computers ($19.3M) as the dominant segment at 34.6% of total revenue</li>
+            <li>Key Metrics Tracking: <strong>198K</strong> units sold, <strong>12K</strong> customers, <strong>$2.12K</strong> average order value</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ========== PAGE 2: SALES PERFORMANCE ANALYSIS ========== -->
+      <div class="content-section fade-in">
+        <h2>Page 2 &mdash; Sales Performance Analysis</h2>
+        <p>Deep-dive into sales trends with moving averages, best/worst month identification, top product spotlight, and country share by quarter. Filterable by year and category.</p>
+        <div class="dashboard-screenshot">
+          <img src="assets/images/dashboard_images/Screenshot 2026-02-13 174146.png" alt="Sales Performance Analysis Dashboard Page" loading="lazy">
+        </div>
+        <div class="highlight-box">
+          <h4>Key Insights from This Page</h4>
+          <ul>
+            <li>Monthly average revenue: <strong>$899.3K</strong> with an average order value of <strong>$2.1K</strong></li>
+            <li>Revenue with Moving Average chart shows clear seasonal patterns and the city-level moving average for trend smoothing</li>
+            <li>Best Product: <strong>WWI Desktop PC2.33 X2330 Black</strong> at $505.45K revenue</li>
+            <li>Best Month: <strong>December 2019</strong> at $2.48M &mdash; holiday season peak</li>
+            <li>Worst Month: <strong>April 2017</strong> at $58.6K &mdash; showing early-stage seasonal dip</li>
+            <li>Top 5 Country Share By Quarter: US consistently leads, with UK and Germany trading 2nd/3rd position across quarters</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ========== PAGE 3: PRODUCT ANALYSIS ========== -->
+      <div class="content-section fade-in">
+        <h2>Page 3 &mdash; Product Analysis</h2>
+        <p>Side-by-side comparison of the top 20 best and worst performing products by revenue and profit. Filterable by country, category, and customer for drill-down analysis.</p>
+        <div class="dashboard-screenshot">
+          <img src="assets/images/dashboard_images/Screenshot 2026-02-13 174205.png" alt="Product Analysis Dashboard Page" loading="lazy">
+        </div>
+        <div class="highlight-box">
+          <h4>Key Insights from This Page</h4>
+          <ul>
+            <li>Best performer: <strong>WWI Desktop PC2.33 X2330</strong> &mdash; $505.45K revenue, $305K profit, 60% margin</li>
+            <li>Top products are predominantly high-value <strong>desktops and displays</strong> from Adventure Works and Wide World Importers</li>
+            <li>Worst performers are low-price accessories (cables, chargers, stands) with minimal revenue contribution</li>
+            <li>Product table includes Cost, Price, Quantity, Total Profit, Total Revenue, and Profit % for complete profitability analysis</li>
+            <li>Actionable insight: Focus marketing spend on high-margin products while evaluating low-performers for discontinuation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ========== PAGE 4: CUSTOMER DEMOGRAPHICS ========== -->
+      <div class="content-section fade-in">
+        <h2>Page 4 &mdash; Customer Demographic &amp; Category Analysis</h2>
+        <p>Customer-centric analysis with gender distribution, top customers by revenue, and a revenue change by age group stacked area chart. Filterable by country, category, and individual customer.</p>
+        <div class="dashboard-screenshot">
+          <img src="assets/images/dashboard_images/Screenshot 2026-02-13 174224.png" alt="Customer Demographic Dashboard Page" loading="lazy">
+        </div>
+        <div class="highlight-box">
+          <h4>Key Insights from This Page</h4>
+          <ul>
+            <li><strong>12K</strong> total customers with an average customer value of <strong>$4.69K</strong></li>
+            <li>Gender distribution is near-equal: Male and Female customers contribute almost equally to revenue</li>
+            <li>Top Customers table shows individual customer details: Name, Gender, Age, City/State, and Total Revenue</li>
+            <li>Revenue Change By Age Group (stacked area chart) reveals spending patterns across different demographics by category</li>
+            <li>Category breakdown by age group shows Computers dominates across all age segments, with varying contributions from other categories</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ========== DEVELOPMENT PROCESS ========== -->
+      <div class="content-section fade-in">
+        <h2>Development Process</h2>
+        <p>End-to-end workflow from raw Excel data to a polished interactive dashboard:</p>
+        <div class="process-steps stagger-children">
+          <div class="step"><div class="step-number">1</div><h4>Data Load &amp; Import</h4><p>Loaded 62,884 rows from <em>Retail Sales Dataset.xlsx</em> into Power BI using Power Query. Verified column types, handled null values, and validated data integrity.</p></div>
+          <div class="step"><div class="step-number">2</div><h4>Data Cleaning (Power Query)</h4><p>Promoted headers, set correct data types (dates, decimals, integers). Filtered out anomalies. Split and trimmed text columns for consistency.</p></div>
+          <div class="step"><div class="step-number">3</div><h4>Data Modeling (Star Schema)</h4><p>Built a star schema with fact and dimension tables. Established one-to-many relationships between orders, customers, stores, products, and categories.</p></div>
+          <div class="step"><div class="step-number">4</div><h4>Date Table Creation</h4><p>Created a dedicated Date dimension table using DAX <code>CALENDARAUTO()</code> with Year, Quarter, Month, MonthName, and WeekDay columns for time intelligence.</p></div>
+          <div class="step"><div class="step-number">5</div><h4>DAX Measures</h4><p>Authored calculated measures: Total Revenue, Total Profit, Profit Margin %, AOV, Total Units Sold, Customer Count, MoM Growth, and Moving Averages.</p></div>
+          <div class="step"><div class="step-number">6</div><h4>Calculated Columns</h4><p>Added computed fields: Line Total (Qty &times; Price), Profit (Revenue &minus; Cost), Profit %, Customer Age, and Age Group binning for demographic analysis.</p></div>
+          <div class="step"><div class="step-number">7</div><h4>Visual Design &amp; Layout</h4><p>Designed 4 focused pages with KPI cards, line charts, bar charts, donut charts, maps, tables, and area charts. Applied consistent color theme and formatting.</p></div>
+          <div class="step"><div class="step-number">8</div><h4>Interactivity &amp; Filters</h4><p>Added slicers for Year, Country, Category, and Customer. Configured cross-filtering between visuals and drill-through capabilities for detail exploration.</p></div>
+        </div>
+      </div>
+
+      <!-- ========== DATE TABLE ========== -->
+      <div class="content-section fade-in">
+        <h2>Date Table &amp; Time Intelligence</h2>
+        <p>A dedicated Date dimension table is essential for time intelligence functions in Power BI. Created using DAX for seamless integration with the data model:</p>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">DAX</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="cmt">// Create Date Table</span>
+DateTable =
+<span class="kw">VAR</span> MinDate = <span class="sf">MIN</span>(Orders[OrderDate])
+<span class="kw">VAR</span> MaxDate = <span class="sf">MAX</span>(Orders[OrderDate])
+<span class="kw">RETURN</span>
+    <span class="sf">ADDCOLUMNS</span>(
+        <span class="sf">CALENDAR</span>(MinDate, MaxDate),
+        <span class="str">"Year"</span>,        <span class="sf">YEAR</span>([Date]),
+        <span class="str">"Quarter"</span>,     <span class="str">"Q"</span> &amp; <span class="sf">QUARTER</span>([Date]),
+        <span class="str">"Month"</span>,       <span class="sf">MONTH</span>([Date]),
+        <span class="str">"MonthName"</span>,   <span class="sf">FORMAT</span>([Date], <span class="str">"MMMM"</span>),
+        <span class="str">"MonthShort"</span>,  <span class="sf">FORMAT</span>([Date], <span class="str">"MMM"</span>),
+        <span class="str">"WeekDay"</span>,     <span class="sf">FORMAT</span>([Date], <span class="str">"dddd"</span>),
+        <span class="str">"DayOfWeek"</span>,   <span class="sf">WEEKDAY</span>([Date], <span class="num">2</span>)
+    )</pre></div>
+        </div>
+        <p>The Date table is marked as a date table in the model and linked to the <code>OrderDate</code> column in the fact table, enabling DAX time intelligence functions like <code>DATEADD</code>, <code>SAMEPERIODLASTYEAR</code>, and <code>TOTALYTD</code>.</p>
+      </div>
+
+      <!-- ========== DAX MEASURES ========== -->
+      <div class="content-section fade-in">
+        <h2>DAX Measures</h2>
+        <p>Custom DAX measures powering all KPI cards, charts, and dynamic calculations across the dashboard:</p>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">DAX</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="cmt">// Total Revenue</span>
+Total Revenue = <span class="sf">SUMX</span>(Sales, Sales[Quantity] * <span class="sf">RELATED</span>(Products[Price]))
+
+<span class="cmt">// Total Cost</span>
+Total Cost = <span class="sf">SUMX</span>(Sales, Sales[Quantity] * <span class="sf">RELATED</span>(Products[Cost]))
+
+<span class="cmt">// Total Profit</span>
+Total Profit = [Total Revenue] - [Total Cost]
+
+<span class="cmt">// Profit Margin %</span>
+Profit Margin % = <span class="sf">DIVIDE</span>([Total Profit], [Total Revenue], <span class="num">0</span>) * <span class="num">100</span>
+
+<span class="cmt">// Total Orders</span>
+Total Orders = <span class="sf">DISTINCTCOUNT</span>(Sales[OrderNumber])
+
+<span class="cmt">// Total Units Sold</span>
+Total Units Sold = <span class="sf">SUM</span>(Sales[Quantity])
+
+<span class="cmt">// Average Order Value</span>
+Avg Order Value =
+    <span class="sf">DIVIDE</span>(
+        [Total Revenue],
+        [Total Orders],
+        <span class="num">0</span>
+    )
+
+<span class="cmt">// Avg Customer Value</span>
+Avg Customer Value =
+    <span class="sf">DIVIDE</span>(
+        [Total Revenue],
+        <span class="sf">DISTINCTCOUNT</span>(Sales[CustomerID]),
+        <span class="num">0</span>
+    )
+
+<span class="cmt">// Monthly Avg Revenue</span>
+Monthly Avg Revenue =
+    <span class="sf">AVERAGEX</span>(
+        <span class="sf">VALUES</span>(DateTable[MonthName]),
+        [Total Revenue]
+    )
+
+<span class="cmt">// Revenue Month-over-Month Growth %</span>
+MoM Growth % =
+    <span class="kw">VAR</span> CurrentMonth = [Total Revenue]
+    <span class="kw">VAR</span> PreviousMonth =
+        <span class="sf">CALCULATE</span>(
+            [Total Revenue],
+            <span class="sf">DATEADD</span>(DateTable[Date], <span class="num">-1</span>, <span class="kw">MONTH</span>)
+        )
+    <span class="kw">RETURN</span>
+        <span class="sf">DIVIDE</span>(CurrentMonth - PreviousMonth, PreviousMonth, <span class="num">0</span>) * <span class="num">100</span>
+
+<span class="cmt">// City Moving Average (for Sales Analysis page)</span>
+City Moving Avg =
+    <span class="sf">AVERAGEX</span>(
+        <span class="sf">DATESINPERIOD</span>(DateTable[Date], <span class="sf">MAX</span>(DateTable[Date]), <span class="num">-3</span>, <span class="kw">MONTH</span>),
+        [Total Revenue]
+    )</pre></div>
+        </div>
+      </div>
+
+      <!-- ========== DATA MODEL ========== -->
+      <div class="content-section fade-in">
+        <h2>Data Model</h2>
+        <p>Star schema design with a central fact table (Sales/Order Line Items) surrounded by dimension tables for optimal query performance and clean relationships:</p>
+        <div class="highlight-box">
+          <h4>Fact Table</h4>
+          <ul>
+            <li><strong>Sales (Order Line Items)</strong> &mdash; 62,884 rows: TransactionID, OrderNumber, LineItem, ProductID, Quantity, OrderDate, DeliveryDate, CustomerID, StoreID</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Dimension Tables</h4>
+          <ul>
+            <li><strong>Customers</strong> &mdash; 11,887 records: CustomerID, Name, Gender, City, State, Country, Continent, DOB</li>
+            <li><strong>Products</strong> &mdash; 2,492 records: ProductID, Name, Brand, Color, Cost, Price, SubcategoryID</li>
+            <li><strong>Product Categories</strong> &mdash; 8 categories with 32 subcategories (hierarchy)</li>
+            <li><strong>Stores</strong> &mdash; 58 stores: StoreID, Country, State, SqMeters, OpenDate</li>
+            <li><strong>DateTable</strong> &mdash; Auto-generated calendar: Date, Year, Quarter, Month, MonthName, WeekDay</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Relationships</h4>
+          <ul>
+            <li>Sales[CustomerID] &rarr; Customers[CustomerID] (Many-to-One)</li>
+            <li>Sales[ProductID] &rarr; Products[ProductID] (Many-to-One)</li>
+            <li>Sales[StoreID] &rarr; Stores[StoreID] (Many-to-One)</li>
+            <li>Sales[OrderDate] &rarr; DateTable[Date] (Many-to-One)</li>
+            <li>Products[SubcategoryID] &rarr; Subcategories[SubcategoryID] (Many-to-One)</li>
+            <li>Subcategories[CategoryID] &rarr; Categories[CategoryID] (Many-to-One)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ========== CALCULATED COLUMNS ========== -->
+      <div class="content-section fade-in">
+        <h2>Calculated Columns</h2>
+        <p>DAX calculated columns added to enrich the data model for analysis:</p>
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">DAX</span><div class="code-dots"><span></span><span></span><span></span></div></div>
+          <div class="code-body"><pre><span class="cmt">// Line Total (Revenue per line item)</span>
+Line Total = Sales[Quantity] * <span class="sf">RELATED</span>(Products[Price])
+
+<span class="cmt">// Line Cost</span>
+Line Cost = Sales[Quantity] * <span class="sf">RELATED</span>(Products[Cost])
+
+<span class="cmt">// Line Profit</span>
+Line Profit = Sales[Line Total] - Sales[Line Cost]
+
+<span class="cmt">// Profit % per line</span>
+Profit % = <span class="sf">DIVIDE</span>(Sales[Line Profit], Sales[Line Total], <span class="num">0</span>) * <span class="num">100</span>
+
+<span class="cmt">// Customer Age</span>
+Customer Age =
+    <span class="sf">DATEDIFF</span>(
+        Customers[DOB],
+        <span class="sf">TODAY</span>(),
+        <span class="kw">YEAR</span>
+    )
+
+<span class="cmt">// Age Group (for demographic analysis)</span>
+Age Group =
+    <span class="kw">SWITCH</span>(
+        <span class="kw">TRUE</span>(),
+        Customers[Customer Age] < <span class="num">25</span>, <span class="str">"18-24"</span>,
+        Customers[Customer Age] < <span class="num">35</span>, <span class="str">"25-34"</span>,
+        Customers[Customer Age] < <span class="num">45</span>, <span class="str">"35-44"</span>,
+        Customers[Customer Age] < <span class="num">55</span>, <span class="str">"45-54"</span>,
+        Customers[Customer Age] < <span class="num">65</span>, <span class="str">"55-64"</span>,
+        <span class="str">"65+"</span>
+    )</pre></div>
+        </div>
+      </div>
+
+      <!-- ========== INTERACTIVE FEATURES ========== -->
+      <div class="content-section fade-in">
+        <h2>Interactive Features</h2>
+        <div class="process-steps stagger-children">
+          <div class="step"><div class="step-number">1</div><h4>Year Slicer</h4><p>Filter all visuals by year (2016&ndash;2021) to analyze trends for specific time periods.</p></div>
+          <div class="step"><div class="step-number">2</div><h4>Country Filter</h4><p>Drill into specific countries across all pages to compare geographic performance.</p></div>
+          <div class="step"><div class="step-number">3</div><h4>Category Slicer</h4><p>Filter by product category (Computers, Home Appliances, etc.) for focused analysis.</p></div>
+          <div class="step"><div class="step-number">4</div><h4>Customer Filter</h4><p>Select individual customers to view their complete purchase history and demographics.</p></div>
+          <div class="step"><div class="step-number">5</div><h4>Cross-Filtering</h4><p>Click any visual element to dynamically cross-filter all other charts on the page.</p></div>
+          <div class="step"><div class="step-number">6</div><h4>Page Navigation</h4><p>Tab-based navigation across 4 pages: Executive Summary, Sales Analysis, Product Analysis, Demographics.</p></div>
+        </div>
+      </div>
+
+      <!-- ========== BUSINESS VALUE ========== -->
+      <div class="content-section fade-in">
+        <h2>Business Value &amp; Insights Delivered</h2>
+        <div class="highlight-box">
+          <h4>Executive Decision Support</h4>
+          <ul>
+            <li>At-a-glance KPIs: $55.8M revenue, $32.7M profit, 58.6% margin, 26.3K orders, 198K units, 12K customers</li>
+            <li>Revenue trend with moving average identifies seasonal peaks (Dec) and troughs (Apr) for planning</li>
+            <li>Geographic map reveals US as the dominant market (53.6% of revenue) for resource allocation</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Product Strategy</h4>
+          <ul>
+            <li>Top 20 vs Bottom 20 product comparison enables data-driven portfolio decisions</li>
+            <li>High-margin products (desktops, displays) clearly identified for marketing investment</li>
+            <li>Low-value accessories flagged for potential discontinuation or bundling strategies</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Customer Intelligence</h4>
+          <ul>
+            <li>$4.69K average customer value benchmarks customer acquisition cost targets</li>
+            <li>Age group analysis by category reveals demographic preferences for targeted campaigns</li>
+            <li>Gender-balanced customer base (near 50/50) informs inclusive marketing strategy</li>
+          </ul>
+        </div>
+        <div class="highlight-box">
+          <h4>Sales Trend Monitoring</h4>
+          <ul>
+            <li>Moving average smooths volatility to reveal true underlying sales trajectory</li>
+            <li>Best/Worst month identification supports inventory planning and promotional timing</li>
+            <li>Country share by quarter tracks market evolution and competitive dynamics</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="joke-section">
+    <div class="joke-section-header">Random Joke</div>
+    <div id="joke-content"><span class="joke-loading">Loading joke...</span></div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-social">
+        <a href="mailto:anuragmesh@gmail.com">&#9993; Email</a>
+        <a href="https://tiny.cc/c9zx001" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/charon9999/data-analyst-project" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="assets/resume/Anurag_Meshram_Resume.pdf" download>Resume</a>
+      </div>
+      <p>&copy; 2026 Anurag Meshram. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/joke.js"></script>
+</body>
+</html>

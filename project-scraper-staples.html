@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staples Web Scraper | Anurag Meshram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Anurag <span>Meshram</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li class="nav-dropdown">
+          <a href="#">EDA</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-eda-ecommerce.html">E-Commerce</a>
+            <a href="project-eda-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">SQL Data Load</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-sql-ecommerce.html">E-Commerce</a>
+            <a href="project-sql-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#">DB Schema</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-schema-ecommerce.html">E-Commerce</a>
+            <a href="project-schema-retail.html">Retail Sales</a>
+          </div>
+        </li>
+        <li><a href="project-powerbi.html">Power BI</a></li>
+        <li class="nav-dropdown">
+          <a href="#">Web Scraper</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-scraper-odp.html">Office Depot (ODP)</a>
+            <a href="project-scraper-staples.html">Staples</a>
+          </div>
+        </li>
+        <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero-content fade-in">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <span>Web Scraper &mdash; Staples</span>
+          </div>
+          <h1 class="project-title">Web Scraper &mdash; Staples</h1>
+          <p style="color:var(--text-secondary);margin-bottom:1rem;">Extracts product data from Staples Advantage by hitting their <strong>internal JSON API</strong> directly. No HTML parsing or browser automation needed &mdash; pure HTTP requests for fast, lightweight scraping.</p>
+          <div class="project-meta">
+            <span class="meta-item"><span class="meta-icon">&#9881;</span> Internal API Access</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> Python, Requests, JSON</span>
+            <span class="meta-item"><span class="meta-icon">&#128230;</span> JSON + Image Storage</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag blue">Requests</span>
+            <span class="tag green">JSON API</span>
+            <span class="tag cyan">No Selenium</span>
+            <span class="tag orange">REST API</span>
+          </div>
+          <div class="project-actions">
+            <a href="src/staples_scraper.py" class="btn btn-sm btn-outline" download>&#11015; Download staples_scraper.py</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- How It Works -->
+      <div class="content-section fade-in">
+        <h2>How It Works</h2>
+        <div class="scraper-pipeline">
+          <div class="pipeline-step">
+            <div class="pipeline-step-number">1</div>
+            <div class="pipeline-step-body">
+              <h4>Extract Product ID</h4>
+              <p>Parses the numeric product ID from the Staples URL using regex. Constructs the internal API endpoint: <code>/ele-lpd/api/sba-sku/product_{id}</code>.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-number">2</div>
+            <div class="pipeline-step-body">
+              <h4>Hit Internal API</h4>
+              <p>Makes a direct HTTP GET to the Staples Advantage backend API. Handles JSON-based 301 redirects (Staples returns the redirect path inside the response body). No browser automation needed.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-number">3</div>
+            <div class="pipeline-step-body">
+              <h4>Parse JSON Response</h4>
+              <p>Extracts product name, pricing, specifications, description bullets, reviews (rating + count), image URLs, and availability from the structured <code>SBASkuState</code> JSON response.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-number">4</div>
+            <div class="pipeline-step-body">
+              <h4>Download &amp; Store</h4>
+              <p>Downloads product images directly via HTTP from Staples' image CDN. Saves everything as structured JSON with local image references.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scraped Product Demo Output -->
+      <div class="content-section fade-in">
+        <h2>Demo Output <span class="scraper-demo-badge">SKU 135848</span></h2>
+        <p class="scraper-demo-note">Below is the actual output from running the Staples scraper on SKU <strong>135848</strong> from Staples Advantage.</p>
+        <div class="product-detail">
+          <div class="product-images-col">
+            <div class="product-main-image">
+              <img id="result-main-img" src="" alt="Product image">
+            </div>
+            <div class="product-thumbnails" id="result-thumbnails"></div>
+          </div>
+          <div class="product-info">
+            <h3 id="result-name"></h3>
+            <div class="product-price" id="result-price"></div>
+            <div class="product-sku">SKU: <span id="result-sku"></span></div>
+            <p id="result-description"></p>
+            <div id="result-features"></div>
+            <div id="result-specs" class="product-specs"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Raw JSON Output -->
+      <div class="content-section fade-in">
+        <h2>Raw JSON Output</h2>
+        <p class="scraper-demo-note">The scraper outputs structured JSON. Below is the exact data extracted for this product.</p>
+        <pre class="scraper-json-output" id="json-output"></pre>
+      </div>
+
+      <!-- Architecture Workflow -->
+      <div class="content-section fade-in">
+        <h2>Architecture &amp; Workflow</h2>
+        <p class="scraper-demo-note">End-to-end data flow from product URL to structured output. Staples uses a pure API approach &mdash; no HTML parsing or Selenium needed, making it significantly faster and lighter than traditional scrapers.</p>
+        <div class="workflow-diagram">
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--input">
+              <div class="workflow-node-icon">&#9881;</div>
+              <div class="workflow-node-label">Product URL</div>
+              <div class="workflow-node-sub">Extract product ID</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--registry">
+              <div class="workflow-node-icon">&#128218;</div>
+              <div class="workflow-node-label">Scraper Registry</div>
+              <div class="workflow-node-sub">Route to Staples</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--supplier">
+              <div class="workflow-node-icon">&#127959;</div>
+              <div class="workflow-node-label">Staples Scraper</div>
+              <div class="workflow-node-sub">API-based (no Selenium)</div>
+            </div>
+          </div>
+
+          <div class="workflow-connector">&#8595;</div>
+
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--fetch">
+              <div class="workflow-node-icon">&#127760;</div>
+              <div class="workflow-node-label">API Request</div>
+              <div class="workflow-node-sub">/ele-lpd/api/sba-sku/</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--parse">
+              <div class="workflow-node-icon">&#128269;</div>
+              <div class="workflow-node-label">JSON Parse</div>
+              <div class="workflow-node-sub">SBASkuState response</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--selenium">
+              <div class="workflow-node-icon">&#128444;</div>
+              <div class="workflow-node-label">Image Download</div>
+              <div class="workflow-node-sub">Direct HTTP (no browser)</div>
+            </div>
+          </div>
+
+          <div class="workflow-connector">&#8595;</div>
+
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--dedup">
+              <div class="workflow-node-icon">&#128737;</div>
+              <div class="workflow-node-label">Data Extraction</div>
+              <div class="workflow-node-sub">Specs, reviews, pricing</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--download">
+              <div class="workflow-node-icon">&#128190;</div>
+              <div class="workflow-node-label">Save to Disk</div>
+              <div class="workflow-node-sub">Images + JSON</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--output">
+              <div class="workflow-node-icon">&#128202;</div>
+              <div class="workflow-node-label">Structured Output</div>
+              <div class="workflow-node-sub">product.json</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-notes">
+          <div class="workflow-note">
+            <h4>API-First Approach</h4>
+            <p>Staples Advantage exposes an internal <code>ele-lpd</code> API that returns structured JSON. By calling it directly, we skip HTML parsing and browser automation entirely &mdash; making scraping <strong>5-10x faster</strong> than Selenium-based approaches.</p>
+          </div>
+          <div class="workflow-note">
+            <h4>JSON Redirect Handling</h4>
+            <p>Staples returns 301 redirects <em>inside the JSON body</em> (not as HTTP headers). The scraper detects <code>"status": 301</code> in the response and follows the <code>"path"</code> field to construct the canonical API URL.</p>
+          </div>
+          <div class="workflow-note">
+            <h4>Registry Pattern</h4>
+            <p>Each supplier implements a common interface. The registry maps supplier keys (e.g. <code>"odp"</code>, <code>"staples"</code>) to their scraper class, enabling plug-and-play supplier additions without modifying core logic.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Source Code -->
+      <div class="content-section fade-in">
+        <h2>Source Code</h2>
+
+        <!-- Staples Scraper -->
+        <div class="code-viewer">
+          <div class="code-viewer-header">
+            <div class="code-viewer-title">
+              <span class="file-icon">&#128013;</span>
+              <span class="file-name">staples_scraper.py</span>
+              <span class="file-size">&mdash; Staples Advantage Scraper (API-based)</span>
+            </div>
+            <div class="code-viewer-toggle">View Source <span class="arrow">&#9660;</span></div>
+          </div>
+          <div class="code-viewer-body">
+            <pre><span class="line-num">  1</span><span class="kw">import</span> requests, json, os, re, time
+<span class="line-num">  2</span><span class="kw">from</span> urllib.parse <span class="kw">import</span> urljoin, urlparse
+<span class="line-num">  3</span>
+<span class="line-num">  4</span>
+<span class="line-num">  5</span><span class="kw">class</span> <span class="typ">StaplesAdvantageScraperr</span>:
+<span class="line-num">  6</span>    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="par">self</span>, output_dir=<span class="str">"staples_products"</span>):
+<span class="line-num">  7</span>        self.output_dir = output_dir
+<span class="line-num">  8</span>        self.images_dir = os.path.join(output_dir, <span class="str">"images"</span>)
+<span class="line-num">  9</span>        os.makedirs(self.images_dir, exist_ok=<span class="kw">True</span>)
+<span class="line-num"> 10</span>        self.session = requests.Session()
+<span class="line-num"> 11</span>        self.headers = {
+<span class="line-num"> 12</span>            <span class="str">'User-Agent'</span>: <span class="str">'Mozilla/5.0 (Windows NT 10.0; ...'</span>,
+<span class="line-num"> 13</span>            <span class="str">'Accept'</span>: <span class="str">'application/json, text/plain, */*'</span>,
+<span class="line-num"> 14</span>            <span class="str">'Referer'</span>: <span class="str">'https://www.staplesadvantage.com/'</span>,
+<span class="line-num"> 15</span>        }
+<span class="line-num"> 16</span>
+<span class="line-num"> 17</span>    <span class="kw">def</span> <span class="fn">scrape_product</span>(<span class="par">self</span>, product_url):
+<span class="line-num"> 18</span>        <span class="str">"""Main scraping method &mdash; uses Staples internal API."""</span>
+<span class="line-num"> 19</span>
+<span class="line-num"> 20</span>        <span class="cmt"># Extract product ID from URL</span>
+<span class="line-num"> 21</span>        match = re.search(<span class="str">r'product[_/](\d+)'</span>, product_url)
+<span class="line-num"> 22</span>        product_id = match.group(<span class="num">1</span>)
+<span class="line-num"> 23</span>
+<span class="line-num"> 24</span>        <span class="cmt"># Construct API URL and fetch</span>
+<span class="line-num"> 25</span>        api_url = <span class="str">f"https://www.staplesadvantage.com/ele-lpd/api/sba-sku/product_{product_id}"</span>
+<span class="line-num"> 26</span>        response = self.session.get(api_url, headers=self.headers, timeout=<span class="num">30</span>)
+<span class="line-num"> 27</span>
+<span class="line-num"> 28</span>        <span class="cmt"># Handle 301 redirect (Staples returns redirect path in JSON body)</span>
+<span class="line-num"> 29</span>        <span class="kw">if</span> response.status_code == <span class="num">301</span> <span class="kw">or</span> <span class="str">'RedirectHandler'</span> <span class="kw">in</span> response.text:
+<span class="line-num"> 30</span>            redirect_data = response.json()
+<span class="line-num"> 31</span>            <span class="kw">if</span> redirect_data.get(<span class="str">'status'</span>) == <span class="num">301</span>:
+<span class="line-num"> 32</span>                redirect_path = redirect_data.get(<span class="str">'path'</span>, <span class="str">''</span>)
+<span class="line-num"> 33</span>                api_url = <span class="str">f"https://...sba-sku{redirect_path}"</span>
+<span class="line-num"> 34</span>                response = self.session.get(api_url, ...)
+<span class="line-num"> 35</span>
+<span class="line-num"> 36</span>        data = response.json()
+<span class="line-num"> 37</span>        <span class="kw">return</span> self.extract_product_data(data)
+<span class="line-num"> 38</span>
+<span class="line-num"> 39</span>    <span class="kw">def</span> <span class="fn">extract_product_data</span>(<span class="par">self</span>, api_response):
+<span class="line-num"> 40</span>        <span class="str">"""Extract and structure product data from API response."""</span>
+<span class="line-num"> 41</span>        sku_state = api_response.get(<span class="str">'SBASkuState'</span>, {})
+<span class="line-num"> 42</span>        items = sku_state.get(<span class="str">'skuData'</span>, {}).get(<span class="str">'items'</span>, [])
+<span class="line-num"> 43</span>        item = items[<span class="num">0</span>]
+<span class="line-num"> 44</span>        product = item.get(<span class="str">'product'</span>, {})
+<span class="line-num"> 45</span>        price_data = item.get(<span class="str">'price'</span>, {})
+<span class="line-num"> 46</span>
+<span class="line-num"> 47</span>        <span class="cmt"># Extract specifications from productAttributes</span>
+<span class="line-num"> 48</span>        specifications = {}
+<span class="line-num"> 49</span>        <span class="kw">for</span> spec <span class="kw">in</span> product.get(<span class="str">'productAttributes'</span>, []):
+<span class="line-num"> 50</span>            specifications[spec[<span class="str">'name'</span>]] = {
+<span class="line-num"> 51</span>                <span class="str">'value'</span>: spec[<span class="str">'value'</span>],
+<span class="line-num"> 52</span>                <span class="str">'description'</span>: spec.get(<span class="str">'dscr'</span>, <span class="str">''</span>)
+<span class="line-num"> 53</span>            }
+<span class="line-num"> 54</span>
+<span class="line-num"> 55</span>        <span class="cmt"># Get pricing from nested price structure</span>
+<span class="line-num"> 56</span>        price_items = price_data.get(<span class="str">'item'</span>, [])
+<span class="line-num"> 57</span>        price_text = price_items[<span class="num">0</span>].get(<span class="str">'finalPriceText'</span>, <span class="str">''</span>) <span class="kw">if</span> price_items <span class="kw">else</span> <span class="str">''</span>
+<span class="line-num"> 58</span>
+<span class="line-num"> 59</span>        <span class="cmt"># Extract images from mapItemToProductTile</span>
+<span class="line-num"> 60</span>        tile = item.get(<span class="str">'mapItemToProductTile'</span>, {})
+<span class="line-num"> 61</span>        image_urls = tile.get(<span class="str">'images'</span>, [])
+<span class="line-num"> 62</span>
+<span class="line-num"> 63</span>        <span class="cmt"># Download images</span>
+<span class="line-num"> 64</span>        <span class="kw">for</span> idx, img_url <span class="kw">in</span> <span class="fn">enumerate</span>(image_urls):
+<span class="line-num"> 65</span>            self.download_image(img_url, product_id, idx)
+<span class="line-num"> 66</span>
+<span class="line-num"> 67</span>        <span class="cmt"># Extract reviews</span>
+<span class="line-num"> 68</span>        review = product.get(<span class="str">'review'</span>, {})
+<span class="line-num"> 69</span>
+<span class="line-num"> 70</span>        <span class="kw">return</span> {
+<span class="line-num"> 71</span>            <span class="str">'sku'</span>: product.get(<span class="str">'partNumber'</span>),
+<span class="line-num"> 72</span>            <span class="str">'name'</span>: product.get(<span class="str">'name'</span>),
+<span class="line-num"> 73</span>            <span class="str">'brand'</span>: product.get(<span class="str">'brandName'</span>),
+<span class="line-num"> 74</span>            <span class="str">'manufacturer'</span>: product.get(<span class="str">'manufacturerName'</span>),
+<span class="line-num"> 75</span>            <span class="str">'price'</span>: price_text,
+<span class="line-num"> 76</span>            <span class="str">'uom'</span>: product.get(<span class="str">'uom'</span>),
+<span class="line-num"> 77</span>            <span class="str">'specifications'</span>: specifications,
+<span class="line-num"> 78</span>            <span class="str">'description'</span>: product.get(<span class="str">'description'</span>, {}),
+<span class="line-num"> 79</span>            <span class="str">'images'</span>: image_urls,
+<span class="line-num"> 80</span>            <span class="str">'reviews'</span>: {
+<span class="line-num"> 81</span>                <span class="str">'rating'</span>: review.get(<span class="str">'rating'</span>),
+<span class="line-num"> 82</span>                <span class="str">'count'</span>: review.get(<span class="str">'count'</span>),
+<span class="line-num"> 83</span>            },
+<span class="line-num"> 84</span>        }</pre>
+          </div>
+        </div>
+
+        <!-- Scraper Registry -->
+        <div class="code-viewer" style="margin-top:1.25rem">
+          <div class="code-viewer-header">
+            <div class="code-viewer-title">
+              <span class="file-icon">&#128013;</span>
+              <span class="file-name">__init__.py</span>
+              <span class="file-size">&mdash; Scraper Registry (plug-and-play suppliers)</span>
+            </div>
+            <div class="code-viewer-toggle">View Source <span class="arrow">&#9660;</span></div>
+          </div>
+          <div class="code-viewer-body">
+            <pre><span class="line-num">  1</span><span class="str">"""</span>
+<span class="line-num">  2</span><span class="str">Scraper Registry - maps supplier keys to scraper classes.</span>
+<span class="line-num">  3</span><span class="str">Add new suppliers here to extend the system.</span>
+<span class="line-num">  4</span><span class="str">"""</span>
+<span class="line-num">  5</span>
+<span class="line-num">  6</span><span class="kw">from</span> .odp_scraper <span class="kw">import</span> ODPScraper
+<span class="line-num">  7</span><span class="kw">from</span> .staples_scraper <span class="kw">import</span> StaplesAdvantageScraperr
+<span class="line-num">  8</span>
+<span class="line-num">  9</span>SCRAPER_REGISTRY = {
+<span class="line-num"> 10</span>    <span class="str">'odp'</span>: ODPScraper,
+<span class="line-num"> 11</span>    <span class="str">'staples'</span>: StaplesAdvantageScraperr,
+<span class="line-num"> 12</span>}
+<span class="line-num"> 13</span>
+<span class="line-num"> 14</span><span class="kw">def</span> <span class="fn">get_scraper</span>(supplier_key, **kwargs):
+<span class="line-num"> 15</span>    <span class="str">"""Get a scraper instance by supplier key."""</span>
+<span class="line-num"> 16</span>    cls = SCRAPER_REGISTRY.get(supplier_key)
+<span class="line-num"> 17</span>    <span class="kw">if</span> cls <span class="kw">is</span> <span class="kw">None</span>:
+<span class="line-num"> 18</span>        <span class="kw">raise</span> <span class="typ">ValueError</span>(<span class="str">f"Unknown supplier: </span>{supplier_key}<span class="str">"</span>)
+<span class="line-num"> 19</span>    <span class="kw">return</span> cls(**kwargs)
+<span class="line-num"> 20</span>
+<span class="line-num"> 21</span><span class="kw">def</span> <span class="fn">list_suppliers</span>():
+<span class="line-num"> 22</span>    <span class="str">"""List all available suppliers."""</span>
+<span class="line-num"> 23</span>    <span class="kw">return</span> [
+<span class="line-num"> 24</span>        {<span class="str">'key'</span>: k, <span class="str">'name'</span>: v.SUPPLIER_NAME}
+<span class="line-num"> 25</span>        <span class="kw">for</span> k, v <span class="kw">in</span> SCRAPER_REGISTRY.items()
+<span class="line-num"> 26</span>    ]</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Future Improvements / Roadmap -->
+      <div class="content-section fade-in">
+        <h2>Roadmap &amp; Improvements</h2>
+        <div class="improvements-grid">
+          <div class="improvement-card improvement-card--done">
+            <div class="improvement-status">Done</div>
+            <h4>Staples Supplier</h4>
+            <p>Added <code>StaplesAdvantageScraperr</code> class that uses the Staples internal API (<code>/ele-lpd/api/sba-sku/</code>) to extract product data, specs, images, and reviews. API-based approach &mdash; no Selenium needed.</p>
+            <div class="card-tags">
+              <span class="tag green">New Supplier</span>
+              <span class="tag">API-Based</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--planned">
+            <h4>ThreadPoolExecutor for Batch Scraping</h4>
+            <div class="improvement-status">Planned</div>
+            <p>Use <code>concurrent.futures.ThreadPoolExecutor</code> to scrape multiple SKUs in parallel. Each thread gets its own session, enabling 5-10x throughput for bulk operations.</p>
+            <div class="card-tags">
+              <span class="tag orange">Performance</span>
+              <span class="tag">Concurrency</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--idea">
+            <div class="improvement-status">Idea</div>
+            <h4>Rate Limiting &amp; Retry Logic</h4>
+            <p>Add exponential backoff with jitter for failed requests and per-domain rate limiting to avoid IP blocks during large batch runs.</p>
+            <div class="card-tags">
+              <span class="tag blue">Reliability</span>
+              <span class="tag">Production-Ready</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--idea">
+            <div class="improvement-status">Idea</div>
+            <h4>Price Change Tracking</h4>
+            <p>Store historical price data on re-scrape and track changes over time. Enables price trend analysis and alerts when products drop below a target price.</p>
+            <div class="card-tags">
+              <span class="tag cyan">Analytics</span>
+              <span class="tag">Data Pipeline</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--idea">
+            <div class="improvement-status">Idea</div>
+            <h4>Cross-Supplier Comparison</h4>
+            <p>Match products across ODP and Staples by UPC or manufacturer part number. Compare pricing, availability, and specifications side-by-side.</p>
+            <div class="card-tags">
+              <span class="tag orange">Analytics</span>
+              <span class="tag">Multi-Supplier</span>
+            </div>
+          </div>
+          <div class="improvement-card improvement-card--idea">
+            <div class="improvement-status">Idea</div>
+            <h4>Database Storage</h4>
+            <p>Replace flat JSON files with a SQLite/PostgreSQL backend. Enables SQL queries across all scraped products and cross-supplier comparison reports.</p>
+            <div class="card-tags">
+              <span class="tag blue">Storage</span>
+              <span class="tag">Scalability</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="joke-section">
+    <div class="joke-section-header">Random Joke</div>
+    <div id="joke-content"><span class="joke-loading">Loading joke...</span></div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-social">
+        <a href="mailto:anuragmesh@gmail.com">&#9993; Email</a>
+        <a href="https://tiny.cc/c9zx001" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/charon9999/data-analyst-project" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="experience.html">Experience</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="assets/resume/Anurag_Meshram_Resume.pdf" download>Resume</a>
+      </div>
+      <p>&copy; 2026 Anurag Meshram. Built with passion for data.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/scraper-staples.js"></script>
+  <script src="assets/js/joke.js"></script>
+</body>
+</html>

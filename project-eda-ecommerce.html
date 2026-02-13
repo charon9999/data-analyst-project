@@ -13,26 +13,39 @@
 
   <nav class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-logo">&lt;Anurag<span>Meshram</span>/&gt;</a>
+      <a href="index.html" class="nav-logo">Anurag <span>Meshram</span></a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="experience.html">Experience</a></li>
-        <li><a href="eda.html">EDA</a></li>
+        <li class="nav-dropdown">
+          <a href="#">EDA</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-eda-ecommerce.html">E-Commerce</a>
+            <a href="project-eda-retail.html">Retail Sales</a>
+          </div>
+        </li>
         <li class="nav-dropdown">
           <a href="#">SQL Data Load</a>
           <div class="nav-dropdown-menu">
-            <a href="sql-data-load.html">E-Commerce</a>
-            <a href="sql-data-load-retail.html">Retail Sales</a>
+            <a href="project-sql-ecommerce.html">E-Commerce</a>
+            <a href="project-sql-retail.html">Retail Sales</a>
           </div>
         </li>
         <li class="nav-dropdown">
           <a href="#">DB Schema</a>
           <div class="nav-dropdown-menu">
-            <a href="database-schema.html">E-Commerce</a>
-            <a href="database-schema-retail.html">Retail Sales</a>
+            <a href="project-schema-ecommerce.html">E-Commerce</a>
+            <a href="project-schema-retail.html">Retail Sales</a>
           </div>
         </li>
-        <li><a href="powerbi.html">Power BI</a></li>
+        <li><a href="project-powerbi.html">Power BI</a></li>
+        <li class="nav-dropdown">
+          <a href="#">Web Scraper</a>
+          <div class="nav-dropdown-menu">
+            <a href="project-scraper-odp.html">Office Depot (ODP)</a>
+            <a href="project-scraper-staples.html">Staples</a>
+          </div>
+        </li>
         <li><a href="assets/resume/Anurag_Meshram_Resume.pdf" class="nav-resume-btn" download>&#11015; Resume</a></li>
       </ul>
       <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
@@ -478,11 +491,17 @@ missing_data = missing_data[missing_data[<span class="str">'Missing_Count'</span
     </div>
   </div>
 
+  <div class="joke-section">
+    <div class="joke-section-header">Random Joke</div>
+    <div id="joke-content"><span class="joke-loading">Loading joke...</span></div>
+  </div>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-social">
         <a href="mailto:anuragmesh@gmail.com">&#9993; Email</a>
         <a href="https://tiny.cc/c9zx001" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/charon9999/data-analyst-project" target="_blank" rel="noopener">GitHub</a>
       </div>
       <div class="footer-links">
         <a href="index.html">Home</a><a href="experience.html">Experience</a>
@@ -495,5 +514,6 @@ missing_data = missing_data[missing_data[<span class="str">'Missing_Count'</span
 
   <script src="assets/js/main.js"></script>
   <script src="assets/js/charts.js"></script>
+  <script src="assets/js/joke.js"></script>
 </body>
 </html>
