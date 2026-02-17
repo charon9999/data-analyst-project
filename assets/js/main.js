@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Mobile dropdown toggle ---
   document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
     trigger.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1024) {
         e.preventDefault();
         trigger.closest('.nav-dropdown').classList.toggle('open');
       }
