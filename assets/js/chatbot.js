@@ -297,12 +297,34 @@
     return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
+  // ---- EXAMPLE ----
+  function fillExample() {
+    document.getElementById('cb-name').value = 'Sharpie S-Gel, Gel Pens, Medium Point (0.7mm), Black Ink Gel Pen, With Canister, 36 Count';
+    document.getElementById('cb-quantity').value = '200';
+    document.getElementById('cb-quantity-unit').value = '36 / Pack';
+    document.getElementById('cb-unit-price').value = '52.29';
+    document.getElementById('cb-total-price').value = '';
+    document.getElementById('cb-description').value = 'Sharpie S-Gel gel pens, medium point 0.7mm, black ink, with canister, 36 count per pack';
+
+    // Set supercategory and trigger category load
+    var superVal = 'Office Supplies';
+    var catVal = 'Writing Supplies & Instruments';
+    supercatSel.value = superVal;
+    var cats = categoriesData.filter(function (c) { return c.supercategory === superVal; })
+      .map(function (c) { return c.category; }).sort();
+    catSel.innerHTML = '<option value="">-- Select --</option>' +
+      cats.map(function (c) { return '<option value="' + escapeHtml(c) + '">' + escapeHtml(c) + '</option>'; }).join('');
+    catSel.value = catVal;
+  }
+
   // ---- INIT ----
   formEl.addEventListener('submit', handleSubmit);
   clearBtn.addEventListener('click', function () {
     if (loadHistory().length === 0) return;
     clearHistory();
   });
+  var exampleBtn = document.getElementById('chat-example');
+  if (exampleBtn) exampleBtn.addEventListener('click', fillExample);
 
   loadCategories();
   renderAllMessages(loadHistory());
