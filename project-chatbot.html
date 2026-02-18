@@ -87,6 +87,126 @@
         <p>Enter a product you currently purchase and the chatbot will find the best substitute products from our catalog using AI-powered semantic search (ChromaDB vector embeddings) combined with Gemini LLM reasoning. It calculates quantity conversions, compares pricing, and shows potential cost savings.</p>
       </div>
 
+      <!-- ========== END-TO-END ARCHITECTURE ========== -->
+      <div class="content-section fade-in">
+        <h2>End-to-End Architecture</h2>
+        <p>Complete data pipeline from web scraping to AI-powered product substitution:</p>
+
+        <div class="workflow-diagram">
+          <!-- Row 1: Data Collection -->
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--supplier">
+              <div class="workflow-node-icon">&#127760;</div>
+              <div class="workflow-node-label">Web Scrapers</div>
+              <div class="workflow-node-sub">ODP &amp; Staples</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--dedup">
+              <div class="workflow-node-icon">&#128450;</div>
+              <div class="workflow-node-label">MongoDB</div>
+              <div class="workflow-node-sub">Raw product data</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--parse">
+              <div class="workflow-node-icon">&#128295;</div>
+              <div class="workflow-node-label">Clean &amp; Transform</div>
+              <div class="workflow-node-sub">Pandas ETL</div>
+            </div>
+          </div>
+
+          <div class="workflow-notes">
+            <div class="workflow-note">&#9432; 121K+ products scraped from supplier websites and stored in MongoDB collections</div>
+          </div>
+
+          <!-- Row 2: Data Enrichment -->
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--fetch">
+              <div class="workflow-node-icon">&#128196;</div>
+              <div class="workflow-node-label">Negotiated Prices</div>
+              <div class="workflow-node-sub">Excel file</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--parse">
+              <div class="workflow-node-icon">&#128279;</div>
+              <div class="workflow-node-label">Join &amp; Enrich</div>
+              <div class="workflow-node-sub">Match SKUs + pricing</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--registry">
+              <div class="workflow-node-icon">&#128451;</div>
+              <div class="workflow-node-label">MySQL Database</div>
+              <div class="workflow-node-sub">Normalized schema</div>
+            </div>
+          </div>
+
+          <div class="workflow-notes">
+            <div class="workflow-note">&#9432; Cleaned data joined with pre-negotiated contract prices and loaded into MySQL</div>
+          </div>
+
+          <!-- Row 3: Vector Store & Search -->
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--registry">
+              <div class="workflow-node-icon">&#128451;</div>
+              <div class="workflow-node-label">SQL Database</div>
+              <div class="workflow-node-sub">121K products</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--input">
+              <div class="workflow-node-icon">&#128200;</div>
+              <div class="workflow-node-label">ChromaDB</div>
+              <div class="workflow-node-sub">Vector embeddings</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--fetch">
+              <div class="workflow-node-icon">&#128269;</div>
+              <div class="workflow-node-label">Semantic Search</div>
+              <div class="workflow-node-sub">Top 200 candidates</div>
+            </div>
+          </div>
+
+          <div class="workflow-notes">
+            <div class="workflow-note">&#9432; Product descriptions vectorized with all-MiniLM-L6-v2 into ChromaDB for semantic similarity search</div>
+          </div>
+
+          <!-- Row 4: AI Ranking & Response -->
+          <div class="workflow-row">
+            <div class="workflow-node workflow-node--fetch">
+              <div class="workflow-node-icon">&#128269;</div>
+              <div class="workflow-node-label">200 Candidates</div>
+              <div class="workflow-node-sub">Filtered by category</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--supplier">
+              <div class="workflow-node-icon">&#129302;</div>
+              <div class="workflow-node-label">Gemini LLM</div>
+              <div class="workflow-node-sub">Rank &amp; compare</div>
+            </div>
+            <div class="workflow-arrow">&rarr;</div>
+            <div class="workflow-node workflow-node--output">
+              <div class="workflow-node-icon">&#9989;</div>
+              <div class="workflow-node-label">Top 5 Substitutes</div>
+              <div class="workflow-node-sub">With savings calc</div>
+            </div>
+          </div>
+
+          <div class="workflow-notes">
+            <div class="workflow-note">&#9432; Gemini evaluates top 200 matches, ranks by fit, calculates quantity conversion &amp; cost savings, returns top 5</div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <h4>Tech Stack Summary</h4>
+          <ul>
+            <li><strong>Data Collection:</strong> Python scrapers (BeautifulSoup, Selenium, Requests) &rarr; MongoDB</li>
+            <li><strong>Data Processing:</strong> Pandas ETL, Excel join for negotiated prices &rarr; MySQL</li>
+            <li><strong>Vector Store:</strong> ChromaDB with all-MiniLM-L6-v2 embeddings (121K+ products indexed)</li>
+            <li><strong>AI Engine:</strong> Gemini LLM for intelligent ranking, quantity conversion, and comparison</li>
+            <li><strong>API:</strong> FastAPI backend served via Docker + Caddy (HTTPS)</li>
+            <li><strong>Frontend:</strong> Vanilla JS chatbot with localStorage history persistence</li>
+          </ul>
+        </div>
+      </div>
+
       <div class="content-section fade-in">
         <div class="chatbot-container">
           <div class="chatbot-header">
@@ -138,6 +258,8 @@
             <div class="chat-form-actions">
               <button type="submit" class="chat-submit-btn" id="chat-submit">&#128269; Find Substitutes</button>
               <button type="button" class="chat-clear-btn" id="chat-clear">Clear History</button>
+              <button type="button" class="chat-example-btn" id="chat-example">&#128221; Try Example</button>
+              <a href="https://www.odpbusiness.com/a/products/7725399/Sharpie-S-Gel-Gel-Pens-Medium/" target="_blank" rel="noopener" class="chat-example-link">View example product &#8599;</a>
             </div>
           </form>
         </div>
