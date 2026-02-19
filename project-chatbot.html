@@ -69,11 +69,11 @@
           <div class="project-meta">
             <span class="meta-item"><span class="meta-icon">&#129302;</span> AI-Powered Matching</span>
             <span class="meta-item"><span class="meta-icon">&#128200;</span> Cost Savings Analysis</span>
-            <span class="meta-item"><span class="meta-icon">&#128295;</span> FastAPI, Gemini, ChromaDB</span>
+            <span class="meta-item"><span class="meta-icon">&#128295;</span> FastAPI, Gemini, Qdrant</span>
           </div>
           <div class="card-tags">
             <span class="tag blue">Python</span><span class="tag green">FastAPI</span>
-            <span class="tag orange">Gemini AI</span><span class="tag cyan">ChromaDB</span>
+            <span class="tag orange">Gemini AI</span><span class="tag cyan">Qdrant</span>
             <span class="tag">RAG</span><span class="tag blue">Vector Search</span>
           </div>
         </div>
@@ -88,7 +88,7 @@
         <p>An AI-powered product substitution tool that helps procurement teams find equivalent or better alternatives to products they currently purchase. Enter a product you buy, and the system uses semantic search across 121K+ catalog items, then Gemini LLM ranks the top matches by fit, calculates quantity conversions, and estimates cost savings.</p>
         <div class="info-grid">
           <div class="info-card"><div class="value">121K+</div><div class="label">Products Indexed</div></div>
-          <div class="info-card"><div class="value">Top 200</div><div class="label">Semantic Matches</div></div>
+          <div class="info-card"><div class="value">Top 50</div><div class="label">Semantic Matches</div></div>
           <div class="info-card"><div class="value">Top 5</div><div class="label">AI-Ranked Results</div></div>
           <div class="info-card"><div class="value">Real-time</div><div class="label">Savings Calculation</div></div>
         </div>
@@ -217,14 +217,14 @@
             <div class="workflow-arrow">&rarr;</div>
             <div class="workflow-node workflow-node--input">
               <div class="workflow-node-icon">&#128200;</div>
-              <div class="workflow-node-label">ChromaDB</div>
+              <div class="workflow-node-label">Qdrant</div>
               <div class="workflow-node-sub">Vector embeddings</div>
             </div>
             <div class="workflow-arrow">&rarr;</div>
             <div class="workflow-node workflow-node--fetch">
               <div class="workflow-node-icon">&#128269;</div>
               <div class="workflow-node-label">Semantic Search</div>
-              <div class="workflow-node-sub">Top 200 candidates</div>
+              <div class="workflow-node-sub">Top 50 candidates</div>
             </div>
           </div>
 
@@ -234,7 +234,7 @@
           <div class="workflow-row">
             <div class="workflow-node workflow-node--fetch">
               <div class="workflow-node-icon">&#128269;</div>
-              <div class="workflow-node-label">200 Candidates</div>
+              <div class="workflow-node-label">50 Candidates</div>
               <div class="workflow-node-sub">Filtered by category</div>
             </div>
             <div class="workflow-arrow">&rarr;</div>
@@ -299,15 +299,16 @@
           <ul>
             <li><strong>Data Collection:</strong> Python scrapers (BeautifulSoup, Selenium, Requests) extract product data from ODP &amp; Staples &rarr; stored in MongoDB</li>
             <li><strong>Data Processing:</strong> Pandas ETL cleans, transforms, and joins scraped data with pre-negotiated contract prices from Excel &rarr; loaded into MySQL</li>
-            <li><strong>Vector Store:</strong> ChromaDB indexes 121K+ product descriptions using all-MiniLM-L6-v2 sentence embeddings for semantic similarity search</li>
+            <li><strong>Vector Store:</strong> Qdrant indexes 120K+ active products using <code>BAAI/bge-small-en-v1.5</code> embeddings via fastembed for semantic similarity search</li>
           </ul>
         </div>
         <div class="highlight-box">
           <h4>AI &amp; Search</h4>
           <ul>
-            <li><strong>Semantic Search:</strong> User query is embedded and matched against ChromaDB to retrieve the top 200 most similar products in the same category</li>
-            <li><strong>LLM Ranking:</strong> Gemini evaluates the 200 candidates, selects the top 5 best substitutes based on product fit, specifications, and use case</li>
+            <li><strong>Semantic Search:</strong> User query is embedded and matched against Qdrant to retrieve the top 50 most similar products filtered by supercategory and category</li>
+            <li><strong>LLM Ranking:</strong> Gemini 2.5 Flash evaluates the 50 candidates, selects the top 5 best substitutes based on product fit, specifications, and use case</li>
             <li><strong>Savings Engine:</strong> Automatically calculates quantity conversion (e.g., pack sizes) and compares unit/total pricing to estimate cost savings</li>
+            <li><strong>Two-level Cache:</strong> In-memory cache sits in front of Qdrant and Gemini — repeat queries for the same product return instantly without re-running the pipeline</li>
           </ul>
         </div>
       </div>
