@@ -970,32 +970,6 @@ p  { color: var(--text-secondary); margin-bottom: 1rem; }
   border-color: rgba(108, 99, 255, 0.3);
 }
 
-/* Joke Section */
-.joke-section {
-  max-width: 600px; margin: 0 auto 2rem; padding: 1.25rem 1.5rem;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); text-align: center;
-  transition: all var(--transition);
-}
-.joke-section:hover {
-  border-color: rgba(108, 99, 255, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-.joke-section-header {
-  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.75rem;
-}
-.joke-setup {
-  font-size: 0.95rem; color: var(--text-primary); line-height: 1.6;
-}
-.joke-delivery {
-  font-size: 0.95rem; color: var(--accent-light); font-weight: 600;
-  margin-top: 0.5rem; line-height: 1.6;
-}
-.joke-loading {
-  font-size: 0.85rem; color: var(--text-muted); font-style: italic;
-}
-
 /* ============================================
    Responsive
    ============================================ */
