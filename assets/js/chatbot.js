@@ -173,9 +173,14 @@
     div.id = 'chat-typing-indicator';
     div.innerHTML =
       '<div class="chat-typing-dots"><span></span><span></span><span></span></div>' +
-      '<span style="font-size:0.82rem;color:var(--text-muted);">Searching for substitutes...</span>';
+      '<span id="chat-typing-status" style="font-size:0.82rem;color:var(--text-muted);">Searching for substitutes...</span>';
     historyEl.appendChild(div);
     scrollToBottom();
+  }
+
+  function updateTypingStatus(msg) {
+    var el = document.getElementById('chat-typing-status');
+    if (el) el.textContent = msg;
   }
 
   function hideTyping() {
@@ -234,6 +239,8 @@
     submitBtn.disabled = true;
     showTyping();
 
+    var limitReached = false;
+
     fetch(API_BASE + '/substitute', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -242,33 +249,62 @@
     .then(function (res) {
       if (!res.ok) {
         return res.json().then(function (err) {
+          if (res.status === 429) { limitReached = true; }
           throw new Error(err.detail || 'Request failed (HTTP ' + res.status + ')');
         });
       }
-      return res.json();
-    })
-    .then(function (data) {
-      hideTyping();
-      var botMsg = {
-        role: 'bot',
-        timestamp: Date.now(),
-        content: {
-          substitutes: data.substitutes || [],
-          candidates_evaluated: data.candidates_evaluated,
-          source_item: data.source_item
-        }
-      };
-      messages.push(botMsg);
-      saveHistory(messages);
-      appendBotBubble(botMsg, true);
-      scrollToBottom();
 
-      if (data.requests_remaining !== undefined) {
-        submitBtn.textContent = 'Find Substitutes (' + data.requests_remaining + ' left)';
+      var reader = res.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+
+      function pump() {
+        return reader.read().then(function (chunk) {
+          if (chunk.done) return;
+
+          buffer += decoder.decode(chunk.value, { stream: true });
+          var lines = buffer.split('\n');
+          buffer = lines.pop();
+
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (!line.startsWith('data: ')) continue;
+            var event;
+            try { event = JSON.parse(line.slice(6)); } catch (e) { continue; }
+
+            if (event.type === 'status') {
+              updateTypingStatus(event.message);
+            } else if (event.type === 'result') {
+              var data = event.data;
+              var botMsg = {
+                role: 'bot',
+                timestamp: Date.now(),
+                content: {
+                  substitutes: data.substitutes || [],
+                  candidates_evaluated: data.candidates_evaluated,
+                  source_item: data.source_item
+                }
+              };
+              messages.push(botMsg);
+              saveHistory(messages);
+              appendBotBubble(botMsg, true);
+              scrollToBottom();
+
+              if (data.requests_remaining !== undefined) {
+                submitBtn.textContent = '\uD83D\uDD0D Find Substitutes (' + data.requests_remaining + ' left)';
+              }
+            } else if (event.type === 'error') {
+              throw new Error(event.message);
+            }
+          }
+
+          return pump();
+        });
       }
+
+      return pump();
     })
     .catch(function (err) {
-      hideTyping();
       var botMsg = {
         role: 'bot',
         timestamp: Date.now(),
@@ -278,9 +314,11 @@
       saveHistory(messages);
       appendBotBubble(botMsg, true);
       scrollToBottom();
+      if (limitReached) { submitBtn.textContent = '\uD83D\uDD0D Limit Reached'; }
     })
     .finally(function () {
-      submitBtn.disabled = false;
+      hideTyping();
+      if (!limitReached) submitBtn.disabled = false;
     });
   }
 
